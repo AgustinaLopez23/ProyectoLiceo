@@ -1,0 +1,2259 @@
+/* Estilos para el menú de navegación principal */
+.main-nav {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#00000032; 
+  color:#fff;
+  z-index:100;
+  padding:20px 0;
+  margin:0
+  }
+  
+  .main-nav ul {
+  display:flex;
+  justify-content:center;
+  list-style:none;
+  padding:0;
+  margin:0
+}
+  
+  .main-nav ul li {
+  margin:0 20px
+}
+  
+  .main-nav ul li a {
+  color:#fff;
+  text-decoration:none
+}
+  
+  .main-nav ul li a:hover {
+  background-color:#79a976;
+  color:#000;
+  transition:background-color .3s ease,color .3s ease
+  }
+  
+  /* Estilos para la sección de inicio (Hero) */
+
+  .hero {
+  position:relative;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#fff;
+  overflow:hidden;
+  margin-top:0;
+  margin-bottom:0;
+  padding-top:0
+  }
+  
+  .hero-image {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  background-size:cover;
+  background-position:center
+  }
+  
+  .hero-content {
+  padding:20px;
+  max-width:800px;
+  z-index:10
+  }
+  
+  .hero-content h1 {
+  font-size:3em;
+  margin-bottom:20px;
+  font-weight:400;
+  text-shadow:2px 2px 4px #00000039
+  }
+  
+  .hero-content .button {
+  display:inline-block;
+  padding:12px 24px;
+  background-color:#00000098;
+  color:#fff;
+  text-decoration:none;
+  border-radius:5px;
+  border:1px solid #fff;
+  transition:background-color .3s ease;
+  font-size:1.1em
+  }
+  
+  .hero-content .button:hover {
+  background-color:#1f522b66
+  }
+  
+  /* SECCIÓN SOBRE MÍ */
+
+  #sobremi.intro-section {
+  background-color:#4f6c4fa3;
+  color:#000;
+  padding:80px 20px;
+  text-align:center;
+  font-family:'Poppins',sans-serif;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:200px;
+  max-height:300px
+  }
+  
+  #sobremi.intro-section .titulo-principal {
+  font-size:2em;
+  font-weight:300;
+  margin-bottom:20px
+  }
+  
+  #sobremi.intro-section .mensaje-bienvenida {
+  font-size:1em;
+  line-height:1.5;
+  color:#eee;
+  max-width:600px;
+  margin:0 auto 20px
+  }
+  
+  /* Estilos para el contenedor de redes sociales */
+  .redes-sociales {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px
+  }
+  
+  /* Estilos para el enlace del icono */
+  .redes-sociales a {
+  color:#000;
+  text-decoration:none;
+  opacity:.7;
+  transition:opacity .3s ease
+  }
+  
+  .redes-sociales a:hover {
+  opacity:1
+  }
+  
+  /* Estilos específicos para el icono de Instagram de Bootstrap Icons */
+  .redes-sociales a .bi-instagram {
+  font-size:27px
+  }
+  
+  /* Estilos para el menú de la galería */
+
+  #portfolio nav {
+  background-color:#4f6c4fa3;
+  padding:25px 0;
+  text-align:center
+  }
+  
+  #portfolio nav ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:inline-block
+  }
+  
+  #portfolio nav ul li {
+  display:inline;
+  margin:0 10px
+  }
+  
+  #portfolio nav ul li a {
+  color:#000;
+  text-decoration:none;
+  font-size:medium
+  }
+  
+  #portfolio nav ul li a:hover {
+  background-color:#397c36;
+  color:#000;
+  transition:background-color .3s ease,color .3s ease
+  }
+  
+  /* Contenedor de las imágenes (para el slider) */
+
+  .slides {
+  display:flex;
+  width:100%;
+  overflow:hidden;
+  position:relative
+  }
+  
+  .slide {
+  min-width:100%;
+  box-sizing:border-box;
+  display:none
+  }
+  
+  .slide.active {
+  display:block
+  }
+  
+  .slide img {
+  width:100%;
+  height:auto
+  }
+  
+  /* Botones de navegación del slider */
+
+  .slider button.prev,.slider button.next {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background-color:#00000080;
+  color:#fff;
+  border:none;
+  padding:10px 15px;
+  cursor:pointer;
+  font-size:20px;
+  transition:background-color .3s;
+  z-index:10
+  }
+  
+  .slider button.prev {
+  left:10px
+  }
+  
+  .slider button.next {
+  right:10px
+  }
+  
+  .slider button.prev:hover,.slider button.next:hover {
+  background-color:#000c
+  }
+  
+  /* Estilos para la galería de paisajes */
+
+  #paisajes {
+  padding:50px 0;
+  text-align:center;
+  max-width:90%;
+  margin:0 auto
+  }
+  
+  #paisajes h3 {
+  color:#000;
+  font-size:2em;
+  margin-bottom:20px
+  }
+  
+  #paisajes .galeria {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+  }
+  
+  #paisajes .item {
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  box-shadow:0 4px 8px #0000001a
+  }
+  
+  #paisajes .item img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  transition:transform .3s ease-in-out
+  }
+  
+  #paisajes .item:hover img {
+  transform:scale(1.1)
+  }
+  
+  #paisajes .item p {
+  position:absolute;
+  max-width:80%;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:#ffffff73;
+  color:#000;
+  padding:10px;
+  font-size:x-small;
+  border-radius:5px;
+  opacity:0;
+  transition:opacity .3s ease-in-out
+  }
+  
+  #paisajes .item:hover p {
+  opacity:1
+  }
+  
+  /* Estilos para la galería de autos */
+
+  #autos {
+  background-color:linear-gradient(to bottom,#4f6c4fa3,#cae1c2);
+  padding:50px 0;
+  text-align:center;
+  max-width:95%;
+  margin:0 auto
+  }
+  
+  #autos h3 {
+  color:#000;
+  font-size:2em;
+  margin-bottom:20px
+  }
+  
+  #autos .galeria {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+  }
+  
+  #autos .item {
+  position:relative;
+  overflow:hidden;
+  border-radius:10px;
+  box-shadow:0 4px 8px #0000001a
+  }
+  
+  #autos .item img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  transition:transform .3s ease-in-out
+  }
+  
+  #autos .item:hover img {
+  transform:scale(1.1)
+  }
+  
+  #autos .item p {
+  position:absolute;
+  max-width:80%;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:#0009;
+  color:#fff;
+  padding:10px;
+  border-radius:5px;
+  opacity:0;
+  transition:opacity .3s ease-in-out
+  }
+  
+  #autos .item:hover p {
+  opacity:1
+  }
+  
+  /* Estilos para la galería de eventos de motocross */
+
+  #eventos {
+  background-color:linear-gradient(to bottom,#4f6c4fa3,#cae1c2);
+  padding:50px 0;
+  text-align:center;
+  max-width:90%;
+  margin:0 auto
+  }
+  
+  #eventos h3 {
+  color:#000;
+  font-size:2em;
+  margin-bottom:20px
+  }
+  
+  #eventos .galeria {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+  }
+  
+  #eventos .item {
+  overflow:hidden;
+  border-radius:10px;
+  box-shadow:0 4px 8px #0000001a
+  }
+  
+  #eventos .item img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  transition:transform .3s ease-in-out
+  }
+  
+  #eventos .item:hover img {
+  transform:scale(1.1)
+  }
+  
+  /* Galería de viajes */
+
+  #viajes {
+  text-align:center;
+  padding:50px 0;
+  background:linear-gradient(to bottom,#cae1c2,#4f6c4fa3,)
+  }
+  
+  #viajes h3 {
+  font-size:26px;
+  font-weight:700;
+  text-transform:uppercase;
+  color:#000;
+  margin-bottom:20px
+  }
+  
+  #viajes .galeria {
+  display:flex;
+  flex-wrap:wrap;
+  overflow-x:auto;
+  padding-bottom:10px;
+  justify-content:center;
+  gap:15px
+  }
+  
+  #viajes .item {
+  flex:0 0 auto;
+  position:relative;
+  overflow:hidden;
+  width:350px;
+  height:350px;
+  border-radius:15px;
+  box-shadow:0 6px 10px #0000004d
+  }
+  
+  #viajes .item:hover {
+  transform:scale(1.1);
+  box-shadow:0 10px 15px #00000080
+  }
+  
+  #viajes .item img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:15px;
+  transition:filter .3s ease-in-out
+  }
+  
+  #viajes .item:hover img {
+  filter:brightness(0.7)
+  }
+  
+  #viajes .item p {
+  position:absolute;
+  max-width:80%;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:#ffffff73;
+  color:#000;
+  padding:10px;
+  font-size:x-small;
+  border-radius:5px;
+  opacity:0;
+  transition:opacity .3s ease-in-out;
+  z-index:1
+  }
+  
+  #viajes .item:hover p {
+  opacity:1
+  }
+  
+  /* Estilos para el Lightbox */
+
+  .lightbox {
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000c;
+  justify-content:center;
+  align-items:center;
+  z-index:1000
+  }
+  
+  .lightbox-img {
+  max-width:90%;
+  max-height:90%;
+  margin:auto;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:5px;
+  z-index:1001
+  }
+  
+  .close-fullscreen {
+  position:absolute;
+  top:15px;
+  right:20px;
+  font-size:30px;
+  color:#fff;
+  cursor:pointer;
+  z-index:1002
+  }
+  
+  /* Estilos para los botones de navegación del lightbox (anterior y siguiente) */
+  .lightbox-prev,.lightbox-next {
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#00000080;
+  color:#fff;
+  border:none;
+  padding:10px 15px;
+  cursor:pointer;
+  z-index:1002;
+  font-size:1.5em;
+  opacity:.7;
+  transition:opacity .3s ease
+  }
+  
+  .lightbox-prev:hover,.lightbox-next:hover {
+  opacity:1
+  }
+  
+  .lightbox-prev {
+  left:20px;
+  border-radius:0 5px 5px 0
+  }
+  
+  .lightbox-next {
+  right:20px;
+  border-radius:5px 0 0 5px
+  }
+  
+  .lightbox.single-image .lightbox-prev,.lightbox.single-image .lightbox-next {
+  display:none
+  }
+  
+  #lightbox-description {
+  position:absolute;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#000000b3;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:5px;
+  font-size:1em;
+  z-index:1002;
+  opacity:0;
+  transition:opacity .3s ease-in-out
+  }
+  
+  .lightbox.show-description #lightbox-description {
+  opacity:1
+  }
+  
+  /* SECCIÓN PLANES */
+  #servicios {
+  background-color:linear-gradient(to bottom,#cae1c2,);
+  padding:50px 0;
+  text-align:center
+  }
+  
+  #servicios h2 {
+  color:#000;
+  font-size:2em;
+  margin-bottom:20px
+  }
+  
+  .plan-container {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px
+  }
+  
+  .plan-header {
+  padding:20px;
+  border-top-left-radius:10px;
+  border-top-right-radius:10px;
+  background-color:#397c36;
+  color:#000
+  }
+  
+  .plan-card {
+  width:30%;
+  margin-bottom:30px;
+  background-color:#fff;
+  border-radius:10px;
+  box-shadow:0 4px 8px #0000001a;
+  overflow:hidden;
+  transition:transform 0.3s,box-shadow .3s
+  }
+  
+  .plan-header h3 {
+  color:#fff;
+  margin:0
+  }
+  
+  .plan-body {
+  padding:20px
+  }
+  
+  .plan-title {
+  font-size:2em;
+  margin-bottom:15px
+  }
+  
+  .plan-list {
+  list-style:none;
+  padding:10px 0;
+  margin-bottom:20px
+  }
+  
+  .plan-list li {
+  color:#000;
+  margin-bottom:5px
+  }
+  
+  .btn {
+  background-color:transparent;
+  color:#333;
+  border:1px solid #333;
+  padding:10px 20px;
+  border-radius:3px;
+  cursor:pointer;
+  font-size:1em;
+  transition:background-color .3s ease
+  }
+  
+  .btn:hover {
+  background-color:#397c36;
+  color:#fff
+  }
+  
+  /* Animaciones */
+  .animated {
+  animation:fadeInUp 1s ease-in-out
+  }
+  
+  @keyframes fadeInUp {
+  from {
+  opacity:0;
+  transform:translateY(30px)
+  }
+  
+  to {
+  opacity:1;
+  transform:translateY(0)
+  }
+  }
+  
+  button:hover {
+  background-color:#a9d599;
+  color:#fff
+  }
+  
+  .plan-card:hover {
+  transform:scale(1.05);
+  box-shadow:0 8px 16px #0003
+  }
+  
+  /* Estilos específicos para el formulario de reserva dentro de cada plan */
+  .plan-card form {
+  padding:15px;
+  text-align:left
+  }
+  
+  .plan-card form div {
+  margin-bottom:10px
+  }
+  
+  .plan-card label {
+  display:block;
+  margin-bottom:5px;
+  font-weight:700;
+  color:#232323;
+  font-size:.9em
+  }
+  
+  .plan-card input[type="text"],.plan-card input[type="email"],.plan-card input[type="date"] {
+  width:calc(100% - 12px);
+  padding:8px;
+  border:1px solid #444444c7;
+  border-radius:4px;
+  box-sizing:border-box;
+  margin-bottom:10px;
+  font-size:1em
+  }
+  
+  .plan-card .btn {
+  width:100%;
+  box-sizing:border-box;
+  padding:10px 15px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:1em;
+  transition:background-color .3s ease;
+  margin-top:10px;
+  text-align:center;
+  display:inline-block
+  }
+  
+  .plan-card .bg-success.btn-outline-success:hover {
+  background-color:#28a745;
+  color:#fff
+  }
+  
+  .plan-card .bg-warning.btn-outline-warning:hover {
+  background-color:#ffc107;
+  color:#000
+  }
+  
+  /* --- Estilos Generales Blog --- */
+
+  body {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  margin:0;
+  padding:0;
+  background-color:#a9d599;
+  color:#000;
+  line-height:1.3;
+  font-synthesis:none;
+  text-rendering:optimizeLegibility
+  }
+  
+  a {
+  color:#007bff;
+  text-decoration:none;
+  transition:color .3s ease-in-out
+  }
+  
+  a:hover {
+  color:#0056b3
+  }
+  
+  h1,h2,h3 {
+  font-weight:700;
+  line-height:1.2;
+  margin-bottom:1em
+  }
+  
+  /* --- Header del Blog --- */
+  header {
+  background-color:#a9d599;
+  padding:2em 20px;
+  text-align:center;
+  border-bottom:1px solid #000;
+  box-shadow:0 1px 3px #0000000d
+  }
+  
+  header h1 {
+  font-size:2.5em;
+  color:#000;
+  text-align:center;
+  margin-bottom:.5em;
+  letter-spacing:-.5px
+  }
+  
+  /* --- Navegación --- */
+  nav {
+  padding:1em 20px;
+  text-align:center;
+  border-bottom:1px solid #f0f0f0
+  }
+  
+  nav ul {
+  list-style:none;
+  padding:0;
+  margin:0 auto;
+  display:inline-block
+  }
+  
+  nav ul li {
+  display:inline;
+  margin:0 15px
+  }
+  
+  nav ul li a {
+  color:#000;
+  font-weight:700;
+  padding:.6em 1em;
+  transition:color .3s ease-in-out,background-color .3s ease-in-out;
+  background-color:transparent
+  }
+  
+  nav ul li a:hover {
+  color:#000;
+  background-color:#a9d599
+  }
+  
+  nav .active a {
+  color:#a9d599;
+  font-weight:700
+  }
+  
+  /* Estilo general para sección contacto */
+  .contacto {
+  background-color:#e0e0e0;
+  padding:60px 0;
+  font-family:'Segoe UI',sans-serif
+  }
+  
+  .contenido-seccion {
+  max-width:900px;
+  margin:0 auto;
+  background-color:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 20px #0000001a;
+  display:flex;
+  flex-wrap:wrap;
+  padding:40px;
+  gap:30px
+  }
+  
+  /* Izquierda: info contacto */
+  .info-contacto {
+  flex:1;
+  min-width:280px
+  }
+  
+  .info-contacto h3 {
+  font-size:22px;
+  margin-bottom:20px;
+  font-weight:700
+  }
+  
+  .info-contacto p {
+  margin:10px 0;
+  color:#000;
+  font-size:15px
+  }
+  
+  .info-contacto i {
+  margin-right:10px;
+  color:#2e7d32
+  }
+  
+  .info-contacto a {
+  color:#2e7d32;
+  text-decoration:none
+  }
+  
+  .info-contacto a:hover {
+  text-decoration:underline
+  }
+  
+  /* Derecha: formulario */
+  .formulario-contacto {
+  flex:1;
+  min-width:280px
+  }
+  
+  .formulario-contacto form {
+  display:flex;
+  flex-direction:column;
+  gap:15px
+  }
+  
+  .form-group {
+  display:flex;
+  flex-direction:column
+  }
+  
+  .form-group label {
+  margin-bottom:6px;
+  font-weight:500;
+  color:#000
+  }
+  
+  .form-group input,.form-group textarea {
+  padding:10px 12px;
+  border:1px solid #616161ad;
+  border-radius:6px;
+  font-size:15px;
+  background-color:#f7f7f7;
+  transition:border-color .3s ease
+  }
+  
+  .form-group input:focus,.form-group textarea:focus {
+  outline:none;
+  border-color:#2e7d32
+  }
+  
+  /* Botón enviar */
+  .button {
+  padding:12px;
+  background-color:#2e7d32;
+  color:#fff;
+  border:none;
+  border-radius:4px;
+  font-weight:700;
+  font-size:15px;
+  cursor:pointer;
+  transition:background-color .3s ease
+  }
+  
+  .button:hover {
+  background-color:#256228
+  }
+  
+  .contacto {
+  position:relative;
+  z-index:1;
+  background-color:#e0e0e0;
+  padding:80px 0;
+  overflow:hidden
+  }
+  
+  .contacto::before {
+  content:'';
+  position:absolute;
+  top:50%;
+  left:0;
+  transform:translateY(-50%);
+  width:100%;
+  height:200px;
+  background-color:#457c48;
+  z-index:0
+  }
+  
+  .contenido-seccion {
+  position:relative;
+  z-index:2;
+  background-color:#bef9c9da;
+  border-radius:12px;
+  box-shadow:0 4px 20px #00000074;
+  display:flex;
+  flex-wrap:wrap;
+  padding:40px;
+  max-width:900px;
+  margin:0 auto;
+  gap:30px
+  }
+  
+  /* GENERAL RESPONSIVE STYLES */
+  * {
+  box-sizing:border-box
+  }
+  
+  body {
+  margin:0;
+  font-family:Arial,sans-serif
+  }
+  
+  /* RESPONSIVE GRID LAYOUT */
+  .container {
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 15px
+  }
+  
+  /* RESPONSIVE IMAGES */
+  img {
+  max-width:100%;
+  height:auto
+  }
+  
+  /* RESPONSIVE TEXT */
+  h1,h2,h3,h4,h5,h6 {
+  font-weight:400
+  }
+  
+  h1 {
+  font-size:2.5em
+  }
+  
+  h2 {
+  font-size:2em
+  }
+  
+  h3 {
+  font-size:1.5em
+  }
+  
+  h4 {
+  font-size:1.2em
+  }
+  
+  /* RESPONSIVE NAVIGATION */
+  nav {
+  background-color:#fff;
+  color:#000;
+  padding:10px 0
+  }
+  
+  nav ul {
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  justify-content:center
+  }
+  
+  nav li {
+  margin:0 10px
+  }
+  
+  nav a {
+  color:#000;
+  text-decoration:none;
+  padding:10px 15px;
+  border-radius:5px;
+  transition:background-color .3s ease,color .3s ease
+  }
+  
+  nav a:hover {
+  background-color:#397c36;
+  color:#fff
+  }
+  
+  /* RESPONSIVE SECTIONS */
+  section {
+  padding:20px 0
+  }
+  
+  /* RESPONSIVE FOOTER */
+  footer {
+  background-color:#333;
+  color:#fff;
+  padding:20px 0;
+  text-align:center
+  }
+  
+  /* RESPONSIVE MEDIA QUERIES */
+  @media (max-width: 768px) {
+  nav ul {
+  flex-direction:column;
+  align-items:center
+  }
+  
+  nav li {
+  margin:5px 0
+  }
+  
+  .container {
+  max-width:95%
+  }
+  
+  .plan-card {
+  width:100%
+  }
+  
+  #paisajes .galeria,#autos .galeria,#eventos .galeria {
+  grid-template-columns:repeat(2,1fr)
+  }
+  
+  #viajes .galeria {
+  flex-direction:column;
+  align-items:center
+  }
+  
+  #viajes .item {
+  width:80%;
+  height:auto
+  }
+  
+  .blog-sections {
+  flex-direction:column;
+  align-items:center
+  }
+  
+  .section {
+  width:80%
+  }
+  }
+  
+  @media (max-width: 480px) {
+  h1 {
+  font-size:2em
+  }
+  
+  h2 {
+  font-size:1.5em
+  }
+  
+  h3 {
+  font-size:1.2em
+  }
+  
+  #paisajes .galeria,#autos .galeria,#eventos .galeria {
+  grid-template-columns:1fr
+  }
+  
+  #viajes .item {
+  width:95%
+  }
+  
+  .section {
+  width:95%
+  }
+  }
+  
+  /* Estilos para la Sección de Listado de Blog (blog.php) */
+
+  main.blog-list-page {
+  padding:30px 20px;
+  max-width:960px;
+  margin:2em auto
+  }
+  
+  .blog-section {
+  padding:40px 0;
+  background-color:#fff;
+  border-bottom:1px solid #eee
+  }
+  
+  .blog-section:last-child {
+  border-bottom:none
+  }
+  
+  .blog-section h2 {
+  font-size:2em;
+  color:#000;
+  margin-bottom:1em;
+  padding-bottom:.5em;
+  border-bottom:2px solid #ccc;
+  text-align:left;
+  position:relative
+  }
+  
+  .blog-section h2::after {
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:40px;
+  height:2px;
+  background-color:#007bff
+  }
+
+  /* Estilo para la introducción del blog */
+
+  .blog-intro {
+  margin-bottom:2em;
+  color:#000;
+  text-align:center;
+  font-size:1.1em;
+  line-height:1.6
+  }
+  
+  /* Estilos para párrafos dentro de .blog-section */
+
+  .blog-section p {
+  margin-bottom:1.5em;
+  text-align:left;
+  color:#000
+  }
+  
+  .blog-section p a.share-button {
+  display:inline-block;
+  padding:.8em 1.2em;
+  background-color:#007bff;
+  color:#fff;
+  text-decoration:none;
+  border-radius:5px;
+  transition:background-color .3s ease,box-shadow .3s ease,transform .2s ease-in-out;
+  font-weight:500;
+  font-size:.9em;
+  box-shadow:0 1px 3px #0000001a
+  }
+  
+  .blog-section p a.share-button:hover {
+  background-color:#0056b3;
+  box-shadow:0 2px 5px #00000026;
+  transform:translateY(-1px)
+  }
+  
+  .blog-section p a:not(.share-button) {
+  color:#777;
+  font-size:.9em
+  }
+  
+  .blog-section p a:not(.share-button):hover {
+  color:#555;
+  text-decoration:underline
+  }
+  
+  /* Estilos especificos para el articulo (articulo.php)*/
+
+  article {
+  margin-bottom:2em;
+  padding-bottom:1.5em;
+  border-bottom:1px solid #eee
+  }
+  
+  article:last-child {
+  border-bottom:none
+  }
+  
+  article h3 a {
+  font-size:1.3em;
+  color:#000;
+  font-weight:600;
+  text-decoration:none;
+  transition:color .2s ease-in-out
+  }
+  
+  article h3 a:hover {
+  color:#007bff
+  }
+  
+  .fecha {
+  color:#000;
+  font-size:.85em;
+  margin-bottom:.5em;
+  font-style:italic
+  }
+  
+  .contenido-breve {
+  color:#000;
+  line-height:1.7;
+  margin-bottom:1em;
+  font-size:.95em;
+  hyphens:auto
+  }
+  
+  .contenido-breve a {
+  color:#007bff;
+  font-weight:500;
+  display:inline-block;
+  margin-top:.5em;
+  padding:.4em .8em;
+  border:1px solid #173d09;
+  border-radius:4px;
+  transition:background-color .2s ease-in-out,color .2s ease-in-out;
+  font-size:.9em
+  }
+  
+  .contenido-breve a:hover {
+  background-color:#173d09;
+  color:#fff
+  }
+  
+  /* --- Pie de Página --- */
+
+  footer {
+  text-align:center;
+  padding:2em 20px;
+  color:#777;
+  font-size:.85em;
+  border-top:1px solid #eee;
+  margin-top:4em
+  }
+  
+  footer a {
+  color:#777;
+  text-decoration:underline
+  }
+  
+  footer a:hover {
+  color:#555
+  }
+  
+  /*  Estilos para las secciones de detalles (ocultas inicialmente)  */
+
+  .blog-details {
+  padding:2em;
+  background-color:#f9f9f9;
+  border-radius:6px;
+  box-shadow:0 1px 3px #0000000d;
+  margin-bottom:2em;
+  text-align:left;
+  border-left:3px solid #007bff
+  }
+  
+  .blog-details h2 {
+  font-size:1.6em;
+  margin-bottom:.8em;
+  color:#333;
+  text-align:left;
+  border-bottom:1px solid #eee;
+  padding-bottom:.4em
+  }
+  
+  .blog-details p {
+  line-height:1.7;
+  color:#555;
+  margin-bottom:1.2em;
+  font-size:.95em
+  }
+  
+  #consejos-detalles,#experiencias-detalles,#comentarios-detalles {
+  display:none
+  }
+  
+  /* Estilos Generales del Panel de Usuario  */
+
+  .panel-usuario-body {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  margin:0;
+  background-color:#b8debb;
+  color:#333;
+  line-height:1.6;
+  padding:20px
+  }
+  
+  .panel-usuario-container {
+  max-width:960px;
+  margin:20px auto;
+  padding:30px;
+  background-color:#0000003e;
+  border-radius:8px;
+  box-shadow:0 2px 10px #0000001a
+  }
+  
+  .panel-usuario-h1 {
+  text-align:center;
+  margin-bottom:30px;
+  color:#000;
+  border-bottom:2px solid #000;
+  padding-bottom:15px
+  }
+  
+  .panel-usuario-h1::after {
+  content:"\1F464";
+  /* Emoji usuario */
+  margin-left:10px;
+  font-size:1rem;
+  color:#007bff
+  }
+  
+  .panel-usuario-logout {
+  text-align:right;
+  margin-bottom:20px
+  }
+  
+  .panel-usuario-logout a {
+  text-decoration:none;
+  color:#dc3545;
+  font-weight:700;
+  transition:all .3s ease
+  }
+  
+  .panel-usuario-logout a:hover {
+  color:#c82333;
+  text-decoration:underline
+  }
+  
+  .panel-usuario-h2 {
+  margin-top:40px;
+  margin-bottom:20px;
+  color:#000;
+  border-bottom:1px solid #000;
+  padding-bottom:10px
+  }
+  
+  /*  Estilos para la Tabla de Artículos  */
+
+  .articulos-table {
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:30px;
+  box-shadow:0 1px 5px #0000000d;
+  border-radius:4px;
+  overflow:hidden;
+  background-color:#fff
+  }
+  
+  .articulos-table th,.articulos-table td {
+  border:1px solid #ddd;
+  padding:12px 15px;
+  text-align:left;
+  background-color:inherit
+  }
+  
+  .articulos-table th {
+  background-color:#f8f8f8;
+  font-weight:700;
+  color:#333
+  }
+  
+  .articulos-table tbody tr {
+  background-color:#fff;
+  transition:background-color .3s ease
+  }
+  
+  .articulos-table tbody tr:hover {
+  background-color:#f2f2f2
+  }
+  
+  .articulos-table .actions a {
+  margin-right:15px;
+  text-decoration:none;
+  color:#007bff;
+  font-weight:700;
+  transition:all .3s ease;
+  border-radius:4px;
+  padding:6px 10px;
+  border:1px solid #007bff;
+  background-color:#fff
+  }
+  
+  .articulos-table .actions a:hover {
+  color:#fff;
+  background-color:#007bff
+  }
+  
+  .articulos-table .delete-btn {
+  background-color:#dc3545;
+  color:#fff;
+  border:none;
+  padding:8px 12px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:700;
+  transition:background-color .3s ease
+  }
+  
+  .articulos-table .delete-btn:hover {
+  background-color:#c82333
+  }
+  
+  /* --- Estilos para los Enlaces de Acción Inferiores --- */
+
+  .panel-usuario-acciones {
+  margin-top:30px;
+  text-align:center
+  }
+  
+  .panel-usuario-acciones a {
+  display:inline-block;
+  padding:12px 20px;
+  text-decoration:none;
+  color:#fff;
+  background-color:#28a745;
+  border-radius:6px;
+  font-weight:700;
+  margin:0 10px;
+  transition:all .3s ease
+  }
+  
+  .panel-usuario-acciones a:hover {
+  background-color:#218838
+  }
+  
+  .panel-usuario-acciones a.volver-blog {
+  background-color:#007bff
+  }
+  
+  .panel-usuario-acciones a.volver-blog:hover {
+  background-color:#0056b3
+  }
+  
+  .no-articulos {
+  font-style:italic;
+  color:#777;
+  margin-top:20px;
+  text-align:center
+  }
+  
+  /* Responsividad */
+
+  @media (max-width: 768px) {
+  .panel-usuario-container {
+  padding:15px
+  }
+  
+  .articulos-table,.articulos-table th,.articulos-table td {
+  font-size:14px;
+  padding:8px
+  }
+  
+  .panel-usuario-acciones a {
+  margin:10px 0;
+  display:block;
+  width:100%
+  }
+  }
+  
+  /* Estilos Generales login*/
+
+  .login-body {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  margin:0;
+  background-color:#78ba7b5e;
+  color:#000;
+  line-height:1.6;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px
+  /* Añade un poco de padding al body */
+  }
+  
+  .login-container {
+  background-color:#244e2f5e;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 2px 10px #0000001a;
+  width:100%;
+  max-width:400px;
+  text-align:center
+  }
+  
+  .login-h2 {
+  color:#000;
+  margin-bottom:25px;
+  border-bottom:1px solid #000;
+  padding-bottom:15px
+  }
+  
+  /* Estilos Específicos del Formulario de Login */
+
+  .login-form {
+  display:flex;
+  flex-direction:column
+  }
+  
+  .login-form label {
+  text-align:left;
+  margin-bottom:8px;
+  color:#000;
+  font-weight:700
+  }
+  
+  .login-form input[type="text"],.login-form input[type="password"] {
+  padding:12px;
+  margin-bottom:20px;
+  border:1px solid #e0e0e0;
+  border-radius:4px;
+  font-size:1em
+  }
+  
+  .login-form input[type="text"]:focus,.login-form input[type="password"]:focus {
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 5px #007bff80
+  }
+  
+  .login-form button[type="submit"] {
+  background-color:#28a745;
+  /* Usamos el color del botón principal del panel */
+  color:#fff;
+  padding:12px 15px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:1.1em;
+  font-weight:700;
+  transition:background-color .3s ease
+  }
+  
+  .login-form button[type="submit"]:hover {
+  background-color:#218838
+  }
+  
+  .login-error-message {
+  color:#dc3545;
+  margin-top:15px;
+  font-weight:700;
+  text-align:center
+  }
+  
+  .login-signup-link {
+  margin-top:20px;
+  color:#000;
+  text-align:center
+  }
+  
+  .login-signup-link a {
+  color:#007bff;
+  text-decoration:none;
+  font-weight:700
+  }
+  
+  .login-signup-link a:hover {
+  text-decoration:underline
+  }
+  
+  /* Estilos Generales Registro  */
+
+  .registro-body {
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  margin:0;
+  background-color:#f4f4f4;
+  color:#333;
+  line-height:1.6;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px
+  }
+  
+  .registro-container {
+  background-color:#fff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 2px 10px #0000001a;
+  width:100%;
+  max-width:400px;
+  text-align:center
+  }
+  
+  .registro-h2 {
+  color:#333;
+  margin-bottom:25px;
+  border-bottom:1px solid #eee;
+  padding-bottom:15px
+  }
+  
+  /*  Estilos del Formulario de Registro (registro.php)  */
+
+  .registro-form {
+  display:flex;
+  flex-direction:column
+  }
+  
+  .registro-form label {
+  text-align:left;
+  margin-bottom:8px;
+  color:#555;
+  font-weight:700
+  }
+  
+  .registro-form input[type="text"],.registro-form input[type="password"],.registro-form input[type="email"] {
+  padding:12px;
+  margin-bottom:20px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  font-size:1em
+  }
+  
+  .registro-form input:focus {
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 5px #007bff80
+  }
+  
+  .registro-form button[type="submit"] {
+  background-color:#28a745;
+  color:#fff;
+  padding:12px 15px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:1.1em;
+  font-weight:700;
+  transition:background-color .3s ease
+  }
+  
+  .registro-form button[type="submit"]:hover {
+  background-color:#218838
+  }
+  
+  .registro-error-message {
+  color:#dc3545;
+  margin-top:15px;
+  font-weight:700;
+  text-align:center
+  }
+  
+  .registro-login-link {
+  margin-top:20px;
+  color:#555;
+  text-align:center
+  }
+  
+  .registro-login-link a {
+  color:#007bff;
+  text-decoration:none;
+  font-weight:700
+  }
+  
+  .registro-login-link a:hover {
+  text-decoration:underline
+  }
+  
+  /* Estilos para la Sección de Tarjetas del Blog (proyectoliceo.php) */
+
+  .blog-section.cards-layout {
+  padding:50px 20px;
+  text-align:center;
+  background-color:#f9f9f9
+  }
+  
+  .blog-section.cards-layout h2 {
+  font-size:2.5em;
+  margin-bottom:20px;
+  color:#333
+  }
+  
+  .blog-section.cards-layout .blog-intro {
+  font-size:1.1em;
+  color:#666;
+  margin-bottom:30px
+  }
+  
+/* Estilos para la grilla de tarjetas */
+
+  .blog-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:30px;
+  margin-bottom:30px
+  }
+  
+/* Estilos base para todas las tarjetas */
+
+  .blog-card {
+  background-color:#fff;
+  border-radius:8px;
+  box-shadow:0 4px 8px #0000001a;
+  overflow:hidden;
+  transition:transform .3s ease-in-out;
+  display:flex;
+  flex-direction:column
+  }
+  
+  .blog-card:hover {
+  transform:scale(1.05);
+  box-shadow:0 6px 12px #00000026
+  }
+  
+  .blog-card a {
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+  height:100%
+  }
+  
+/* Estilos para la imagen de la tarjeta */
+
+  .blog-card img {
+  width:100%;
+  height:350px;
+  max-height:350px;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+  display:block;
+  object-fit:cover
+  }
+  
+  .blog-card h3 {
+  padding:15px;
+  margin-bottom:0;
+  font-size:1.3em;
+  color:#333;
+  text-align:center
+  }
+  
+  .blog-card .card-description {
+  padding:0 15px 15px;
+  font-size:1em;
+  color:#666;
+  text-align:center;
+  flex-grow:1
+  }
+  
+  .blog-card .read-more {
+  display:block;
+  padding:10px 15px;
+  background-color:#173d09;
+  color:#fff;
+  text-align:center;
+  border-bottom-left-radius:8px;
+  border-bottom-right-radius:8px;
+  transition:background-color .3s ease;
+  font-size:.9em
+  }
+  
+  .blog-card .read-more:hover {
+  background-color:#7ba96a
+  }
+  
+  /* Estilos para la Página del Artículo (articulo.php) */
+
+  body.pagina-articulo main .articulo-container {
+  max-width:800px;
+  margin:2em auto;
+  padding:2em;
+  background-color:#fff;
+  border-radius:8px;
+  box-shadow:0 2px 5px #0000001a
+  }
+  
+  body.pagina-articulo main .articulo-titulo {
+  font-size:2.2em;
+  color:#176122;
+  margin-bottom:.5em;
+  line-height:1.3
+  }
+  
+  body.pagina-articulo main .articulo-fecha {
+  color:#000;
+  font-size:.9em;
+  margin-bottom:1.5em;
+  font-style:italic;
+  display:block
+  }
+  
+  body.pagina-articulo main .articulo-imagen {
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:20px auto;
+  border-radius:10px;
+  box-shadow:0 2px 5px #0000001a
+  }
+  
+  body.pagina-articulo main .articulo-contenido {
+  color:#000;
+  line-height:1.7;
+  font-size:1.1em;
+  margin-bottom:2em
+  }
+  
+  body.pagina-articulo main .articulo-contenido p {
+  margin-bottom:1.2em
+  }
+  
+  body.pagina-articulo main .articulo-contenido img {
+  max-width:100%;
+  height:auto;
+  display:block;
+  margin:1em auto;
+  border-radius:4px;
+  box-shadow:0 1px 3px #0000001a
+  }
+  
+  body.pagina-articulo main .back-to-blog {
+  display:inline-block;
+  padding:.8em 1.5em;
+  background-color:#176122;
+  color:#fff;
+  text-decoration:none;
+  border-radius:5px;
+  transition:background-color .3s ease-in-out;
+  font-size:1em
+  }
+  
+  body.pagina-articulo main .back-to-blog:hover {
+  background-color:#000
+  }
+  
+  /* Estilos específicos para la Página de Publicar Artículo (publicar_articulo.php) */
+
+  body.pagina-articulo-publicar {
+  font-family:'Arial',sans-serif;
+  line-height:1.6;
+  color:#000;
+  background-color:#f4f4f4;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh
+  }
+  
+  body.pagina-articulo-publicar header {
+  background-color:#176122;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+  border-bottom:2px solid #555
+  }
+  
+  body.pagina-articulo-publicar header h1 {
+  margin:0;
+  font-size:2.2em
+  }
+  
+  body.pagina-articulo-publicar main {
+  background-color:#729675c4;
+  padding:20px;
+  margin:20px auto;
+  max-width:800px;
+  border-radius:8px;
+  box-shadow:0 2px 5px #0000001a;
+  flex-grow:1
+  }
+  
+  body.pagina-articulo-publicar main h1 {
+  color:#0e5aa6;
+  font-size:2.2em;
+  margin-bottom:1em;
+  text-align:center
+  }
+  
+  body.pagina-articulo-publicar main form {
+  display:flex;
+  flex-direction:column
+  }
+  
+  body.pagina-articulo-publicar main div {
+  margin-bottom:1.5em
+  }
+  
+  body.pagina-articulo-publicar main label {
+  display:block;
+  font-weight:700;
+  margin-bottom:.5em;
+  color:#000
+  }
+  
+  body.pagina-articulo-publicar main input[type="text"],body.pagina-articulo-publicar main select,body.pagina-articulo-publicar main textarea,body.pagina-articulo-publicar main input[type="file"] {
+  padding:.8em;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:1em;
+  margin-top:.3em;
+  width:95%;
+  box-sizing:border-box
+  }
+  
+  body.pagina-articulo-publicar main textarea {
+  resize:vertical;
+  min-height:150px
+  }
+  
+  body.pagina-articulo-publicar main select {
+  appearance:none;
+  background-image:url('data:image/svg+xml;charset=UTF-8,<svg fill="%23333" viewBox="0 0 4 5"><path d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat:no-repeat;
+  background-position:right .7em top 50%;
+  background-size:.65em auto;
+  padding-right:2.5em
+  }
+  
+  body.pagina-articulo-publicar main input[type="text"]:focus,body.pagina-articulo-publicar main select:focus,body.pagina-articulo-publicar main textarea:focus,body.pagina-articulo-publicar main input[type="file"]:focus {
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 5px #007bff80
+  }
+  
+  body.pagina-articulo-publicar main button[type="submit"] {
+  background-color:#176122;
+  color:#fff;
+  padding:1em 2em;
+  border:none;
+  border-radius:5px;
+  font-size:1.1em;
+  cursor:pointer;
+  transition:background-color .3s ease-in-out;
+  margin-top:1em
+  }
+  
+  body.pagina-articulo-publicar main button[type="submit"]:hover {
+  background-color:#000
+  }
+  
+  body.pagina-articulo-publicar main p {
+  margin-top:2em;
+  text-align:center
+  }
+  
+  body.pagina-articulo-publicar main p a {
+  color:#007bff;
+  text-decoration:none;
+  transition:color .3s ease-in-out
+  }
+  
+  body.pagina-articulo-publicar main p a:hover {
+  color:#0056b3
+  }
+  
+  body.pagina-articulo-publicar footer {
+  background-color:#333;
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  border-top:2px solid #555
+  }
+  
+  /* --- Estilos específicos para la Página de Editar Artículo (editar_articulo.php) --- */
+
+  body.pagina-editar-articulo {
+  font-family:'Arial',sans-serif;
+  line-height:1.6;
+  color:#333;
+  background-color:#f4f4f4;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh
+  }
+  
+  body.pagina-editar-articulo header {
+  background-color:#176122;
+  color:#fff;
+  padding:20px;
+  text-align:center;
+  border-bottom:2px solid #555
+  }
+  
+  body.pagina-editar-articulo header h1 {
+  margin:0;
+  font-size:2.2em
+  }
+  
+  body.pagina-editar-articulo main {
+  background-color:#fff;
+  padding:20px;
+  margin:20px auto;
+  max-width:800px;
+  /* Ajusta el ancho según sea necesario */
+  border-radius:8px;
+  box-shadow:0 2px 5px #0000001a;
+  flex-grow:1
+  }
+  
+  body.pagina-editar-articulo main h1 {
+  color:#0e5aa6;
+  font-size:2.2em;
+  margin-bottom:1em;
+  text-align:center
+  }
+  
+  body.pagina-editar-articulo main form {
+  display:flex;
+  flex-direction:column
+  }
+  
+  body.pagina-editar-articulo main div {
+  margin-bottom:1.5em
+  }
+  
+  body.pagina-editar-articulo main label {
+  display:block;
+  font-weight:700;
+  margin-bottom:.5em;
+  color:#333
+  }
+  
+  body.pagina-editar-articulo main input[type="text"],body.pagina-editar-articulo main select,body.pagina-editar-articulo main textarea,body.pagina-editar-articulo main input[type="file"] {
+  padding:.8em;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:1em;
+  margin-top:.3em;
+  width:95%;
+  box-sizing:border-box
+  }
+  
+  body.pagina-editar-articulo main textarea {
+  resize:vertical;
+  min-height:150px
+  }
+  
+  body.pagina-editar-articulo main select {
+  appearance:none;
+  background-image:url('data:image/svg+xml;charset=UTF-8,<svg fill="%23333" viewBox="0 0 4 5"><path d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');
+  background-repeat:no-repeat;
+  background-position:right .7em top 50%;
+  background-size:.65em auto;
+  padding-right:2.5em
+  }
+  
+  body.pagina-editar-articulo main input[type="text"]:focus,body.pagina-editar-articulo main select:focus,body.pagina-editar-articulo main textarea:focus,body.pagina-editar-articulo main input[type="file"]:focus {
+  outline:none;
+  border-color:#007bff;
+  box-shadow:0 0 5px #007bff80
+  }
+  
+  body.pagina-editar-articulo main button[type="submit"] {
+  background-color:#007bff;
+  color:#fff;
+  padding:1em 2em;
+  border:none;
+  border-radius:5px;
+  font-size:1.1em;
+  cursor:pointer;
+  transition:background-color .3s ease-in-out;
+  margin-top:1em
+  }
+  
+  body.pagina-editar-articulo main button[type="submit"]:hover {
+  background-color:#000
+  }
+  
+  body.pagina-editar-articulo main p {
+  margin-top:2em;
+  text-align:center
+  }
+  
+  body.pagina-editar-articulo main p a {
+  color:#007bff;
+  text-decoration:none;
+  transition:color .3s ease-in-out
+  }
+  
+  body.pagina-editar-articulo main p a:hover {
+  color:#0056b3
+  }
+  
+  body.pagina-editar-articulo main div p {
+  text-align:left;
+  margin-bottom:.5em
+  }
+  
+  body.pagina-editar-articulo main div img {
+  vertical-align:middle;
+  margin-left:.5em;
+  border-radius:4px;
+  box-shadow:0 1px 3px #0000001a
+  }
+  
+  body.pagina-editar-articulo main div label input[type="checkbox"] {
+  margin-right:.5em;
+  vertical-align:middle
+  }
+  
+  body.pagina-editar-articulo main div small {
+  display:block;
+  font-size:.9em;
+  color:#777;
+  margin-top:.3em
+  }
+  
+  body.pagina-editar-articulo footer {
+  background-color:#333;
+  color:#fff;
+  text-align:center;
+  padding:10px;
+  border-top:2px solid #555
+  }
+  
+  .item {
+  position:relative
+  }
+  
+  .like-container {
+  position:absolute;
+  top:10px;
+  right:10px;
+  display:flex;
+  align-items:center;
+  z-index:10;
+  background-color:#ffffff59;
+  padding:8px 12px;
+  border-radius:20px;
+  box-shadow:0 2px 5px #0000001a
+  }
+  
+  /* Estilo para el botón de me gusta */
+
+  .like-btn {
+  padding:0;
+  cursor:pointer;
+  border:none;
+  background-color:transparent;
+  outline:none
+  }
+  
+  .like-btn:hover {
+  transform:scale(1.1);
+  opacity:1
+  }
+  
+  .like-btn:active {
+  transform:scale(1.0)
+  }
+  
+  /* Estilos para el icono de corazón */
+
+  .like-container .like-btn i {
+  font-size:1.8em;
+  vertical-align:middle;
+  color:transparent;
+  transition:color .3s ease-in-out;
+  -webkit-text-stroke:none;
+  -webkit-text-fill-color:#000;
+  opacity:.6
+  }
+  
+  .like-btn.liked i {
+  color:#e74c3c;
+  -webkit-text-fill-color:#e74c3c;
+  opacity:1
+  }
+  
+  /* Estilo para el contador de likes */
+
+  .like-count {
+  margin-left:8px;
+  font-size:1em;
+  color:#000;
+  font-weight:700
+  }
+  
+  /* Estilo específicos para el mensaje de articulo actualizado (procesar_editar_articulo.php) */
+
+  .cuerpo-mensaje {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  margin:0;
+  padding:20px;
+  background-color:#bae2a7;
+  box-sizing:border-box
+  }
+  
+  .mensaje-exito-icono {
+  color:#0f5132;
+  background-color:#4a724566;
+  border:1px solid #badbcc;
+  padding:25px 40px;
+  border-radius:10px;
+  font-size:1.1em;
+  display:flex;
+  align-items:center;
+  text-align:center;
+  max-width:90%;
+  margin:0 auto;
+  flex-wrap:wrap;
+  gap:15px
+  }
+  
+  .mensaje-exito-icono i {
+  font-size:1.8em;
+  color:#198754;
+  flex-shrink:0
+  }
+  
+  .mensaje-exito-icono a {
+  color:#0b5ed7;
+  text-decoration:none;
+  font-weight:500;
+  transition:all .3s ease;
+  flex-shrink:0
+  }
+  
+  .mensaje-exito-icono a:hover {
+  text-decoration:underline;
+  transform:translateX(5px)
+  }
+  
+  .mensaje-error {
+  color:#842029;
+  background-color:#f8d7da;
+  border:1px solid #f5c2c7;
+  padding:25px 40px;
+  border-radius:10px;
+  font-size:1.1em;
+  max-width:90%;
+  margin:0 auto;
+  text-align:center;
+  display:flex;
+  align-items:center;
+  gap:10px
+  }
+  
+  /* Estilo para ver/ocultar contraseña (login.php) */
+
+  .password-toggle-container {
+  position:relative
+  }
+  
+  .password-toggle-icon {
+  position:absolute;
+  top:55%;
+  right:15px;
+  transform:translateY(-50%);
+  cursor:pointer;
+  z-index:10;
+  background-color:#b8debb;
+  padding:3px;
+  border-radius:4px
+  }
+  
+  .form-control {
+  padding-right:35px
+  }
