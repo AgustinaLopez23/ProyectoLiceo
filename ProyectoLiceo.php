@@ -350,10 +350,10 @@
                 <div class="plan-body text-center">
                     <h1 class="plan-title">$100</h1>
                     <ul class="plan-list">
-                        <li>Sesión de 1 hora</li>
-                        <li>20 fotos editadas</li>
-                        <li>Entrega digital en alta resolución</li>
-                        <li>Ubicación a elección (dentro de la ciudad)</li>
+                        <li>• Sesión de 1 hora</li>
+                        <li>• 20 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• 1 impresión en tamaño 10x15 a elección</li>
                     </ul>
                     <form action="procesar_reserva.php" method="POST">
                         <input type="hidden" name="plan" value="basico">
@@ -380,11 +380,11 @@
                 <div class="plan-body text-center">
                     <h1 class="plan-title">$250</h1>
                     <ul class="plan-list">
-                        <li>Sesión de 2 horas</li>
-                        <li>50 fotos editadas</li>
-                        <li>Entrega digital en alta resolución</li>
-                        <li>Ubicación a elección (dentro de la ciudad)</li>
-                        <li>Álbum digital personalizado</li>
+                        <li>• Sesión de 2 horas</li>
+                        <li>• 40 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• Asesoramiento de vestuario básico</li>
+                        <li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
                         
                     </ul>
                     <form action="procesar_reserva.php" method="POST">
@@ -412,11 +412,12 @@
                 <div class="plan-body text-center">
                     <h1 class="plan-title">$400</h1>
                     <ul class="plan-list">
-                        <li>Sesión de 3 horas</li>
-                        <li>100 fotos editadas</li>
-                        <li>Entrega digital en alta resolución</li>
-                        <li>Ubicación a elección (dentro de la ciudad)</li>
-                        <li>Impresión de 10 fotos en tamaño 10x15</li>
+                        <li>• Sesión de 3 horas</li>
+                        <li>• 80 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• Video corto con momentos destacados de la sesión</li>
+                        <li>• Asesoramiento de vestuario y estilismo</li>
+                        <li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
                     </ul>
                     <form action="procesar_reserva.php" method="POST">
                         <input type="hidden" name="plan" value="premium">
@@ -439,6 +440,10 @@
         </div>
     </div>
 </section>
+
+<footer>
+  <p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
+</footer>
 
     <section id="blog" class="blog-section cards-layout">
         <div class="container">
@@ -503,7 +508,7 @@
     <section id="contacto" class="contacto">
     <div class="contenido-seccion">
         <h2>Contacto</h2>
-        <p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos? ¡No dudes en ponerte en contacto conmigo!</p>
+        <p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos personalizada? ¡No dudes en ponerte en contacto conmigo!</p>
         <div class="formulario-contacto">
             <form action="send_email.php" method="POST">
                 <div class="form-group">

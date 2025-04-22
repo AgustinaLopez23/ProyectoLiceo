@@ -546,6 +546,7 @@
   }
   
   /* SECCIÓN PLANES */
+
   #servicios {
   background-color:linear-gradient(to bottom,#cae1c2,);
   padding:50px 0;
@@ -702,6 +703,32 @@
   color:#000
   }
   
+/* Estilos para el footer de sesion personalizada */
+
+footer {
+  background-color: #397c36; 
+  color: #000000; 
+  text-align: center;
+  padding: 40px; 
+  font-size: 1em; 
+  border-top: 1px solid #eee; 
+  margin-top: 30px; 
+}
+
+footer p {
+  margin: 0; 
+}
+
+footer a {
+  color: #fff; 
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #cccccc; 
+}
+
   /* --- Estilos Generales Blog --- */
 
   body {
@@ -1005,13 +1032,6 @@
   padding:20px 0
   }
   
-  /* RESPONSIVE FOOTER */
-  footer {
-  background-color:#333;
-  color:#fff;
-  padding:20px 0;
-  text-align:center
-  }
   
   /* RESPONSIVE MEDIA QUERIES */
   @media (max-width: 768px) {
@@ -1223,26 +1243,7 @@
   color:#fff
   }
   
-  /* --- Pie de Página --- */
-
-  footer {
-  text-align:center;
-  padding:2em 20px;
-  color:#777;
-  font-size:.85em;
-  border-top:1px solid #eee;
-  margin-top:4em
-  }
-  
-  footer a {
-  color:#777;
-  text-decoration:underline
-  }
-  
-  footer a:hover {
-  color:#555
-  }
-  
+ 
   /*  Estilos para las secciones de detalles (ocultas inicialmente)  */
 
   .blog-details {
