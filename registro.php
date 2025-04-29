@@ -12,12 +12,12 @@
             <p class="login-error-message"><?php echo htmlspecialchars($registration_error); ?></p>
         <?php endif; ?>
         <form class="login-form" action="procesar_registro.php" method="POST">
-            <label for="nombre">Nombre de Usuario:</label>
-            <input type="text" id="nombre" name="nombre" required>
+        <label for="nombre_usuario">Nombre de Usuario:</label>
+        <input type="text" id="nombre_usuario" name="nombre_usuario" required>
 
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
-
+        <label for="correo_electronico">Correo Electrónico:</label>
+        <input type="email" id="correo_electronico" name="correo_electronico" required>
+        
             <label for="contrasena">Contraseña:</label>
             <input type="password" id="contrasena" name="contrasena" required>
 

@@ -42,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores[] = "La contraseña es requerida.";
     } elseif (strlen($contrasena) < 6) {
         $errores[] = "La contraseña debe tener al menos 6 caracteres.";
-    } elseif (!preg_match("/[a-z]/", $contrasena) || !preg_match("/[A-Z]/", $contrasena) || !preg_match("/[0-9]/", $contrasena)) {
-        $errores[] = "La contraseña debe contener al menos una letra minúscula, una mayúscula y un número.";
-    }
+    } // elseif (!preg_match("/[a-z]/", $contrasena) || !preg_match("/[A-Z]/", $contrasena) || !preg_match("/[0-9]/", $contrasena)) {
+    //     $errores[] = "La contraseña debe contener al menos una letra minúscula, una mayúscula y un número.";
+    // }
 
     if ($contrasena !== $confirmar_contrasena) {
         $errores[] = "Las contraseñas no coinciden.";

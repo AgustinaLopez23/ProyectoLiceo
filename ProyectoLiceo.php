@@ -35,24 +35,29 @@
         $imagen_inicio = 'images/default-hero.jpg'; // Valor por defecto para la imagen de inicio
     }
 
-    // BLOQUE PHP PARA OBTENER LAS IMÁGENES DEL BLOG
-    $sql_blog_images = "SELECT ruta, categoria FROM blog";
-    $result_blog_images = $conn->query($sql_blog_images);
-    $imagenes_blog = array();
-    if ($result_blog_images && $result_blog_images->num_rows > 0) {
-        while ($row_blog = $result_blog_images->fetch_assoc()) {
-            // VERIFICA SI LA RUTA EN LA BASE DE DATOS YA INCLUYE 'imagenes_blog/'
-            // SI YA LO INCLUYE, USA LA SIGUIENTE LÍNEA:
-            // $imagenes_blog[strtolower($row_blog["categoria"])] = htmlspecialchars($row_blog["ruta"]);
-            // SI NO LO INCLUYE, USA ESTA LÍNEA:
-            $imagenes_blog[strtolower($row_blog["categoria"])] = htmlspecialchars($row_blog["ruta"]);
+// BLOQUE PHP PARA OBTENER LAS IMÁGENES DEL BLOG
+$sql_blog_images = "SELECT ruta, categoria FROM blog";
+$result_blog_images = $conn->query($sql_blog_images);
+$imagenes_blog = array();
+
+if ($result_blog_images && $result_blog_images->num_rows > 0) {
+    while ($row_blog = $result_blog_images->fetch_assoc()) {
+        $ruta_corregida = str_replace('\\', '/', $row_blog["ruta"]);
+        $ruta_final = '';
+        // Verifica si la ruta ya comienza con 'imagenes/'
+        if (strpos(strtolower($ruta_corregida), 'imagenes/') === 0) {
+            $ruta_final = htmlspecialchars($ruta_corregida);
+        } else {
+            $ruta_final = 'imagenes/' . htmlspecialchars($ruta_corregida);
         }
-    } else {
-        echo "<p class='error-message'>Error al cargar las imágenes del blog.</p>";
-        if ($conn->error) {
-            echo "<p class='error-details'>" . $conn->error . "</p>";
-        }
+        $imagenes_blog[strtolower($row_blog["categoria"])] = $ruta_final;
     }
+} else {
+    echo "<p class='error-message'>Error al cargar las imágenes del blog.</p>";
+    if ($conn->error) {
+        echo "<p class='error-details'>" . htmlspecialchars($conn->error) . "</p>";
+    }
+}
     ?>
 
     <nav class="main-nav">
