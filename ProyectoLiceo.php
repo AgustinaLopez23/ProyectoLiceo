@@ -94,18 +94,15 @@ if ($result_blog_images && $result_blog_images->num_rows > 0) {
     </section>
 
     <section id="portfolio" class="portfolio">
-        <div class="portafolio nav">
-            <nav>
-                <ul>
-                    <li><a href="#paisajes">Paisajes</a></li>
-                    <li><a href="#autos">Autos</a></li>
-                    <li><a href="#eventos">Eventos</a></li>
-                    <li><a href="#viajes">Viajes</a></li>
-                </ul>
-            </nav>
-        </div>
-    </section>
-
+    <nav>
+        <ul>
+            <li><a href="#paisajes">Paisajes</a></li>
+            <li><a href="#autos">Autos</a></li>
+            <li><a href="#eventos">Eventos</a></li>
+            <li><a href="#viajes">Viajes</a></li>
+        </ul>
+    </nav>
+</section>
 
     <section id="paisajes" class="gallery">
     <h3>Fotografías de Paisajes</h3>
