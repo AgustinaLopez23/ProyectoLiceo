@@ -1131,6 +1131,89 @@ footer a:hover {
   text-decoration:underline
   }
   
+/* Estilos para el grid de consejos */
+
+.consejos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  max-width:max-content; 
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.consejo-item {
+  background-color: #254d34ab; 
+  border: 1px solid #eeeeee3d;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; 
+}
+
+.consejo-item:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+  transform: translateY(-3px); 
+}
+
+.consejo-imagen {
+  width: 100%;
+  height: auto;
+}
+
+.consejo-imagen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Cubre el espacio asignado sin deformar */
+  border-bottom: 1px solid #eee; /* Separador entre la imagen y el texto */
+}
+
+.consejo-item h3 {
+  font-size: 1.1em;
+  margin: 15px 10px 5px 10px;
+  color: #333;
+}
+
+.consejo-item .fecha {
+  color: #000000;
+  font-size: 0.8em;
+  margin: 0 10px 10px 10px;
+  font-style: italic;
+}
+
+.consejo-item .contenido-breve {
+  padding: 0 10px 15px 10px;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+
+.consejo-item .contenido-breve a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.consejo-item .contenido-breve a:hover {
+  text-decoration: underline;
+}
+
+/* Para pantallas de hasta 768px de ancho (típicamente tablets) */
+@media (max-width: 768px) {
+  .consejos-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Intenta al menos 1 columna de 300px */
+  }
+}
+
+/* Para pantallas aún más pequeñas (móviles) */
+@media (max-width: 576px) {
+  .consejos-grid {
+      grid-template-columns: 1fr; /* Una sola columna en móviles */
+  }
+}
+
   /* Estilos especificos para el articulo (articulo.php)*/
 
   article {
