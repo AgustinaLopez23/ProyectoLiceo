@@ -27,7 +27,7 @@ if (!$articulo_id) {
     die("ID de artículo no válido.");
 }
 
-$sql = "SELECT id, titulo, contenido, categoria, autor, slug, imagen_principal, usuario_id FROM articulos WHERE id = '$articulo_id'";
+$sql = "SELECT id, titulo, contenido, categoria, autor, slug, imagen_articulo, imagen_portada, usuario_id FROM articulos WHERE id = '$articulo_id'";
 $resultado = $conn->query($sql);
 
 $articulo = $resultado->fetch_assoc();
@@ -86,12 +86,26 @@ if ((int)$articulo['usuario_id'] !== (int)$_SESSION["usuario_id"]) {
             </div>
 
             <div>
-                <label for="imagen_principal">Imagen Principal:</label>
-                <?php if (!empty($articulo['imagen_principal'])): ?>
-                    <p>Imagen actual: <img src="<?php echo htmlspecialchars($articulo['imagen_principal']); ?>" alt="Imagen actual" style="max-width: 100px; height: auto;"></p>
-                    <label><input type="checkbox" name="eliminar_imagen" value="1"> Eliminar imagen actual</label>
+                <label for="imagen_portada_nueva">Imagen de Portada:</label>
+                <?php if (!empty($articulo['imagen_portada'])): ?>
+                    <p>Imagen actual: <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="Imagen de portada actual" style="max-width: 100px; height: auto;"></p>
+                    <label><input type="checkbox" name="eliminar_imagen_portada" value="1"> Eliminar imagen actual</label>
+                <?php else: ?>
+                    <p>No hay imagen de portada actual.</p>
                 <?php endif; ?>
-                <input type="file" id="imagen_principal" name="imagen_principal">
+                <input type="file" id="imagen_portada_nueva" name="imagen_portada_nueva">
+                <small>Selecciona una nueva imagen para reemplazar la actual (opcional).</small>
+            </div>
+
+            <div>
+                <label for="imagen_articulo_nueva">Imagen Principal del Artículo:</label>
+                <?php if (!empty($articulo['imagen_articulo'])): ?>
+                    <p>Imagen actual: <img src="<?php echo htmlspecialchars($articulo['imagen_articulo']); ?>" alt="Imagen principal actual" style="max-width: 100px; height: auto;"></p>
+                    <label><input type="checkbox" name="eliminar_imagen_articulo" value="1"> Eliminar imagen actual</label>
+                <?php else: ?>
+                    <p>No hay imagen principal actual.</p>
+                <?php endif; ?>
+                <input type="file" id="imagen_articulo_nueva" name="imagen_articulo_nueva">
                 <small>Selecciona una nueva imagen para reemplazar la actual (opcional).</small>
             </div>
 

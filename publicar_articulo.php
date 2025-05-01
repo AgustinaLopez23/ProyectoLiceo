@@ -52,8 +52,15 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
             </div>
 
             <div>
-                <label for="imagen_principal">Imagen Principal:</label>
-                <input type="file" id="imagen_principal" name="imagen_principal">
+                <label for="imagen_portada">Imagen de Portada (para la lista):</label>
+                <input type="file" id="imagen_portada" name="imagen_portada">
+                <p class="ayuda">Esta imagen se mostrará en la lista de artículos.</p>
+            </div>
+
+            <div>
+                <label for="imagen_articulo">Imagen Principal del Artículo:</label>
+                <input type="file" id="imagen_articulo" name="imagen_articulo">
+                <p class="ayuda">Esta imagen se mostrará dentro del artículo.</p>
             </div>
 
             <button type="submit">Publicar Artículo</button>

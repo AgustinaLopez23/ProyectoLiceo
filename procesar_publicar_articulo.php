@@ -13,6 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contenido = $_POST['contenido'];
     $categoria = $_POST['categoria'];
 
+    $imagen_portada_ruta = null;
+    $imagen_articulo_ruta = null;
+
     // Función para generar un slug amigable
     function generarSlug($titulo) {
         $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $titulo)));
@@ -42,10 +45,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $contador++;
     }
 
-    // Insertar el nuevo artículo con el slug generado
-    $sql_insert = "INSERT INTO articulos (usuario_id, titulo, slug, contenido, categoria, fecha_publicacion) VALUES (?, ?, ?, ?, ?, NOW())";
+    // --- Manejo de la imagen de portada ---
+    if (isset($_FILES['imagen_portada']) && $_FILES['imagen_portada']['error'] === UPLOAD_ERR_OK) {
+        $carpeta_destino = "imagenes/";
+        $nombre_base = basename($_FILES["imagen_portada"]["name"]);
+        $nombre_archivo = uniqid() . "_" . $nombre_base;
+        $ruta_destino = $carpeta_destino . $nombre_archivo;
+        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
+
+        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_portada']['size'] <= 2000000) { // Tamaño máximo de 2MB
+            if (move_uploaded_file($_FILES["imagen_portada"]["tmp_name"], $ruta_destino)) {
+                $imagen_portada_ruta = $ruta_destino;
+            } else {
+                echo "Error al guardar la imagen de portada.";
+                exit();
+            }
+        } else {
+            echo "Formato de imagen de portada no válido o tamaño demasiado grande.";
+            exit();
+        }
+    }
+
+    // --- Manejo de la imagen del artículo ---
+    if (isset($_FILES['imagen_articulo']) && $_FILES['imagen_articulo']['error'] === UPLOAD_ERR_OK) {
+        $carpeta_destino = "imagenes/";
+        $nombre_base = basename($_FILES["imagen_articulo"]["name"]);
+        $nombre_archivo = uniqid() . "_" . $nombre_base;
+        $ruta_destino = $carpeta_destino . $nombre_archivo;
+        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
+
+        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_articulo']['size'] <= 5000000) { // Tamaño máximo de 5MB (puedes ajustarlo)
+            if (move_uploaded_file($_FILES["imagen_articulo"]["tmp_name"], $ruta_destino)) {
+                $imagen_articulo_ruta = $ruta_destino;
+            } else {
+                echo "Error al guardar la imagen del artículo.";
+                exit();
+            }
+        } else {
+            echo "Formato de imagen del artículo no válido o tamaño demasiado grande.";
+            exit();
+        }
+    }
+
+    // Insertar el nuevo artículo con el slug y las rutas de las imágenes
+    $sql_insert = "INSERT INTO articulos (usuario_id, titulo, slug, contenido, categoria, fecha_publicacion, imagen_portada, imagen_articulo) VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)";
     $stmt_insert = $conn->prepare($sql_insert);
-    $stmt_insert->bind_param("issss", $_SESSION["usuario_id"], $titulo, $slug_final, $contenido, $categoria);
+    $stmt_insert->bind_param("issssss", $_SESSION["usuario_id"], $titulo, $slug_final, $contenido, $categoria, $imagen_portada_ruta, $imagen_articulo_ruta);
 
     if ($stmt_insert->execute()) {
         // Artículo publicado con éxito

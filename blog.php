@@ -2,7 +2,7 @@
 
 session_start();
 
-// Datos de conexión a la base de datos (asegúrate de que sean correctos)
+// Datos de conexión a la base de datos
 $host = 'localhost';
 $usuario = 'root';
 $contrasena = '';
@@ -18,7 +18,7 @@ $conn->set_charset("utf8");
 
 // Obtener artículos por categoría
 function obtenerArticulosPorCategoria($conn, $categoria) {
-    $sql = "SELECT id, titulo, slug, contenido, fecha_publicacion FROM articulos WHERE categoria = ? ORDER BY fecha_publicacion DESC";
+    $sql = "SELECT id, titulo, slug, contenido, fecha_publicacion, imagen_portada FROM articulos WHERE categoria = ? ORDER BY fecha_publicacion DESC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $categoria);
     $stmt->execute();
@@ -69,150 +69,125 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
             </ul>
         </nav>
     </header>
-
     <main class="blog-list-page">
-    <?php if ($categoria_seleccionada === 'consejos'): ?>
+    <?php if ($categoria_seleccionada === 'comentarios'): ?>
+        <section id="<?php echo strtolower(str_replace(' ', '-', $categoria_seleccionada)); ?>">
+            <div class="comentarios-rectangulo">
+                <h2><?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></h2>
+                <?php if (isset($_SESSION["usuario_id"])): ?>
+                    <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria_seleccionada); ?>" class="compartir-experiencia">Compartir</a></p>
+                <?php else: ?>
+                    <p><a href="login.php" class="compartir-experiencia">Inicia sesión</a> para compartir.</p>
+                <?php endif; ?>
+                <div class="comentarios-grid">
+                    <?php
+                    $articulos = obtenerArticulosPorCategoria($conn, $categoria_seleccionada);
+                    if ($articulos->num_rows > 0):
+                        while ($articulo = $articulos->fetch_assoc()):
+                    ?>
+                            <div class="comentario-item">
+                                <p><?php echo nl2br(htmlspecialchars($articulo['contenido'])); ?></p>
+                                <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
+                            </div>
+                    <?php
+                        endwhile;
+                    else:
+                    ?>
+                        <p>No hay comentarios todavía.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </section>
+        <?php elseif ($categoria_seleccionada): ?>
         <section id="<?php echo strtolower(str_replace(' ', '-', $categoria_seleccionada)); ?>">
             <h2><?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></h2>
             <?php if (isset($_SESSION["usuario_id"])): ?>
-                <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria_seleccionada); ?>">Compartir mis <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></a></p>
+                <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria_seleccionada); ?>">Compartir</a></p>
             <?php else: ?>
-                <p><a href="login.php">Inicia sesión</a> para compartir tu experiencia en <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?>.</p>
+                <p><a href="login.php">Inicia sesión</a> para compartir.</p>
             <?php endif; ?>
-            <div class="consejos-grid">
+            <div class="<?php echo $categoria_seleccionada === 'experiencias' ? 'comentarios-grid' : 'consejos-grid'; ?>">
                 <?php
                 $articulos = obtenerArticulosPorCategoria($conn, $categoria_seleccionada);
                 if ($articulos->num_rows > 0):
                     while ($articulo = $articulos->fetch_assoc()):
                 ?>
-                        <article class="consejo-item">
-                            <?php if (!empty($articulo['imagen'])): ?>
+                        <?php if ($categoria_seleccionada === 'experiencias'): ?>
+                            <div class="comentario-item">
+                                <p><?php echo nl2br(htmlspecialchars($articulo['contenido'])); ?></p>
+                                <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
+                            </div>
+                        <?php else: ?>
+                            <article class="consejo-item">
                                 <div class="consejo-imagen">
-                                    <img src="<?php echo htmlspecialchars($articulo['imagen']); ?>" alt="<?php echo htmlspecialchars($articulo['titulo']); ?>">
-                                </div>
-                            <?php endif; ?>
-                            <h3><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>"><?php echo htmlspecialchars($articulo['titulo']); ?></a></h3>
-                            <p class="fecha">Publicado el: <?php echo date('d/m/Y', strtotime($articulo['fecha_publicacion'])); ?></p>
-                            <div class="contenido-breve">
-                                <?php
-                                $extracto = substr(strip_tags($articulo['contenido']), 0, 100); // Ajusta la longitud del extracto
-                                echo $extracto . (strlen(strip_tags($articulo['contenido'])) > 100 ? '...' : '');
-                                ?>
-                                <p><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>">Leer más</a></p>
-                            </div>
-                        </article>
-                <?php
-                    endwhile;
-                else:
-                ?>
-                    <p>No hay artículos de consejos todavía.</p>
-                <?php endif; ?>
-            </div>
-        </section>
-    <?php elseif ($categoria_seleccionada === 'experiencias'): ?>
-        <section id="<?php echo strtolower(str_replace(' ', '-', $categoria_seleccionada)); ?>">
-            <h2><?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></h2>
-            <?php if (isset($_SESSION["usuario_id"])): ?>
-                <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria_seleccionada); ?>">Compartir mis <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></a></p>
-            <?php else: ?>
-                <p><a href="login.php">Inicia sesión</a> para compartir tu experiencia en <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?>.</p>
-            <?php endif; ?>
-            <?php
-            $articulos = obtenerArticulosPorCategoria($conn, $categoria_seleccionada);
-            if ($articulos->num_rows > 0):
-                while ($articulo = $articulos->fetch_assoc()):
-            ?>
-                    <article>
-                        <h3><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>"><?php echo htmlspecialchars($articulo['titulo']); ?></a></h3>
-                        <p class="fecha">Publicado el: <?php echo date('d/m/Y', strtotime($articulo['fecha_publicacion'])); ?></p>
-                        <div class="contenido-breve">
-                            <?php
-                            $extracto = substr(strip_tags($articulo['contenido']), 0, 200);
-                            echo $extracto . (strlen(strip_tags($articulo['contenido'])) > 200 ? '...' : '');
-                            ?>
-                            <p><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>">Leer más</a></p>
-                        </div>
-                    </article>
-            <?php
-                endwhile;
-            else:
-            ?>
-                <p>No hay artículos en esta categoría todavía.</p>
-            <?php endif; ?>
-        </section>
-    <?php elseif ($categoria_seleccionada === 'comentarios'): ?>
-        <section id="<?php echo strtolower(str_replace(' ', '-', $categoria_seleccionada)); ?>">
-            <h2><?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></h2>
-            <?php if (isset($_SESSION["usuario_id"])): ?>
-                <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria_seleccionada); ?>">Compartir mis <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?></a></p>
-            <?php else: ?>
-                <p><a href="login.php">Inicia sesión</a> para compartir tu experiencia en <?php echo htmlspecialchars(ucfirst($categoria_seleccionada)); ?>.</p>
-            <?php endif; ?>
-            <?php
-            $articulos = obtenerArticulosPorCategoria($conn, $categoria_seleccionada);
-            if ($articulos->num_rows > 0):
-                while ($articulo = $articulos->fetch_assoc()):
-            ?>
-                    <article>
-                        <h3><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>"><?php echo htmlspecialchars($articulo['titulo']); ?></a></h3>
-                        <p class="fecha">Publicado el: <?php echo date('d/m/Y', strtotime($articulo['fecha_publicacion'])); ?></p>
-                        <div class="contenido-breve">
-                            <?php
-                            $extracto = substr(strip_tags($articulo['contenido']), 0, 200);
-                            echo $extracto . (strlen(strip_tags($articulo['contenido'])) > 200 ? '...' : '');
-                            ?>
-                            <p><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>">Leer más</a></p>
-                        </div>
-                    </article>
-            <?php
-                endwhile;
-            else:
-            ?>
-                <p>No hay artículos en esta categoría todavía.</p>
-            <?php endif; ?>
-        </section>
-    <?php else: ?>
-        <?php foreach ($categorias_existentes as $categoria): ?>
-            <section>
-                <h2><a href="?categoria=<?php echo htmlspecialchars($categoria); ?>"><?php echo htmlspecialchars(ucfirst($categoria)); ?></a></h2>
-                <?php
-                $articulos = obtenerArticulosPorCategoria($conn, $categoria);
-                if ($articulos->num_rows > 0):
-                    while ($articulo = $articulos->fetch_assoc()):
-                ?>
-                        <article>
-                            <h3><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>"><?php echo htmlspecialchars($articulo['titulo']); ?></a></h3>
-                            <p class="fecha">Publicado el: <?php echo date('d/m/Y', strtotime($articulo['fecha_publicacion'])); ?></p>
-                            <div class="contenido-breve">
-                                <?php
-                                $extracto = substr(strip_tags($articulo['contenido']), 0, 200);
-                                echo $extracto . (strlen(strip_tags($articulo['contenido'])) > 200 ? '...' : '');
-                                ?>
-                                <p><a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>">Leer más</a></p>
-                            </div>
-                        </article>
+                                    <?php if (!empty($articulo['imagen_portada'])): ?>
+                                        <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="<?php echo htmlspecialchars($articulo['titulo']); ?>">
+                                    <?php endif; ?>
+                                    <div class="consejo-contenido-overlay">
+                                        <h3><?php echo htmlspecialchars($articulo['titulo']); ?></h3>
+                                        <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
+                                    </div>
+                                </article>
+                        <?php endif; ?>
                 <?php
                     endwhile;
                 else:
                 ?>
                     <p>No hay artículos en esta categoría todavía.</p>
                 <?php endif; ?>
-                <?php if (isset($_SESSION["usuario_id"])): ?>
-                    <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria); ?>">Compartir mi experiencia en <?php echo htmlspecialchars(ucfirst($categoria)); ?></a></p>
-                <?php else: ?>
-                    <p><a href="login.php">Inicia sesión</a> para compartir tu experiencia en <?php echo htmlspecialchars(ucfirst($categoria)); ?>.</p>
-                <?php endif; ?>
+            </div>
+        </section>
+    <?php else: ?>
+        <?php foreach ($categorias_existentes as $categoria): ?>
+            <section>
+                <h2><a href="?categoria=<?php echo htmlspecialchars($categoria); ?>"><?php echo htmlspecialchars(ucfirst($categoria)); ?></a></h2>
+                <div class="<?php echo ($categoria === 'comentarios' || $categoria === 'experiencias') ? 'comentarios-grid' : 'consejos-grid'; ?>">
+                    <?php
+                    $articulos = obtenerArticulosPorCategoria($conn, $categoria);
+                    if ($articulos->num_rows > 0):
+                        while ($articulo = $articulos->fetch_assoc()):
+                    ?>
+                            <?php if ($categoria === 'comentarios' || $categoria === 'experiencias'): ?>
+                                <div class="comentario-item">
+                                    <p><?php echo nl2br(htmlspecialchars($articulo['contenido'])); ?></p>
+                                    <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
+                                </div>
+                            <?php else: // Default to consejos style ?>
+                                <article class="consejo-item">
+                                    <div class="consejo-imagen">
+                                        <?php if (!empty($articulo['imagen_portada'])): ?>
+                                            <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="<?php echo htmlspecialchars($articulo['titulo']); ?>">
+                                        <?php endif; ?>
+                                        <div class="consejo-contenido-overlay">
+                                            <h3><?php echo htmlspecialchars($articulo['titulo']); ?></h3>
+                                            <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
+                                        </div>
+                                    </div>
+                                </article>
+                            <?php endif; ?>
+                    <?php
+                        endwhile;
+                    else:
+                    ?>
+                        <p>No hay artículos en esta categoría todavía.</p>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION["usuario_id"])): ?>
+                        <p><a href="publicar_articulo.php?categoria=<?php echo htmlspecialchars($categoria); ?>">Compartir</a></p>
+                    <?php else: ?>
+                        <p><a href="login.php">Inicia sesión</a> para compartir.</p>
+                    <?php endif; ?>
+                </div>
             </section>
         <?php endforeach; ?>
     <?php endif; ?>
-</main>
+    </main>
 
-<footer>
-    <p>&copy; <?php echo date("Y"); ?> Mi Blog</p>
-</footer>
-</body>
-</html>
+    <footer>
+        <p>&copy; <?php echo date("Y"); ?> Mi Blog</p>
+    </footer>
+    </body>
+    </html>
 
-<?php
-$conn->close();
-?>
+    <?php
+    $conn->close();
+    ?>

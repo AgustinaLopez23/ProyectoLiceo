@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION["usuario_id"])) {
+    header("Location: login.php");
+    exit();
+}
+
 // Incluir el código de conexión a la base de datos
 $host = 'localhost';
 $usuario = 'root';
@@ -24,9 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $slug = !empty($_POST["slug"]) ? $conn->real_escape_string($_POST["slug"]) : generarSlug($titulo);
     $imagen_principal = null;
 
-    // Manejar la carga de la imagen
+    // Manejar la carga de la imagen principal (portada)
     if (isset($_FILES["imagen_principal"]) && $_FILES["imagen_principal"]["error"] == 0) {
-        $carpeta_destino = "images/blog/"; // Crea esta carpeta en tu proyecto si no existe
+        $carpeta_destino = "images/blog/"; // Asegúrate de que esta carpeta exista y tenga permisos de escritura
         $nombre_base = basename($_FILES["imagen_principal"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base; // Añadir un prefijo único para evitar conflictos
         $ruta_destino = $carpeta_destino . $nombre_archivo;
@@ -35,26 +43,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (in_array($extension, $tipos_permitidos)) {
             if (move_uploaded_file($_FILES["imagen_principal"]["tmp_name"], $ruta_destino)) {
-                $imagen_principal = $ruta_destino; // Guardar la ruta en la base de datos
+                $imagen_principal = $ruta_destino; // Guardar la ruta para la base de datos
             } else {
-                echo "Error al subir la imagen.";
+                echo "Error al subir la imagen de portada.";
             }
         } else {
-            echo "Solo se permiten archivos JPG, JPEG, PNG y GIF.";
+            echo "Solo se permiten archivos JPG, JPEG, PNG y GIF para la imagen de portada.";
         }
     }
 
     // Insertar los datos en la tabla 'articulos'
-    $sql = "INSERT INTO articulos (titulo, contenido, fecha_publicacion, autor, categoria, slug, imagen_principal)
-            VALUES ('$titulo', '$contenido', NOW(), '$autor', '$categoria', '$slug', '$imagen_principal')";
+    $sql = "INSERT INTO articulos (usuario_id, titulo, contenido, fecha_publicacion, autor, categoria, slug, imagen)
+            VALUES (?, ?, NOW(), ?, ?, ?, ?, ?)";
 
-    if ($conn->query($sql) === TRUE) {
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isssssss", $_SESSION["usuario_id"], $titulo, $autor, $categoria, $slug, $imagen_principal, $contenido);
+
+    if ($stmt->execute()) {
         echo "¡Artículo publicado exitosamente! <a href='blog.php'>Volver al Blog</a>";
     } else {
-        echo "Error al publicar el artículo: " . $conn->error;
+        echo "Error al publicar el artículo: " . $stmt->error;
     }
 
+    $stmt->close();
     $conn->close();
+
 } else {
     echo "Acceso no permitido.";
 }
