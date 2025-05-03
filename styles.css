@@ -103,20 +103,20 @@
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 2em; /* Tamaño de fuente más pequeño */
+    font-size: 2em; 
   }
   .hero-content .button {
-    font-size: 0.9em; /* Botón más pequeño */
-    padding: 10px 15px; /* Padding reducido */
+    font-size: 0.9em;
+    padding: 10px 15px; 
   }
 }
   
 /* SECCIÓN SOBRE MÍ */
 
 #sobremi.intro-section {
-  background-color: #4f6c4fa3;
+  background-color: #4b824ba3;
   color: #000;
-  padding: 40px 20px; /* Reducido el padding para pantallas pequeñas */
+  padding: 40px 20px; 
   text-align: center;
   font-family: 'Poppins', sans-serif;
   display: flex;
@@ -129,22 +129,22 @@
 #sobremi.intro-section .titulo-principal {
   font-size: 2em;
   font-weight: 300;
-  margin-bottom: 15px; /* Reducido el margen */
+  margin-bottom: 15px; 
 }
 
 #sobremi.intro-section .mensaje-bienvenida {
   font-size: 1em;
   line-height: 1.5;
   color: #eee;
-  margin: 0 auto 15px; /* Reducido el margen */
+  margin: 0 auto 15px; 
 }
 
 /* Estilos para el contenedor de redes sociales */
 .redes-sociales {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Reducido el gap */
-  margin-top: 10px; /* Reducido el margen */
+  gap: 10px; 
+  margin-top: 10px; 
 }
 
 /* Estilos para el enlace del icono */
@@ -168,20 +168,21 @@
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   #sobremi.intro-section .titulo-principal {
-    font-size: 1.5em; /* Tamaño de fuente más pequeño */
+    font-size: 1.5em; 
   }
   #sobremi.intro-section .mensaje-bienvenida {
-    max-width: 90%; /* Ocupa más ancho en pantallas pequeñas */
+    max-width: 90%; 
   }
   .redes-sociales a .bi-instagram {
-    font-size: 20px; /* Icono más pequeño */
+    font-size: 20px; 
   }
 }
 
 /* Estilos para el menú del portafolio */
+
 #portfolio nav {
-  background-color: #4f6c4fa3;
-  padding: 20px 0; /* Ajustado el padding */
+  background-color: #4b824ba3;
+  padding: 20px 0; 
   text-align: center;
 }
 
@@ -189,24 +190,24 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; /* Usando flexbox para responsividad */
-  justify-content: center; /* Centra los elementos horizontalmente */
+  display: flex; 
+  justify-content: center; 
 }
 
 #portfolio nav li {
-  margin: 0 10px; /* Espacio entre elementos */
+  margin: 0 10px; 
 }
 
 #portfolio nav a {
   color: #000;
   text-decoration: none;
-  font-size: 1em; /* Tamaño de fuente más consistente */
-  padding: 8px 12px; /* Añadido padding para mejor usabilidad */
+  font-size: 1em; 
+  padding: 8px 12px; 
 }
 
 #portfolio nav a:hover {
   background-color: #397c36;
-  color: #fff; /* Cambiado a blanco para mejor contraste */
+  color: #fff; 
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -214,11 +215,11 @@
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   #portfolio nav ul {
-    flex-direction: column; /* Menú vertical en pantallas pequeñas */
-    align-items: center; /* Centra los elementos verticalmente */
+    flex-direction: column; 
+    align-items: center; 
   }
   #portfolio nav li {
-    margin: 5px 0; /* Ajusta el margen para el menú vertical */
+    margin: 5px 0; 
   }
 }
   
@@ -276,61 +277,64 @@
   
   /* Estilos para la galería de paisajes */
 
-  #paisajes {
-  padding:30px 0;
-  text-align:center;
-  max-width:90%;
-  margin:0 auto
-  }
-  
-  #paisajes h3 {
-  color:#000;
-  font-size:2em;
-  margin-bottom:15px
-  }
-  
-  #paisajes .galeria {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+body #paisajes {
+  padding: 30px 0;
+  text-align: center;
+  max-width: 90%;
+  margin: 0 auto;
+  background-color: #ffffffca;
+}
+
+#paisajes h3 {
+  color: #000;
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+#paisajes .galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  }
-  
-  #paisajes .item {
-  position:relative;
-  overflow:hidden;
-  border-radius:10px;
-  box-shadow:0 4px 8px #0000001a
-  }
-  
-  #paisajes .item img {
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  transition:transform .3s ease-in-out
-  }
-  
-  #paisajes .item:hover img {
-  transform:scale(1.1)
-  }
-  
-  #paisajes .item p {
-  position:absolute;
-  max-width:80%;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  background-color:#ffffff73;
-  color:#000;
-  padding:10px;
-  font-size:x-small;
-  border-radius:5px;
-  opacity:0;
-  transition:opacity .3s ease-in-out
-  }
-  
-  #paisajes .item:hover p {
-  opacity:1
-  }
+}
+
+#paisajes .item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #0000001a;
+}
+
+#paisajes .item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease-in-out;
+  border: none;
+}
+
+#paisajes .item:hover img {
+  transform: scale(1.1);
+}
+
+#paisajes .item p {
+  position: absolute;
+  max-width: 80%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff73;
+  color: #000;
+  padding: 10px;
+  font-size: x-small;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+
+#paisajes .item:hover p {
+  opacity: 1;
+}
   
   /* Estilos para la galería de autos */
 
@@ -365,6 +369,7 @@
   width:100%;
   height:300px;
   object-fit:cover;
+  display: block;
   transition:transform .3s ease-in-out
   }
   
@@ -408,21 +413,22 @@
   
   #eventos .galeria {
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap:15px
   }
   
   #eventos .item {
-  overflow:hidden;
-  border-radius:10px;
-  box-shadow:0 4px 8px #0000001a
-  }
-  
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #0000001a;
+    display: flex; 
+}
+
   #eventos .item img {
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  transition:transform .3s ease-in-out
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    transition: transform .3s ease-in-out;
   }
   
   #eventos .item:hover img {
@@ -458,17 +464,18 @@
     flex: 0 0 auto;
     position: relative;
     overflow: hidden;
-    width: calc(50% - 5px); /* Responsivo */
-    max-width: 350px; /* Ancho máximo */
+    width: calc(50% - 5px); 
+    max-width: 350px; 
     height:350px;
     border-radius: 15px;
     box-shadow: 0 6px 10px #0000004d;
-    margin-bottom:10px; /* Añadido margen inferior */
+    margin-bottom:10px; 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
   
   
   #viajes .item:hover {
-  transform:scale(1.1);
+    transform: scale(1.05);
   box-shadow:0 10px 15px #00000080
   }
   
@@ -477,7 +484,7 @@
   height:100%;
   object-fit:cover;
   border-radius:15px;
-  transition:filter .3s ease-in-out
+  transition: filter 0.5s ease-in-out;
   }
   
   #viajes .item:hover img {
@@ -496,7 +503,7 @@
   font-size:x-small;
   border-radius:5px;
   opacity:0;
-  transition:opacity .3s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
   z-index:1
   }
   
@@ -609,7 +616,7 @@
   /* SECCIÓN PLANES */
 
   #servicios {
-  background-color:linear-gradient(to bottom,#cae1c2,);
+  background-color:linear-gradient(to bottom,#9fe289,);
   padding:30px 0;
   text-align:center
   }
@@ -799,101 +806,216 @@ footer a:hover {
 
   /* --- Estilos Generales Blog --- */
 
-  body {
-  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-  margin:0;
-  padding:0;
-  background-color:#a9d599;
-  color:#000;
-  line-height:1.3;
-  font-synthesis:none;
-  text-rendering:optimizeLegibility
-  }
-  
-  a {
-  color:#007bff;
-  text-decoration:none;
-  transition:color .3s ease-in-out
-  }
-  
-  a:hover {
-  color:#0056b3
-  }
-  
-  h1,h2,h3 {
-  font-weight:700;
-  line-height:1.2;
-  margin-bottom:1em
-  }
-  
-  /* --- Header del Blog --- */
-  header {
-  background-color:#a9d599;
-  padding:1em 20px;
-  text-align:center;
-  border-bottom:1px solid #000;
-  box-shadow:0 1px 3px #0000000d
-  }
-  
-  header h1 {
-  font-size:2.5em;
-  color:#000;
-  text-align:center;
-  margin-bottom:.5em;
-  letter-spacing:-.5px
-  }
-  
-  /* --- Navegación --- */
-  nav {
-  padding:0.5em 20px;
-  text-align:center;
-  border-bottom:1px solid #f0f0f0
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex; 
-    justify-content: center; 
-  }
-  
-  nav li {
-    margin: 0 10px; 
-  }
-  
-  nav ul li a {
-  color:#000;
-  font-weight:700;
-  padding:0.5em 1em;
-  transition:color .3s ease-in-out,background-color .3s ease-in-out;
-  background-color:transparent
-  }
-  
-  nav ul li a:hover {
-  color:#000;
-  background-color:#a9d599
-  }
-  
-  nav .active a {
-  color:#a9d599;
-  font-weight:700
-  }
-  
-  /* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 1.5em; /* Tamaño de fuente más pequeño */
-  }
-  nav ul {
-    flex-direction: column; /* Menú vertical */
-    align-items: center; /* Centra los elementos verticalmente */
-  }
-  nav li {
-    margin: 5px 0; /* Ajusta el margen para el menú vertical */
-  }
+#blog {
+  font-family: 'Segoe UI';
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; 
+  color: #000;
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
+a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1em;
+}
+
+/* --- Header del Blog --- */
+header {
+  background-color: #a9d599; 
+  padding: 1em 20px;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 3px #0000000d;
+}
+
+header h1 {
+  font-size: 2.5em;
+  color: #000;
+  text-align: center;
+  margin-bottom: 0.5em;
+  letter-spacing: -0.5px;
+}
+
+/* --- Navegación --- */
+nav {
+  padding: 0.5em 20px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; 
+  justify-content: center; 
+}
+
+nav li {
+  margin: 0 10px; 
+}
+
+nav ul li a {
+  color: #000;
+  font-weight: 700;
+  padding: 0.5em 1em;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: transparent; 
+}
+
+nav ul li a:hover {
+  color: #000;
+  background-color: #a9d599; 
+}
+
+nav .active a {
+  color: #a9d599; 
+  font-weight: 700;
+}
+
+/* --- Estilos Específicos de la Sección del Blog --- */
+.blog-section {
+  padding: 30px 20px; 
+}
+
+.container {
+  max-width: 960px; 
+  margin: 0 auto; 
+}
+
+.blog-section h2 {
+  font-size: 2em;
+  color: #000;
+  margin-bottom: 1em;
+  text-align: center; 
+}
+
+.blog-intro {
+  color: #333; 
+  line-height: 1.6;
+  margin-bottom: 2em;
+  text-align: center; 
+}
+
+.blog-grid {
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 30px; 
+}
+
+.blog-card {
+  background-color: #fff; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  overflow: hidden; 
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+  display: flex; 
+  flex-direction: column; 
+}
+
+.blog-card:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+}
+
+.blog-card a {
+  display: flex; 
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none; 
+  color: inherit; 
+}
+
+.blog-card img {
+  width: 100%;
+  height: auto; 
+  display: block; 
+  object-fit: cover; 
+  aspect-ratio: 16 / 9;
+}
+
+.blog-card h3 {
+  font-size: 1.5em;
+  margin: 1em 15px 0.5em;
+  text-align: center;
+}
+
+.card-description {
+  color: #555;
+  font-size: 0.9em;
+  line-height: 1.6;
+  padding: 0 15px;
+  margin-bottom: 1em;
+  text-align: center;
+  flex-grow: 1; 
+}
+
+.read-more {
+  display: block;
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  color: #007bff;
+  text-align: center;
+  text-decoration: none;
+  border-top: 1px solid #eee;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  border-radius: 0 0 8px 8px; 
+}
+
+.read-more:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Media query para pantallas pequeñas (ajustado para que coincida con el header/nav) */
+@media (max-width: 768px) {
+  .blog-section {
+    padding: 20px 10px;
+  }
+
+  .container {
+    max-width: 100%; 
+    padding: 0 10px;
+  }
+
+  .blog-section h2 {
+    font-size: 1.8em;
+  }
+
+  .blog-intro {
+    font-size: 0.95em;
+    margin-bottom: 1.5em;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr; 
+    gap: 20px;
+  }
+
+  .blog-card h3 {
+    font-size: 1.3em;
+  }
+
+  .card-description {
+    font-size: 0.85em;
+  }
+}
   /* Estilo general para sección contacto */
   .contacto {
   background-color:#e0e0e0;
