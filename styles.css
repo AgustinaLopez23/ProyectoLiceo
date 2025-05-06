@@ -578,7 +578,7 @@
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:20px
+  gap:20px;
   }
   
   .plan-header {
@@ -756,43 +756,124 @@ footer a:hover {
 /* --- Estilos Generales Blog --- */
 
 #blog {
-  background: -webkit-linear-gradient(90deg, #274427, #64a34d);
   background: linear-gradient(90deg, #274427, #64a34d);
   font-family: 'Segoe UI';
-  margin: 0;
-  padding: 40px 40px;
-  color: #000000; /* Color de texto general dentro del #blog (puede ser anulado por selectores más específicos) */
+  padding: 40px;
   line-height: 1.5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   height: auto;
 }
 
-a {
-  color: #007bff;
+#blog h2 {
+  font-size: 2.5em;
+  color: #000000;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#blog .blog-intro {
+  color: #000000;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1em;
+}
+
+.blog-section {
+  padding: 40px 40px; 
+  text-align: center; 
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilos para la grilla de tarjetas */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px; 
+}
+
+/* Estilos base para todas las tarjetas */
+.blog-card {
+  background-color: #ffffffd4;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px #0000001a; 
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+  display: flex;
+  flex-direction: column;
+  height: 100%; 
+}
+
+.blog-card:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 6px 12px #00000026; 
+}
+
+.blog-card a {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  transition: color 0.3s ease-in-out;
+  color: inherit;
+  height: 100%;
 }
 
-a:hover {
-  color: #0056b3;
+/* Estilos para la imagen de la tarjeta */
+.blog-card img {
+  width: 100%;
+  height: 350px;
+  max-height: 350px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: block;
+  object-fit: cover;
 }
 
-h1,
-h2,
-h3 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 1em;
+ .blog-card h3 {
+  padding: 15px;
+  margin-bottom: 0;
+  font-size: 1.3em;
+  color: #000000; 
+  text-align: center;
 }
 
-/* --- Header del Blog --- */
+ .blog-card .card-description {
+  padding: 0 15px 15px;
+  font-size: 1em;
+  color: #000000; 
+  text-align: center;
+  flex-grow: 1;
+}
 
+.read-more {
+  display: block;
+  padding: 10px 15px;
+  background-color: #173d09; 
+  color: #fff; 
+  text-align: center; 
+  border-bottom-left-radius: 8px; 
+  border-bottom-right-radius: 8px; 
+  transition: background-color .3s ease; 
+  font-size: .9em; 
+  margin: 0 auto 1em; 
+  font-weight: bold; 
+}
+
+.read-more:hover {
+  background-color: #7ba96a; 
+  color: #0056b3; 
+}
+
+/* --- Estilos Generales de Header y Navegación (FUERA DE #blog) --- */
 header {
-  background-color: #a9d599;
+  background: linear-gradient(90deg, #274427, #64a34d);
   padding: 1em 20px;
   text-align: center;
-  border-bottom: 1px solid #000;
   box-shadow: 0 1px 3px #0000000d;
 }
 
@@ -804,12 +885,9 @@ header h1 {
   letter-spacing: -0.5px;
 }
 
-/* --- Navegación --- */
-
 nav {
   padding: 0.5em 20px;
   text-align: center;
-  border-bottom: 1px solid #f0f0f0;
 }
 
 nav ul {
@@ -840,94 +918,6 @@ nav ul li a:hover {
 nav .active a {
   color: #a9d599;
   font-weight: 700;
-}
-
-/* --- Estilos Específicos de la Sección del Blog Y ELEMENTOS DE TEXTO --- */
-
-.blog-section {
-  padding: 40px 40px;
-}
-
-.container {
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.blog-section h2 {
-  font-size: 2em;
-  color: #000000; 
-  margin-bottom: 1em;
-  text-align: center;
-}
-
-.blog-intro {
-  color: #000000; /* Color del texto de introducción del blog */
-  line-height: 1.6;
-  margin-bottom: 2em;
-  text-align: center;
-}
-
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-
-.blog-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-}
-
-.blog-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.blog-card a {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-decoration: none;
-  color: inherit; /* Hereda el color del padre (el #blog), que es negro por defecto */
-}
-
-.blog-card h3 {
-  font-size: 1.5em;
-  margin: 1em 15px 0.5em;
-  text-align: center;
-  color: #000; /* Color de los títulos de las tarjetas del blog */
-}
-
-.card-description {
-  color: #000000; /* Color de la descripción de las tarjetas del blog */
-  font-size: 0.9em;
-  line-height: 1.6;
-  padding: 0 15px;
-  margin-bottom: 1em;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.read-more {
-  display: block;
-  padding: 10px 15px;
-  background-color: #f0f0f0;
-  color: #007bff; /* Color del texto "Leer más" */
-  text-align: center;
-  text-decoration: none;
-  border-top: 1px solid #eee;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-  border-radius: 0 0 8px 8px;
-}
-
-.read-more:hover {
-  background-color: #007bff;
-  color: #fff;
 }
 
 /* Media query para pantallas pequeñas */
@@ -970,14 +960,14 @@ nav .active a {
     background: -webkit-linear-gradient(90deg, #274427,#64a34d);background: linear-gradient(90deg, #274427,#64a34d);
     position:relative;
     z-index:1;
-    padding:40px 0;
+    padding:40px 40px;
     overflow:hidden
     }
   
   .contenido-seccion {
   max-width:900px;
   margin:0 auto;
-  background-color:#fff;
+  background-color:#ffffff5d;
   border-radius:12px;
   box-shadow:0 4px 20px #0000001a;
   display:flex;
@@ -987,6 +977,7 @@ nav .active a {
   }
   
   /* Izquierda: info contacto */
+  
   .info-contacto {
   flex:1;
   min-width:280px
@@ -1013,9 +1004,6 @@ nav .active a {
   text-decoration:none
   }
   
-  .info-contacto a:hover {
-  text-decoration:underline
-  }
   
 /* Derecha: formulario */
 .formulario-contacto {
@@ -1063,8 +1051,6 @@ nav .active a {
   background-color:#256228
   }
   
-
-  
   
   /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
@@ -1087,11 +1073,10 @@ nav .active a {
   }
 }
   
-  
   /* Estilos para la Sección de Listado de Blog (blog.php) */
 
   main.blog-list-page {
-  padding:30px 20px;
+  padding:30px 30px;
   max-width:960px;
   margin:2em auto
   }
@@ -1173,6 +1158,92 @@ nav .active a {
   text-decoration:underline
   }
   
+  /* Media query para pantallas de hasta 768px (tablets) */
+@media (max-width: 768px) {
+  main.blog-list-page {
+    padding: 20px 10px;
+    margin: 1.5em auto;
+  }
+
+  .blog-section {
+    padding: 30px 0;
+  }
+
+  .blog-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.4em;
+    border-bottom-width: 1.5px;
+  }
+
+  .blog-section h2::after {
+    width: 30px;
+    height: 1.5px;
+  }
+
+  .blog-intro {
+    margin-bottom: 1.5em;
+    font-size: 1em;
+  }
+
+  .blog-section p {
+    font-size: 0.95em;
+    margin-bottom: 1.2em;
+  }
+
+  .blog-section p a.share-button {
+    font-size: 0.85em;
+    padding: 0.6em 1em;
+  }
+
+  .blog-section p a:not(.share-button) {
+    font-size: 0.8em;
+  }
+}
+
+/* Media query para pantallas de hasta 576px (móviles) */
+@media (max-width: 576px) {
+  main.blog-list-page {
+    padding: 15px 10px;
+    margin: 1em auto;
+  }
+
+  .blog-section {
+    padding: 20px 0;
+  }
+
+  .blog-section h2 {
+    font-size: 1.6em;
+    margin-bottom: 0.6em;
+    padding-bottom: 0.3em;
+    border-bottom-width: 1px;
+  }
+
+  .blog-section h2::after {
+    width: 25px;
+    height: 1px;
+  }
+
+  .blog-intro {
+    margin-bottom: 1em;
+    font-size: 0.9em;
+  }
+
+  .blog-section p {
+    font-size: 0.9em;
+    margin-bottom: 1em;
+  }
+
+  .blog-section p a.share-button {
+    font-size: 0.8em;
+    padding: 0.5em 0.9em;
+  }
+
+  .blog-section p a:not(.share-button) {
+    font-size: 0.75em;
+  }
+}
+
 /* Estilos para el grid de consejos */
 
 .consejos-grid {
@@ -1191,16 +1262,17 @@ nav .active a {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-  background: transparent; 
   display: flex;
   flex-direction: column;
   height: 100%;
   padding: 0; 
+  max-height: 400px;
 }
 
 .consejo-item:hover {
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
   transform: translateY(-3px);
+  transition:transform 0.3s,box-shadow .3s
 }
 
 /* Estilos para el contenedor de la imagen */
@@ -1275,7 +1347,6 @@ nav .active a {
 }
 
 
-
 /* Estilos para el grid de comentarios y experiencias */
 .comentarios-grid {
   display: grid;
@@ -1287,19 +1358,18 @@ nav .active a {
 /* Estilos para las tarjetas de comentarios y experiencias */
 .comentarios-grid .comentario-item,
 .consejos-grid .comentario-item { 
-  background-color: rgba(248, 249, 250, 0.8);
-  border: 1px solid rgba(221, 221, 221, 0.5);
+  background-color: rgba(179, 238, 185, 0.648);
+  border: 1px solid rgba(0, 0, 0, 0.65);
   border-radius: 8px;
   padding: 15px;
   transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.82);
   max-width: 100%; 
 }
 
 .comentarios-grid .comentario-item:hover,
 .consejos-grid .comentario-item:hover {
-  background-color: rgba(248, 249, 250, 0.95);
+  background-color: rgba(255, 255, 255, 0.257);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -1307,7 +1377,7 @@ nav .active a {
 .comentarios-grid .comentario-item p,
 .consejos-grid .comentario-item p {
   margin-bottom: 10px;
-  color: #333;
+  color: #000000;
   line-height: 1.6;
 }
 
@@ -1328,6 +1398,8 @@ nav .active a {
 .consejos-grid .comentario-item .leer-mas-boton:hover {
   background-color: #0056b3;
 }
+
+
 
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
@@ -1524,9 +1596,9 @@ nav .active a {
 }
 
 .articulos-table .actions {
-  display: flex; /* Enable flexbox for the buttons */
-  gap: 10px; /* Add some space between the buttons */
-  align-items: center; /* Vertically align items in the flex container */
+  display: flex; 
+  gap: 10px; 
+  align-items: center; 
 }
 
 .articulos-table .actions a {
@@ -1538,7 +1610,7 @@ nav .active a {
   padding: 6px 10px;
   border: 1px solid #007bff;
   background-color: #fff;
-  margin-right: 0; /* Remove default right margin */
+  margin-right: 0;
 }
 
 .articulos-table .actions a:hover {
@@ -1555,7 +1627,7 @@ nav .active a {
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.3s ease;
-  margin-right: 0; /* Remove default right margin */
+  margin-right: 0; 
 }
 
 .articulos-table .delete-btn:hover {
@@ -1632,7 +1704,6 @@ nav .active a {
   align-items:center;
   min-height:100vh;
   padding:20px
-  /* Añade un poco de padding al body */
   }
   
   .login-container {
@@ -1682,7 +1753,6 @@ nav .active a {
   
   .login-form button[type="submit"] {
   background-color:#28a745;
-  /* Usamos el color del botón principal del panel */
   color:#fff;
   padding:12px 15px;
   border:none;
@@ -1819,103 +1889,7 @@ nav .active a {
   text-decoration:underline
   }
   
-  /* Estilos para la Sección de Tarjetas del Blog (proyectoliceo.php) */
 
-  .blog-section.cards-layout {
-  padding:50px 20px;
-  text-align:center;
-  background-color:#f9f9f9
-  }
-  
-  .blog-section.cards-layout h2 {
-  font-size:2.5em;
-  margin-bottom:20px;
-  color:#333
-  }
-  
-  .blog-section.cards-layout .blog-intro {
-  font-size:1.1em;
-  color:#666;
-  margin-bottom:30px
-  }
-  
-/* Estilos para la grilla de tarjetas */
-
-  .blog-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:30px;
-  margin-bottom:30px
-  }
-  
-/* Estilos base para todas las tarjetas */
-
-  .blog-card {
-  background-color:#fff;
-  border-radius:8px;
-  box-shadow:0 4px 8px #0000001a;
-  overflow:hidden;
-  transition:transform .3s ease-in-out;
-  display:flex;
-  flex-direction:column
-  }
-  
-  .blog-card:hover {
-  transform:scale(1.05);
-  box-shadow:0 6px 12px #00000026
-  }
-  
-  .blog-card a {
-  display:flex;
-  flex-direction:column;
-  text-decoration:none;
-  color:inherit;
-  height:100%
-  }
-  
-/* Estilos para la imagen de la tarjeta */
-
-  .blog-card img {
-  width:100%;
-  height:350px;
-  max-height:350px;
-  border-top-left-radius:8px;
-  border-top-right-radius:8px;
-  display:block;
-  object-fit:cover
-  }
-  
-  .blog-card h3 {
-  padding:15px;
-  margin-bottom:0;
-  font-size:1.3em;
-  color:#333;
-  text-align:center
-  }
-  
-  .blog-card .card-description {
-  padding:0 15px 15px;
-  font-size:1em;
-  color:#666;
-  text-align:center;
-  flex-grow:1
-  }
-  
-  .blog-card .read-more {
-  display:block;
-  padding:10px 15px;
-  background-color:#173d09;
-  color:#fff;
-  text-align:center;
-  border-bottom-left-radius:8px;
-  border-bottom-right-radius:8px;
-  transition:background-color .3s ease;
-  font-size:.9em
-  }
-  
-  .blog-card .read-more:hover {
-  background-color:#7ba96a
-  }
   
   /* Estilos para la Página del Artículo (articulo.php) */
 
@@ -2039,12 +2013,11 @@ nav .active a {
   
   body.pagina-articulo-publicar main {
   background-color:#729675c4;
-  padding:20px;
-  margin:20px auto;
-  max-width:800px;
+  padding:40px;
+  margin: 30px 50px;
   border-radius:8px;
   box-shadow:0 2px 5px #0000001a;
-  flex-grow:1
+  flex-grow:1;
   }
   
   body.pagina-articulo-publicar main h1 {
@@ -2056,7 +2029,7 @@ nav .active a {
   
   body.pagina-articulo-publicar main form {
   display:flex;
-  flex-direction:column
+  flex-direction:column;
   }
   
   body.pagina-articulo-publicar main div {
@@ -2109,7 +2082,12 @@ nav .active a {
   font-size:1.1em;
   cursor:pointer;
   transition:background-color .3s ease-in-out;
-  margin-top:1em
+  margin-top:1em;
+  width: fit-content; 
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+
   }
   
   body.pagina-articulo-publicar main button[type="submit"]:hover {
@@ -2124,7 +2102,7 @@ nav .active a {
   body.pagina-articulo-publicar main p a {
   color:#007bff;
   text-decoration:none;
-  transition:color .3s ease-in-out
+  transition:color .3s ease-in-out;
   }
   
   body.pagina-articulo-publicar main p a:hover {
@@ -2138,13 +2116,100 @@ nav .active a {
   padding:10px;
   border-top:2px solid #555
   }
+
+  /* Media query para pantallas de tabletas (ancho máximo de 992px) */
+@media (max-width: 992px) {
+  body.pagina-articulo-publicar main {
+    flex-direction: column; 
+    margin: 20px;
+    padding: 30px;
+    gap: 15px;
+  }
+
+  body.pagina-articulo-publicar main form {
+    width: 100%; 
+  }
+
+  body.pagina-articulo-publicar main p {
+    margin-top: 1em;
+    text-align: center; 
+  }
+
+  body.pagina-articulo-publicar main p a {
+    display: inline-block; 
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+
+  body.pagina-articulo-publicar main p a:last-child {
+    margin-right: 0;
+  }
+}
+
+/* Media query para pantallas de móviles (ancho máximo de 600px) */
+@media (max-width: 600px) {
+  body.pagina-articulo-publicar header {
+    padding: 15px;
+  }
+
+  body.pagina-articulo-publicar header h1 {
+    font-size: 1.8em;
+  }
+
+  body.pagina-articulo-publicar main {
+    padding: 15px;
+    margin: 15px;
+  }
+
+  body.pagina-articulo-publicar main h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.6em;
+  }
+
+  body.pagina-articulo-publicar main div {
+    margin-bottom: 1em;
+  }
+
+  body.pagina-articulo-publicar main label {
+    font-size: 0.9em;
+  }
+
+  body.pagina-articulo-publicar main input[type="text"],
+  body.pagina-articulo-publicar main select,
+  body.pagina-articulo-publicar main textarea,
+  body.pagina-articulo-publicar main input[type="file"] {
+    font-size: 0.85em;
+  }
+
+  body.pagina-articulo-publicar main button[type="submit"] {
+    padding: 0.8em 1.5em;
+    font-size: 1em;
+  }
+
+  body.pagina-articulo-publicar main p {
+    font-size: 0.9em;
+    margin-top: 1em;
+    text-align: center; 
+  }
+
+  body.pagina-articulo-publicar main p a {
+    display: block; 
+    margin-right: 0;
+    margin-bottom: 0.5em;
+  }
+
+  body.pagina-articulo-publicar footer {
+    padding: 8px;
+    font-size: 0.8em;
+  }
+}
   
   /* --- Estilos específicos para la Página de Editar Artículo (editar_articulo.php) --- */
 
   body.pagina-editar-articulo {
   font-family:'Arial',sans-serif;
   line-height:1.6;
-  color:#333;
+  color:#000000;
   background-color:#f4f4f4;
   margin:0;
   padding:0;
@@ -2167,14 +2232,12 @@ nav .active a {
   }
   
   body.pagina-editar-articulo main {
-  background-color:#fff;
-  padding:20px;
-  margin:20px auto;
-  max-width:800px;
-  /* Ajusta el ancho según sea necesario */
-  border-radius:8px;
-  box-shadow:0 2px 5px #0000001a;
-  flex-grow:1
+    background-color:#729675c4;
+    padding:40px;
+    margin: 30px 50px;
+    border-radius:8px;
+    box-shadow:0 2px 5px #0000001a;
+    flex-grow:1;
   }
   
   body.pagina-editar-articulo main h1 {
@@ -2197,7 +2260,7 @@ nav .active a {
   display:block;
   font-weight:700;
   margin-bottom:.5em;
-  color:#333
+  color:#000000
   }
   
   body.pagina-editar-articulo main input[type="text"],body.pagina-editar-articulo main select,body.pagina-editar-articulo main textarea,body.pagina-editar-articulo main input[type="file"] {
@@ -2231,19 +2294,27 @@ nav .active a {
   }
   
   body.pagina-editar-articulo main button[type="submit"] {
-  background-color:#007bff;
-  color:#fff;
-  padding:1em 2em;
-  border:none;
-  border-radius:5px;
-  font-size:1.1em;
-  cursor:pointer;
-  transition:background-color .3s ease-in-out;
-  margin-top:1em
+    background-color: #007bff;
+    color: #fff;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+    margin-top: 1em;
+    width: fit-content; 
+    display: block; 
+    margin-left: auto; 
+    margin-right: auto; 
   }
   
   body.pagina-editar-articulo main button[type="submit"]:hover {
-  background-color:#000
+    background-color: #000;
+  }
+  
+  body.pagina-editar-articulo main button[type="submit"]:hover {
+  background-color:#09301d
   }
   
   body.pagina-editar-articulo main p {
@@ -2281,7 +2352,7 @@ nav .active a {
   body.pagina-editar-articulo main div small {
   display:block;
   font-size:.9em;
-  color:#777;
+  color:#000000;
   margin-top:.3em
   }
   
@@ -2297,20 +2368,114 @@ nav .active a {
   position:relative
   }
   
-  .like-container {
-  position:absolute;
-  top:10px;
-  right:10px;
-  display:flex;
-  align-items:center;
-  z-index:10;
-  background-color:#ffffff59;
-  padding:8px 12px;
-  border-radius:20px;
-  box-shadow:0 2px 5px #0000001a
+/* Media query para pantallas de tabletas (ancho máximo de 992px) */
+@media (max-width: 992px) {
+  body.pagina-editar-articulo main {
+    padding: 30px;
+    margin: 20px;
   }
-  
+
+  body.pagina-editar-articulo main h1 {
+    font-size: 2em;
+    margin-bottom: 0.8em;
+  }
+
+  body.pagina-editar-articulo main div {
+    margin-bottom: 1.2em;
+  }
+
+  body.pagina-editar-articulo main label {
+    font-size: 0.95em;
+  }
+
+  body.pagina-editar-articulo main input[type="text"],
+  body.pagina-editar-articulo main select,
+  body.pagina-editar-articulo main textarea,
+  body.pagina-editar-articulo main input[type="file"] {
+    font-size: 0.9em;
+  }
+
+  body.pagina-editar-articulo main button[type="submit"] {
+    padding: 0.8em 1.5em;
+    font-size: 1em;
+  }
+
+  body.pagina-editar-articulo main p {
+    margin-top: 1.5em;
+    font-size: 0.9em;
+  }
+
+  body.pagina-editar-articulo footer {
+    padding: 8px;
+    font-size: 0.8em;
+  }
+}
+
+/* Media query para pantallas de móviles (ancho máximo de 600px) */
+@media (max-width: 600px) {
+  body.pagina-editar-articulo header {
+    padding: 15px;
+  }
+
+  body.pagina-editar-articulo header h1 {
+    font-size: 1.8em;
+  }
+
+  body.pagina-editar-articulo main {
+    padding: 15px;
+    margin: 15px;
+  }
+
+  body.pagina-editar-articulo main h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.6em;
+  }
+
+  body.pagina-editar-articulo main div {
+    margin-bottom: 1em;
+  }
+
+  body.pagina-editar-articulo main label {
+    font-size: 0.9em;
+  }
+
+  body.pagina-editar-articulo main input[type="text"],
+  body.pagina-editar-articulo main select,
+  body.pagina-editar-articulo main textarea,
+  body.pagina-editar-articulo main input[type="file"] {
+    font-size: 0.85em;
+  }
+
+  body.pagina-editar-articulo main button[type="submit"] {
+    padding: 0.6em 1.2em;
+    font-size: 0.9em;
+  }
+
+  body.pagina-editar-articulo main p {
+    margin-top: 1em;
+    font-size: 0.8em;
+  }
+
+  body.pagina-editar-articulo footer {
+    padding: 6px;
+    font-size: 0.75em;
+  }
+}
+
   /* Estilo para el botón de me gusta */
+
+  .like-container {
+    position:absolute;
+    top:10px;
+    right:10px;
+    display:flex;
+    align-items:center;
+    z-index:10;
+    background-color:#ffffff59;
+    padding:8px 12px;
+    border-radius:20px;
+    box-shadow:0 2px 5px #0000001a
+    }
 
   .like-btn {
   padding:0;

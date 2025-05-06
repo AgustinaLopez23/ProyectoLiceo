@@ -447,7 +447,7 @@ if ($result_blog_images && $result_blog_images->num_rows > 0) {
 
     <section id="blog" class="blog-section cards-layout">
         <div class="container">
-            <h2>Nuestro Rincón de Fotografía</h2>
+            <h2>Blog</h2>
             <p class="blog-intro">¡Bienvenido a nuestro espacio dedicado a la pasión por la fotografía! Aquí podrás
                 compartir, aprender y conectar con otros entusiastas.</p>
 

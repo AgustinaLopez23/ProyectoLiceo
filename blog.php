@@ -152,7 +152,7 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
                                     <p><?php echo nl2br(htmlspecialchars($articulo['contenido'])); ?></p>
                                     <a href="articulo.php?slug=<?php echo htmlspecialchars($articulo['slug']); ?>" class="leer-mas-boton">Ver más</a>
                                 </div>
-                            <?php else: // Default to consejos style ?>
+                            <?php else: ?>
                                 <article class="consejo-item">
                                     <div class="consejo-imagen">
                                         <?php if (!empty($articulo['imagen_portada'])): ?>
@@ -181,13 +181,6 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
         <?php endforeach; ?>
     <?php endif; ?>
     </main>
-
-    <footer>
-        <p>&copy; <?php echo date("Y"); ?> Mi Blog</p>
-    </footer>
-    </body>
-    </html>
-
     <?php
     $conn->close();
     ?>
