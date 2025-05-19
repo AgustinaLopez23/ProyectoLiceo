@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_regenerate_id(true); // Prevenir fijación de sesión
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     header("Location: panel_usuario.php");
     exit();

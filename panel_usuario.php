@@ -3,6 +3,7 @@
 // Iniciar la sesión (si no está ya iniciada)
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+    session_regenerate_id(true); // Prevenir fijación de sesión
 }
 
 // Verificar si el usuario ha iniciado sesión

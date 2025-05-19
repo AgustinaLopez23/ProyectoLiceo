@@ -1,5 +1,11 @@
 <?php
 
+session_start();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("Token CSRF inválido.");
+    }
+
 // Habilitar la visualización de errores para desarrollo
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
