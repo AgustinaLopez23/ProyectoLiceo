@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_regenerate_id(true); // Prevenir fijación de sesión
 
 // Destruir todas las variables de sesión
 $_SESSION = array();

@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_regenerate_id(true); // Prevenir fijación de sesión
 
 // Verificación de autenticación
 if (!isset($_SESSION['usuario_id'])) {

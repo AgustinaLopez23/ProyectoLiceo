@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+session_regenerate_id(true); // Prevenir fijación de sesión
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION["usuario_id"])) {

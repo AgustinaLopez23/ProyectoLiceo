@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+session_regenerate_id(true); // Prevenir fijación de sesión
 
 // Datos de conexión a la base de datos
 $host = 'localhost';
