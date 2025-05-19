@@ -11,9 +11,9 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // Ajusta estas rutas PARA QUE COINCIDAN EXACTAMENTE con las de send_mail.php
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\Exception.php';
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\PHPMailer.php';
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\SMTP.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/Exception.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/PHPMailer.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/SMTP.php';
 
 // Datos de conexión a la base de datos
 $host = 'localhost';
