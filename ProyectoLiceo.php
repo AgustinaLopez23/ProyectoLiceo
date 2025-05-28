@@ -1,15 +1,5 @@
-<?php
-if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
-    $redirect = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    header("Location: $redirect", true, 301);
-    exit();
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,14 +7,220 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
         content="Portafolio de Agustina Lopez, fotógrafa aficionada. Descubre sus mejores trabajos.">
     <meta name="keywords" content="fotografía, portfolio, Agustina Lopez, fotografía aficionada">
     <title>Portafolio de Agustina Lopez</title>
-    <link rel="stylesheet" href="styles.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-<body>
 
-    <?php
+    <style>
+        /* Global Styles (from styles.css) - Essential for initial layout */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif; /* Adjust if using Google Fonts as default */
+            /* You have 'Poppins' in #sobremi, consider using it as base or for specific elements */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Estilos para el menú de navegación principal (already good) */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #00000032;
+            color: #fff;
+            z-index: 100;
+            padding: 20px 0;
+            margin: 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-nav li {
+            margin: 0 10px;
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
+        .main-nav a:hover {
+            background-color: #79a976;
+            color: #000;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .main-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .main-nav li {
+                margin: 5px 0;
+            }
+        }
+
+        /* Estilos para la sección de inicio (Hero) (already good) */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content {
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px #00000039;
+        }
+
+        .hero-content .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #00000098;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 1px solid #fff;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        .hero-content .button:hover {
+            background-color: #1f522b66;
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2em;
+            }
+            .hero-content .button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+        }
+
+        /* SECCIÓN SOBRE MÍ (already good) */
+        #sobremi.intro-section {
+            background: -webkit-linear-gradient(90deg, #274427,#64a34d);
+            background: linear-gradient(90deg, #274427,#64a34d);
+            color: #000;
+            padding: 40px 20px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif; /* Make sure Poppins is linked via Google Fonts <link> tag */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        #sobremi.intro-section .titulo-principal {
+            font-size: 2em;
+            font-weight: 300;
+            margin-bottom: 15px;
+        }
+
+        #sobremi.intro-section .mensaje-bienvenida {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #eee;
+            margin: 0 auto 15px;
+        }
+
+        /* Estilos para el contenedor de redes sociales */
+        .redes-sociales {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Estilos para el enlace del icono */
+        .redes-sociales a {
+            color: #000;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .redes-sociales a:hover {
+            opacity: 1;
+        }
+
+        /* Estilos específicos para el icono de Instagram de Bootstrap Icons */
+        .redes-sociales a .bi-instagram {
+            font-size: 27px;
+        }
+
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 768px) {
+            #sobremi.intro-section .titulo-principal {
+                font-size: 1.5em;
+            }
+            #sobremi.intro-section .mensaje-bienvenida {
+                max-width: 90%;
+            }
+            .redes-sociales a .bi-instagram {
+                font-size: 20px;
+            }
+        }
+    </style>
+
+    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="styles.css"></noscript>
+
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></noscript>
+
+<?php
     include "conexion.php"; // Incluye la conexión a la base de datos
 
     // Manejo de errores para la conexión a la base de datos
@@ -41,30 +237,33 @@ if (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off") {
     } else {
         $imagen_inicio = 'images/default-hero.jpg'; // Valor por defecto para la imagen de inicio
     }
+?>
+</head>
+<body>
+    <?php
+    // BLOQUE PHP PARA OBTENER LAS IMÁGENES DEL BLOG
+    $sql_blog_images = "SELECT ruta, categoria FROM blog";
+    $result_blog_images = $conn->query($sql_blog_images);
+    $imagenes_blog = array();
 
-// BLOQUE PHP PARA OBTENER LAS IMÁGENES DEL BLOG
-$sql_blog_images = "SELECT ruta, categoria FROM blog";
-$result_blog_images = $conn->query($sql_blog_images);
-$imagenes_blog = array();
-
-if ($result_blog_images && $result_blog_images->num_rows > 0) {
-    while ($row_blog = $result_blog_images->fetch_assoc()) {
-        $ruta_corregida = str_replace('\\', '/', $row_blog["ruta"]);
-        $ruta_final = '';
-        // Verifica si la ruta ya comienza con 'imagenes/'
-        if (strpos(strtolower($ruta_corregida), 'imagenes/') === 0) {
-            $ruta_final = htmlspecialchars($ruta_corregida);
-        } else {
-            $ruta_final = 'imagenes/' . htmlspecialchars($ruta_corregida);
+    if ($result_blog_images && $result_blog_images->num_rows > 0) {
+        while ($row_blog = $result_blog_images->fetch_assoc()) {
+            $ruta_corregida = str_replace('\\', '/', $row_blog["ruta"]);
+            $ruta_final = '';
+            // Verifica si la ruta ya comienza con 'imagenes/'
+            if (strpos(strtolower($ruta_corregida), 'imagenes/') === 0) {
+                $ruta_final = htmlspecialchars($ruta_corregida);
+            } else {
+                $ruta_final = 'imagenes/' . htmlspecialchars($ruta_corregida);
+            }
+            $imagenes_blog[strtolower($row_blog["categoria"])] = $ruta_final;
         }
-        $imagenes_blog[strtolower($row_blog["categoria"])] = $ruta_final;
+    } else {
+        echo "<p class='error-message'>Error al cargar las imágenes del blog.</p>";
+        if ($conn->error) {
+            echo "<p class='error-details'>" . htmlspecialchars($conn->error) . "</p>";
+        }
     }
-} else {
-    echo "<p class='error-message'>Error al cargar las imágenes del blog.</p>";
-    if ($conn->error) {
-        echo "<p class='error-details'>" . htmlspecialchars($conn->error) . "</p>";
-    }
-}
     ?>
 
     <nav class="main-nav">
@@ -453,6 +652,7 @@ if ($result_blog_images && $result_blog_images->num_rows > 0) {
 <footer>
   <p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
 </footer>
+
 
     <section id="blog" class="blog-section cards-layout">
         <div class="container">
