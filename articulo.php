@@ -1,28 +1,31 @@
 <?php
-
+//conexion.php
 $host = 'localhost';
 $usuario = 'root';
 $contrasena = '';
 $base_de_datos = 'portafolio_db';
 
 $conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
-
 if ($conn->connect_error) {
     die("Error de conexión a la base de datos: " . $conn->connect_error);
 }
-
 $conn->set_charset("utf8");
 
-$articulo_slug = null;
-if (isset($_GET['slug'])) {
-    $articulo_slug = $conn->real_escape_string($_GET['slug']);
-} else {
+session_start(); // Para usar $_SESSION['user_id']
+
+if (!isset($_GET['slug'])) {
     header("Location: blog.php");
     exit;
 }
 
-$sql = "SELECT id, titulo, contenido, fecha_publicacion, autor, imagen_articulo FROM articulos WHERE slug = '$articulo_slug'";
-$resultado = $conn->query($sql);
+$articulo_slug = $conn->real_escape_string($_GET['slug']);
+
+$sql = "SELECT id, titulo, contenido, fecha_publicacion, autor, imagen_articulo, slug FROM articulos WHERE slug = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $articulo_slug);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$stmt->close();
 
 $articulo = null;
 if ($resultado && $resultado->num_rows > 0) {
@@ -30,7 +33,6 @@ if ($resultado && $resultado->num_rows > 0) {
 } else {
     $mensaje_error = "Artículo no encontrado.";
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +65,6 @@ if ($resultado && $resultado->num_rows > 0) {
                     <?php echo nl2br(htmlspecialchars($articulo['contenido'])); ?>
                 </div>
 
-                <!-- Contenedor para los dos botones alineados -->
                 <div class="contenedor-botones">
                     <a href="blog.php" class="back-to-blog">Volver al Blog</a>
                     <a href="editar_articulo.php?id=<?php echo $articulo['id']; ?>" class="boton-editar">Editar Artículo</a>
@@ -76,10 +77,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
     <footer>
     </footer>
-
 </body>
 </html>
 
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>
