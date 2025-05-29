@@ -8,11 +8,6 @@
     <meta name="keywords" content="fotografía, portfolio, Agustina Lopez, fotografía aficionada">
     <title>Portafolio de Agustina Lopez</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-
     <style>
         /* Global Styles (from styles.css) - Essential for initial layout */
         * {
@@ -21,8 +16,8 @@
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif; /* Adjust if using Google Fonts as default */
-            /* You have 'Poppins' in #sobremi, consider using it as base or for specific elements */
+            font-family: Arial, sans-serif; 
+            
         }
 
         .container {
@@ -36,7 +31,7 @@
             height: auto;
         }
 
-        /* Estilos para el menú de navegación principal (already good) */
+        /* Estilos para el menú de navegación principal  */
         .main-nav {
             position: fixed;
             top: 0;
@@ -84,7 +79,7 @@
             }
         }
 
-        /* Estilos para la sección de inicio (Hero) (already good) */
+        /* Estilos para la sección de inicio (Hero)  */
         .hero {
             position: relative;
             height: 100vh;
@@ -148,14 +143,14 @@
             }
         }
 
-        /* SECCIÓN SOBRE MÍ (already good) */
+        /* SECCIÓN SOBRE MÍ  */
         #sobremi.intro-section {
             background: -webkit-linear-gradient(90deg, #274427,#64a34d);
             background: linear-gradient(90deg, #274427,#64a34d);
             color: #000;
             padding: 40px 20px;
             text-align: center;
-            font-family: 'Poppins', sans-serif; /* Make sure Poppins is linked via Google Fonts <link> tag */
+            font-family: 'Arial', sans-serif; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -195,10 +190,7 @@
             opacity: 1;
         }
 
-        /* Estilos específicos para el icono de Instagram de Bootstrap Icons */
-        .redes-sociales a .bi-instagram {
-            font-size: 27px;
-        }
+
 
         /* Media query para pantallas pequeñas */
         @media (max-width: 768px) {
@@ -212,13 +204,24 @@
                 font-size: 20px;
             }
         }
+
+        /* CSS para los íconos de like SVG */
+        .heart-icon {
+            vertical-align: middle;
+        }
+
+        .like-btn.liked .heart-empty-icon {
+            display: none !important; 
+        }
+        .like-btn.liked .heart-filled-icon {
+            display: block !important; 
+            color: #E74C3C; 
+        }
     </style>
 
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
-
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></noscript>
+    
 
 <?php
     include "conexion.php"; // Incluye la conexión a la base de datos
@@ -293,13 +296,15 @@
             </p>
             <div class="redes-sociales">
                 <a href="https://www.instagram.com/aguslopez_fotografia/" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-instagram"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.11.281-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                </svg>
                 </a>
             </div>
         </div>
     </section>
 
-    <section id="portfolio" class="portfolio">
+<section id="portfolio" class="portfolio">
     <nav>
         <ul>
             <li><a href="#paisajes">Paisajes</a></li>
@@ -310,7 +315,7 @@
     </nav>
 </section>
 
-    <section id="paisajes" class="gallery">
+<section id="paisajes" class="gallery">
     <h3>Fotografías de Paisajes</h3>
     <div class="galeria">
         <?php
@@ -336,6 +341,9 @@
 
                     // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
                     $liked_class = '';
+                    $display_empty = 'block'; // Mostrar corazón vacío por defecto
+                    $display_filled = 'none'; // Ocultar corazón lleno por defecto
+
                     if (isset($_SESSION['usuario_id'])) {
                         $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'paisajes' AND usuario_id = ?";
                         $stmt_check_liked = $conn->prepare($sql_check_liked);
@@ -344,6 +352,8 @@
                         $result_check_liked = $stmt_check_liked->get_result();
                         if ($result_check_liked->num_rows > 0) {
                             $liked_class = ' liked';
+                            $display_empty = 'none';    // Si ya dio like, ocultar vacío
+                            $display_filled = 'block';  // y mostrar lleno
                         }
                         $stmt_check_liked->close();
                     }
@@ -352,7 +362,16 @@
                     echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $descripcion . '">';
                     echo '<p>' . $descripcion . '</p>';
                     echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $paisajes_id . '" data-tabla-origen="paisajes"><i class="bi bi-heart' . ($liked_class ? '-fill' : '') . '"></i></button>';
+                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $paisajes_id . '" data-tabla-origen="paisajes">';
+                    // SVG del corazón vacío - RUTA CORREGIDA
+                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+                    echo '</svg>';
+                    // SVG del corazón lleno
+                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+                    echo '</svg>';
+                    echo '</button>';
                     echo '<span class="like-count">' . $likes_count . '</span>';
                     echo '</div>';
                     echo '</div>';
@@ -393,6 +412,8 @@
 
                     // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
                     $liked_class = '';
+                    $display_empty = 'block';
+                    $display_filled = 'none';
                     if (isset($_SESSION['usuario_id'])) {
                         $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'autos' AND usuario_id = ?";
                         $stmt_check_liked = $conn->prepare($sql_check_liked);
@@ -401,6 +422,8 @@
                         $result_check_liked = $stmt_check_liked->get_result();
                         if ($result_check_liked->num_rows > 0) {
                             $liked_class = ' liked';
+                            $display_empty = 'none';
+                            $display_filled = 'block';
                         }
                         $stmt_check_liked->close();
                     }
@@ -409,7 +432,16 @@
                     echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '">';
                     echo '<p>' . $nombre . '</p>';
                     echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $autos_id . '" data-tabla-origen="autos"><i class="bi bi-heart' . ($liked_class ? '-fill' : '') . '"></i></button>';
+                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $autos_id . '" data-tabla-origen="autos">';
+                    // SVG del corazón vacío - RUTA CORREGIDA
+                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+                    echo '</svg>';
+                    // SVG del corazón lleno
+                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+                    echo '</svg>';
+                    echo '</button>';
                     echo '<span class="like-count">' . $likes_count . '</span>';
                     echo '</div>';
                     echo '</div>';
@@ -450,6 +482,8 @@
 
                     // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
                     $liked_class = '';
+                    $display_empty = 'block';
+                    $display_filled = 'none';
                     if (isset($_SESSION['usuario_id'])) {
                         $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'eventos' AND usuario_id = ?";
                         $stmt_check_liked = $conn->prepare($sql_check_liked);
@@ -458,6 +492,8 @@
                         $result_check_liked = $stmt_check_liked->get_result();
                         if ($result_check_liked->num_rows > 0) {
                             $liked_class = ' liked';
+                            $display_empty = 'none';
+                            $display_filled = 'block';
                         }
                         $stmt_check_liked->close();
                     }
@@ -466,7 +502,16 @@
                     echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '">';
                     echo '<p>' . $nombre . '</p>';
                     echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $eventos_id . '" data-tabla-origen="eventos"><i class="bi bi-heart' . ($liked_class ? '-fill' : '') . '"></i></button>';
+                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $eventos_id . '" data-tabla-origen="eventos">';
+                    // SVG del corazón vacío - RUTA CORREGIDA
+                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+                    echo '</svg>';
+                    // SVG del corazón lleno
+                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+                    echo '</svg>';
+                    echo '</button>';
                     echo '<span class="like-count">' . $likes_count . '</span>';
                     echo '</div>';
                     echo '</div>';
@@ -495,6 +540,8 @@
                     $viajes_id = htmlspecialchars($fila["viajes_id"]);
                     $ruta = htmlspecialchars($fila['ruta']);
                     $descripcion = htmlspecialchars($fila['descripcion']);
+                    // Asegúrate de que 'nombre' también se extraiga si es necesario para el alt o la descripción
+                    $nombre_viajes = isset($fila['nombre']) ? htmlspecialchars($fila['nombre']) : $descripcion; // Usar descripción si no hay nombre
 
                     // Contar los likes para esta imagen
                     $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = 'viajes'";
@@ -507,6 +554,8 @@
 
                     // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
                     $liked_class = '';
+                    $display_empty = 'block';
+                    $display_filled = 'none';
                     if (isset($_SESSION['usuario_id'])) {
                         $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'viajes' AND usuario_id = ?";
                         $stmt_check_liked = $conn->prepare($sql_check_liked);
@@ -515,15 +564,26 @@
                         $result_check_liked = $stmt_check_liked->get_result();
                         if ($result_check_liked->num_rows > 0) {
                             $liked_class = ' liked';
+                            $display_empty = 'none';
+                            $display_filled = 'block';
                         }
                         $stmt_check_liked->close();
                     }
 
                     echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . htmlspecialchars($fila['nombre']) . '" data-description="' . $descripcion . '">';
+                    echo '<img src="' . $ruta . '" alt="' . $nombre_viajes . '" data-description="' . $descripcion . '">';
                     echo '<p class="descripcion">' . $descripcion . '</p>';
                     echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $viajes_id . '" data-tabla-origen="viajes"><i class="bi bi-heart' . ($liked_class ? '-fill' : '') . '"></i></button>';
+                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $viajes_id . '" data-tabla-origen="viajes">';
+                    // SVG del corazón vacío - RUTA CORREGIDA
+                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+                    echo '</svg>';
+                    // SVG del corazón lleno
+                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+                    echo '</svg>';
+                    echo '</button>';
                     echo '<span class="like-count">' . $likes_count . '</span>';
                     echo '</div>';
                     echo '</div>';

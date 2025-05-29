@@ -1,9 +1,9 @@
-// Funciones de Lightbox
+// Lightbox
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxDescription = document.getElementById('lightbox-description');
-const lightboxPrev = document.querySelector('.lightbox-prev'); // Select the previous arrow element
-const lightboxNext = document.querySelector('.lightbox-next'); // Select the next arrow element
+const lightboxPrev = document.querySelector('.lightbox-prev');
+const lightboxNext = document.querySelector('.lightbox-next');
 
 let currentGalleryImages = [];
 let currentImageIndex = 0;
@@ -22,16 +22,10 @@ function openLightbox(imgSrc, description, galleryId) {
     currentGalleryImages = getGalleryImages(galleryId);
     currentImageIndex = currentGalleryImages.findIndex(img => img.src === imgSrc);
 
-    // Show/Hide arrows based on the number of images
-    if (currentGalleryImages.length <= 1) {
-        if (lightboxPrev) lightboxPrev.style.display = 'none'; // Hide prev arrow if it exists
-        if (lightboxNext) lightboxNext.style.display = 'none'; // Hide next arrow if it exists
-    } else {
-        if (lightboxPrev) lightboxPrev.style.display = 'block'; // Show prev arrow if it exists
-        if (lightboxNext) lightboxNext.style.display = 'block'; // Show next arrow if it exists
-    }
+    const showArrows = currentGalleryImages.length > 1;
+    if (lightboxPrev) lightboxPrev.style.display = showArrows ? 'block' : 'none';
+    if (lightboxNext) lightboxNext.style.display = showArrows ? 'block' : 'none';
 
-    // Asegurar que solo haya un listener para keydown
     document.removeEventListener('keydown', handleKeydown);
     document.addEventListener('keydown', handleKeydown);
 }
@@ -43,8 +37,8 @@ function closeLightbox() {
         currentGalleryImages = [];
         currentImageIndex = 0;
         currentGalleryId = null;
-        if (lightboxPrev) lightboxPrev.style.display = 'none'; // Hide prev arrow if it exists
-        if (lightboxNext) lightboxNext.style.display = 'none'; // Hide next arrow if it exists
+        if (lightboxPrev) lightboxPrev.style.display = 'none';
+        if (lightboxNext) lightboxNext.style.display = 'none';
     }
 }
 
@@ -62,39 +56,29 @@ function getGalleryImages(galleryId) {
 }
 
 function changeLightboxImage(direction) {
-    if (currentGalleryImages.length <= 1 || currentGalleryId === null) {
-        return; // No hacer nada si no hay galería o solo una imagen
-    }
+    if (currentGalleryImages.length <= 1 || currentGalleryId === null) return;
 
     currentImageIndex += direction;
+    if (currentImageIndex < 0) currentImageIndex = currentGalleryImages.length - 1;
+    else if (currentImageIndex >= currentGalleryImages.length) currentImageIndex = 0;
 
-    if (currentImageIndex < 0) {
-        currentImageIndex = currentGalleryImages.length - 1; // Volver a la última imagen
-    } else if (currentImageIndex >= currentGalleryImages.length) {
-        currentImageIndex = 0; // Volver a la primera imagen
-    }
-
-    lightboxImg.src = currentGalleryImages[currentImageIndex].src;
-    lightboxImg.alt = currentGalleryImages[currentImageIndex].alt;
-    lightboxDescription.textContent = currentGalleryImages[currentImageIndex].description;
+    const currentImage = currentGalleryImages[currentImageIndex];
+    lightboxImg.src = currentImage.src;
+    lightboxImg.alt = currentImage.alt;
+    lightboxDescription.textContent = currentImage.description;
 }
 
 function handleKeydown(event) {
-    if (event.key === 'Escape') {
-        closeLightbox();
-    } else if (event.key === 'ArrowLeft') {
-        changeLightboxImage(-1);
-    } else if (event.key === 'ArrowRight') {
-        changeLightboxImage(1);
-    }
+    if (event.key === 'Escape') closeLightbox();
+    else if (event.key === 'ArrowLeft') changeLightboxImage(-1);
+    else if (event.key === 'ArrowRight') changeLightboxImage(1);
 }
 
 window.addEventListener('load', () => {
-    const galleries = document.querySelectorAll('.gallery'); // Selecciona todos los contenedores de galería
-
+    const galleries = document.querySelectorAll('.gallery');
     galleries.forEach(gallery => {
-        const galleryId = gallery.id || 'gallery-' + Math.random().toString(36).substring(7); // Generar ID si no tiene
-        gallery.id = galleryId; // Asignar ID a la galería
+        const galleryId = gallery.id || 'gallery-' + Math.random().toString(36).substring(7);
+        gallery.id = galleryId;
 
         const images = gallery.querySelectorAll('.item img');
         images.forEach(image => {
@@ -103,55 +87,98 @@ window.addEventListener('load', () => {
                 const description = image.getAttribute('data-description');
                 const galleryElement = image.closest('.gallery');
                 const currentGalleryId = galleryElement ? galleryElement.id : null;
-                openLightbox(imgSrc, description, currentGalleryId); // Pasar el ID de la galería
+                openLightbox(imgSrc, description, currentGalleryId);
             });
         });
     });
 
     if (lightbox) {
         lightbox.addEventListener('click', (event) => {
-            if (event.target === lightbox) {
-                closeLightbox();
-            }
+            if (event.target === lightbox) closeLightbox();
         });
     }
 
-    // Event listeners for the navigation arrows
-    if (lightboxPrev) {
-        lightboxPrev.addEventListener('click', () => {
-            changeLightboxImage(-1);
-        });
-    }
-    if (lightboxNext) {
-        lightboxNext.addEventListener('click', () => {
-            changeLightboxImage(1);
-        });
-    }
-});
-
-// Sección de Blog - Manejo de comentarios
-const comentariosFormularios = document.querySelectorAll('.comentarios form');
-comentariosFormularios.forEach(formulario => {
-    formulario.addEventListener('submit', evento => {
-        evento.preventDefault();
-
-        const textarea = formulario.querySelector('textarea');
-        const comentario = textarea.value.trim();
-
-        if (comentario !== '') {
-            const comentariosLista = formulario.parentNode.querySelector('.chat-messages');
-            if (!comentariosLista) return;
-
-            const comentarioElemento = document.createElement('div');
-            comentarioElemento.classList.add('chat-message');
-            comentarioElemento.textContent = comentario; // Usar textContent
-            comentariosLista.appendChild(comentarioElemento);
-            textarea.value = '';
-        }
+    [['.lightbox-prev', -1], ['.lightbox-next', 1]].forEach(([selector, direction]) => {
+        const arrow = document.querySelector(selector);
+        if (arrow) arrow.addEventListener('click', () => changeLightboxImage(direction));
     });
 });
 
-// Animación de tarjetas de planes
+// Comentarios y likes
+document.addEventListener('DOMContentLoaded', () => {
+    // Comentarios
+    const comentariosFormularios = document.querySelectorAll('.comentarios form');
+    comentariosFormularios.forEach(formulario => {
+        formulario.addEventListener('submit', evento => {
+            evento.preventDefault();
+            const textarea = formulario.querySelector('textarea');
+            const comentario = textarea.value.trim();
+            if (comentario !== '') {
+                const comentariosLista = formulario.parentNode.querySelector('.chat-messages');
+                if (!comentariosLista) return;
+                const comentarioElemento = document.createElement('div');
+                comentarioElemento.classList.add('chat-message');
+                comentarioElemento.textContent = comentario;
+                comentariosLista.appendChild(comentarioElemento);
+                textarea.value = '';
+            }
+        });
+    });
+
+    // Prevención de propagación en imágenes del blog
+    const blogImages = document.querySelectorAll('.blog-card a img');
+    blogImages.forEach(img => {
+        img.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    });
+
+    // Likes
+    const likeButtons = document.querySelectorAll('.like-btn');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const imageId = button.dataset.imageId;
+            const tablaOrigen = button.dataset.tablaOrigen;
+            const likeCountSpan = button.nextElementSibling;
+            const heartEmptyIcon = button.querySelector('.heart-empty-icon');
+            const heartFilledIcon = button.querySelector('.heart-filled-icon');
+
+            if (!imageId || !tablaOrigen) {
+                console.error('Error: Faltan atributos data-image-id o data-tabla-origen.');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost/ProyectoLiceo/procesar_like.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `item_id=${imageId}&tabla_origen=${tablaOrigen}`
+                });
+
+                if (!response.ok) {
+                    console.error('Error en la respuesta del servidor:', response.status);
+                    return;
+                }
+
+                const data = await response.json();
+                if (data.success) {
+                    likeCountSpan.textContent = data.likes;
+                    button.classList.toggle('liked');
+                    if (heartEmptyIcon && heartFilledIcon) {
+                        heartEmptyIcon.style.display = button.classList.contains('liked') ? 'none' : 'block';
+                        heartFilledIcon.style.display = button.classList.contains('liked') ? 'block' : 'none';
+                    }
+                } else {
+                    console.error('Error al procesar el like:', data.error);
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+            }
+        });
+    });
+});
+
+// Animación de tarjetas
 const animateElement = (element, delay) => {
     setTimeout(() => {
         element.classList.add('animated');
@@ -163,9 +190,7 @@ planCards.forEach((card, index) => {
     animateElement(card, index * 200);
 });
 
-
-
-// Responsive Design
+// Responsive
 const getScreenSize = () => ({
     width: window.innerWidth || document.documentElement.clientWidth,
     height: window.innerHeight || document.documentElement.clientHeight
@@ -189,80 +214,5 @@ const applyResponsiveStyles = () => {
     }
 };
 
-// Aplicar estilos responsivos al cargar y redimensionar
 window.addEventListener('load', applyResponsiveStyles);
 window.addEventListener('resize', applyResponsiveStyles);
-
-// **Corrección Importante para las Imágenes del Blog (Asumiendo que las imágenes del blog NO están dentro de las galerías del lightbox):**
-document.addEventListener('DOMContentLoaded', () => {
-    const blogImages = document.querySelectorAll('.blog-card a img'); // Selecciona las imágenes dentro de los enlaces de las tarjetas del blog
-
-    blogImages.forEach(img => {
-        // Evitar que la imagen dentro del enlace del blog active el lightbox de la galería
-        img.addEventListener('click', (event) => {
-            event.stopPropagation(); // Detiene la propagación del evento click al elemento padre (<a>)
-            
-        });
-    });
-});
-
-
-
-/* Funcion para el like */
-
-document.addEventListener('DOMContentLoaded', () => {
-    const likeButtons = document.querySelectorAll('.like-btn');
-
-    likeButtons.forEach(button => {
-        button.addEventListener('click', async () => {
-            const imageId = button.dataset.imageId;
-            const tablaOrigen = button.dataset.tablaOrigen;
-            const likeCountSpan = button.nextElementSibling;
-            const heartIcon = button.querySelector('.bi-heart');
-
-            if (!imageId || !tablaOrigen) {
-                console.error('Error: Faltan data-image-id o data-tabla-origen en el botón de like.');
-                return;
-            }
-
-            try {
-                const response = await fetch('http://localhost/ProyectoLiceo/procesar_like.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: `item_id=${imageId}&tabla_origen=${tablaOrigen}`
-                });
-
-                if (!response.ok) {
-                    console.error('Error en la respuesta del servidor:', response.status);
-                    return;
-                }
-
-                const data = await response.json();
-                console.log('Datos recibidos del servidor:', data);
-
-                if (data.success) {
-                    likeCountSpan.textContent = data.likes;
-                    button.classList.toggle('liked'); // Agrega o elimina la clase 'liked' del botón
-
-                    if (heartIcon) {
-                        heartIcon.classList.toggle('bi-heart');
-                        heartIcon.classList.toggle('bi-heart-fill');
-                    }
-                    console.log('Clase liked toggled:', button.classList.contains('liked'));
-                } else {
-                    console.error('Error al procesar el like:', data.error);
-                }
-
-            } catch (error) {
-                console.error('Error de red:', error);
-            }
-        });
-    });
-
-    // ... (la función initializeLikeButtons es opcional para cargar el estado inicial)
-});
-
-
-

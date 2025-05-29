@@ -27,9 +27,6 @@
   padding: 8px 12px; 
 }
 
-
-
-
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   #portfolio nav ul {
@@ -2286,62 +2283,83 @@ nav .active a {
 
   /* Estilo para el botón de me gusta */
 
-  .like-container {
+.like-container {
     position:absolute;
     top:10px;
     right:10px;
     display:flex;
     align-items:center;
     z-index:10;
-    background-color:#ffffff59;
+    background-color:#ffffff59; 
     padding:8px 12px;
     border-radius:20px;
     box-shadow:0 2px 5px #0000001a
-    }
+}
 
-  .like-btn {
-  padding:0;
-  cursor:pointer;
-  border:none;
-  background-color:transparent;
-  outline:none
-  }
-  
-  .like-btn:hover {
-  transform:scale(1.1);
-  opacity:1
-  }
-  
-  .like-btn:active {
-  transform:scale(1.0)
-  }
-  
-  /* Estilos para el icono de corazón */
+.like-btn {
+    padding:0;
+    cursor:pointer;
+    border:none;
+    background-color:transparent; 
+    outline:none; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
 
-  .like-container .like-btn i {
-  font-size:1.8em;
-  vertical-align:middle;
-  color:transparent;
-  transition:color .3s ease-in-out;
-  -webkit-text-stroke:none;
-  -webkit-text-fill-color:#000;
-  opacity:.6
-  }
-  
-  .like-btn.liked i {
-  color:#e74c3c;
-  -webkit-text-fill-color:#e74c3c;
-  opacity:1
-  }
-  
-  /* Estilo para el contador de likes */
+.like-btn:hover {
+    transform:scale(1.1);
+    opacity:1;
+    background-color:transparent; 
+}
 
-  .like-count {
-  margin-left:8px;
-  font-size:1em;
-  color:#000;
-  font-weight:700
-  }
+.like-btn:active {
+    transform:scale(1.0);
+    background-color:transparent; 
+}
+
+.like-btn:focus { 
+    background-color:transparent;
+    outline:none; 
+}
+
+/* Estilos para los iconos de corazón SVG */
+
+.like-container .like-btn .heart-icon {
+    font-size:1.8em; 
+    vertical-align:middle;
+    color:transparent; 
+    transition:color .3s ease-in-out;
+    -webkit-text-stroke:none;
+    -webkit-text-fill-color:#000000;
+    opacity:.6;
+    /* Para SVGs, usamos 'fill' y 'width/height' */
+    width: 30px; 
+    height: 30px; 
+    fill: #000; 
+}
+
+/* Para el corazón lleno cuando el botón está 'liked' */
+.like-btn.liked .heart-filled-icon {
+    fill:#e74c3c; 
+    opacity:1;
+}
+
+.like-btn .heart-empty-icon {
+    fill: none; 
+    stroke: #000000; 
+    stroke-width: 0.3; 
+    opacity: .6;
+}
+
+/* Estilo para el contador de likes */
+
+.like-count {
+    margin-left:8px;
+    font-size:1em;
+    color:#000000;
+    font-weight:700
+}
   
   /* Estilo específicos para el mensaje de articulo actualizado (procesar_editar_articulo.php) */
 
