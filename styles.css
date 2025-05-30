@@ -1,5 +1,4 @@
 /* Estilos generales de gradiente */
-
 .bg-green-gradient,
 #portfolio nav,
 #paisajes,
@@ -48,74 +47,37 @@ footer,
     margin: 5px 0; 
   }
 }
-  
-/* --------------------------------
-   Galería de paisajes
-   -------------------------------- */
-#paisajes { 
+
+#paisajes,
+#autos,
+#eventos {
   padding: 40px 40px;
   text-align: center;
   max-width: 100%;
   margin: 0 auto;
 }
 
-#paisajes h3 {
+#paisajes h3, #autos h3, #eventos h3, #viajes h3 {
   color: #000;
-  font-size: 2em;
   margin-bottom: 15px;
 }
-
-/* --------------------------------
-   Galería de autos
-   -------------------------------- */
-#autos {
-  padding: 40px 40px;
-  text-align:center;
-  max-width:100%;
-  margin:0 auto;
+#paisajes h3, #autos h3, #eventos h3 {
+  font-size: 2em;
 }
-
-#autos h3 {
-  color:#000;
-  font-size:2em;
-  margin-bottom:15px;
-}
-
-/* --------------------------------
-   Galería de eventos de motocross
-   -------------------------------- */
-#eventos {
-  padding: 40px 40px;
-  text-align:center;
-  max-width:100%;
-  margin:0 auto;
-}
-
-#eventos h3 {
-  color:#000;
-  font-size:2em;
-  margin-bottom:15px;
-}
-
-/* --------------------------------
-   Galería de viajes
-   -------------------------------- */
-#viajes {
-  text-align:center;
-  padding:40px 40px;
-}
-
 #viajes h3 {
-  font-size:26px;
-  font-weight:700;
-  text-transform:uppercase;
-  color:#000;
-  margin-bottom:15px;
+  font-size: 26px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-/* --------------------------------
-   Galerías: agrupación de estilos comunes
-   -------------------------------- */
+/* Galería de viajes */
+#viajes {
+  padding: 40px 40px;
+  text-align: center;
+}
+
+/* Galerías: agrupación de estilos comunes */
+
 #paisajes .galeria,
 #autos .galeria,
 #eventos .galeria {
@@ -167,7 +129,8 @@ footer,
 }
 
 #paisajes .item:hover p,
-#eventos .item:hover p {
+#eventos .item:hover p,
+#autos .item:hover p {
   opacity: 1;
 }
 
@@ -185,9 +148,6 @@ footer,
   opacity:0;
   transition:opacity .3s ease-in-out;
   font-size: small;
-}
-#autos .item:hover p {
-  opacity:1;
 }
 
 /* Galería de viajes (estructura diferente) */
@@ -340,7 +300,6 @@ footer,
   /* SECCIÓN PLANES */
 
   #servicios {
-  background: -webkit-linear-gradient(90deg, #274427,#64a34d);background: linear-gradient(90deg, #274427,#64a34d);
   padding: 40px 40px;
   text-align:center;
   height: auto;
@@ -507,7 +466,6 @@ footer,
 /* Estilos para el footer de sesion personalizada */
 
 footer {
-  background: -webkit-linear-gradient(90deg, #274427,#64a34d);background: linear-gradient(90deg, #274427,#64a34d);
   color: #000000; 
   padding: 40px 40px;
   text-align:center;
@@ -724,19 +682,29 @@ nav .active a {
     gap: 20px;
   }
 
-  .blog-card h3 {
-    font-size: 1.3em;
-  }
-
   .card-description {
     font-size: 0.85em;
   }
 }
 
-  /* Estilo general para sección contacto */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav li {
+    margin: 8px 0;
+  }
+
+  header h1 {
+    font-size: 2em;
+  }
+}
+
+/* Estilo general para sección contacto */
   
   .contacto {
-    background: -webkit-linear-gradient(90deg, #274427,#64a34d);background: linear-gradient(90deg, #274427,#64a34d);
     position:relative;
     z-index:1;
     padding:40px 40px;
@@ -852,7 +820,7 @@ nav .active a {
   }
 }
   
-  /* Estilos para la Sección de Listado de Blog (blog.php) */
+/* Estilos para la Sección de Listado de Blog (blog.php) */
 
   main.blog-list-page {
   padding:30px 30px;
@@ -890,7 +858,7 @@ nav .active a {
   background-color:#007bff
   }
 
-  /* Estilo para la introducción del blog */
+/* Estilo para la introducción del blog */
 
   .blog-intro {
   margin-bottom:2em;
@@ -900,7 +868,7 @@ nav .active a {
   line-height:1.6
   }
   
-  /* Estilos para párrafos dentro de .blog-section */
+/* Estilos para párrafos dentro de .blog-section */
 
   .blog-section p {
   margin-bottom:1.5em;
@@ -937,7 +905,7 @@ nav .active a {
   text-decoration:underline
   }
   
-  /* Media query para pantallas de hasta 768px (tablets) */
+/* Media query para pantallas de hasta 768px (tablets) */
 @media (max-width: 768px) {
   main.blog-list-page {
     padding: 20px 10px;
@@ -1110,21 +1078,12 @@ nav .active a {
   background-color: #0056b3;
 }
 
-
-/* Para pantallas de hasta 768px de ancho (típicamente tablets) */
-@media (max-width: 768px) {
-  .consejos-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-  }
-}
-
 /* Para pantallas aún más pequeñas (móviles) */
 @media (max-width: 576px) {
   .consejos-grid {
       grid-template-columns: 1fr; 
   }
 }
-
 
 /* Estilos para el grid de comentarios y experiencias */
 .comentarios-grid {
@@ -1178,12 +1137,13 @@ nav .active a {
   background-color: #0056b3;
 }
 
-
-
 /* Media query para pantallas más pequeñas */
 @media (max-width: 768px) {
+  .consejos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
   .comentarios-grid {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Volver a un diseño más flexible en pantallas pequeñas */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }
 
@@ -1277,7 +1237,7 @@ nav .active a {
   }
   
   
-  /* Estilos Generales del Panel de Usuario  */
+/* Estilos Generales del Panel de Usuario  */
 
   .panel-usuario-body {
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
@@ -1783,7 +1743,7 @@ nav .active a {
   }
 }
   
-  /*Estilos específicos para la Página de Editar Artículo (editar_articulo.php)*/
+/*Estilos específicos para la Página de Editar Artículo (editar_articulo.php)*/
 
   body.pagina-editar-articulo {
   font-family:'Arial',sans-serif;
@@ -1886,10 +1846,6 @@ nav .active a {
     display: block; 
     margin-left: auto; 
     margin-right: auto; 
-  }
-  
-  body.pagina-editar-articulo main button[type="submit"]:hover {
-    background-color: #000;
   }
   
   body.pagina-editar-articulo main button[type="submit"]:hover {
@@ -2369,7 +2325,7 @@ button:hover, .btn:hover, button:focus {
 #contrasena {
   width: 100%;
   box-sizing: border-box;
-  padding-right: 44px; /* deja espacio para el icono */
+  padding-right: 44px;
 }
 
 .password-toggle-icon {

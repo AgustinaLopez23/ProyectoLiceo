@@ -1,7 +1,36 @@
 <?php
 ob_start("ob_gzhandler");
-?>
+session_start();
 
+include "conexion.php";
+
+// Manejo de errores para la conexión a la base de datos
+if (!$conn) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Cargar imagen de inicio solo una vez
+$imagen_inicio = 'images/default-hero.jpg';
+$sql_inicio = "SELECT ruta FROM inicio LIMIT 1";
+if ($result_inicio = $conn->query($sql_inicio)) {
+    if ($row_inicio = $result_inicio->fetch_assoc()) {
+        $imagen_inicio = 'imagenes/' . htmlspecialchars($row_inicio["ruta"]);
+    }
+}
+
+// Cargar imágenes del blog en un solo array
+$imagenes_blog = [];
+$sql_blog_images = "SELECT ruta, categoria FROM blog";
+if ($result_blog_images = $conn->query($sql_blog_images)) {
+    while ($row_blog = $result_blog_images->fetch_assoc()) {
+        $ruta_corregida = str_replace('\\', '/', $row_blog["ruta"]);
+        $ruta_final = (strpos(strtolower($ruta_corregida), 'imagenes/') === 0)
+            ? htmlspecialchars($ruta_corregida)
+            : 'imagenes/' . htmlspecialchars($ruta_corregida);
+        $imagenes_blog[strtolower($row_blog["categoria"])] = $ruta_final;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -210,7 +239,7 @@ ob_start("ob_gzhandler");
             }
         }
 
-        /* CSS para los íconos de like SVG */
+        /* íconos de like SVG */
         .heart-icon {
             vertical-align: middle;
         }
@@ -222,58 +251,19 @@ ob_start("ob_gzhandler");
             display: block !important; 
             color: #E74C3C; 
         }
-    </style>
 
+        .sr-only {
+        position: absolute !important;
+        width: 1px; height: 1px;
+        padding: 0; margin: -1px;
+        overflow: hidden; clip: rect(0,0,0,0);
+        border: 0;
+        }
+    </style>
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
-    
-
-<?php
-    include "conexion.php"; // Incluye la conexión a la base de datos
-
-    // Manejo de errores para la conexión a la base de datos
-    if (!$conn) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
-
-    $sql_inicio = "SELECT ruta FROM inicio LIMIT 1";
-    $result_inicio = $conn->query($sql_inicio);
-
-    if ($result_inicio && $result_inicio->num_rows > 0) {
-        $row_inicio = $result_inicio->fetch_assoc();
-        $imagen_inicio = 'imagenes/' . htmlspecialchars($row_inicio["ruta"]);
-    } else {
-        $imagen_inicio = 'images/default-hero.jpg'; // Valor por defecto para la imagen de inicio
-    }
-?>
 </head>
 <body>
-    <?php
-    // BLOQUE PHP PARA OBTENER LAS IMÁGENES DEL BLOG
-    $sql_blog_images = "SELECT ruta, categoria FROM blog";
-    $result_blog_images = $conn->query($sql_blog_images);
-    $imagenes_blog = array();
-
-    if ($result_blog_images && $result_blog_images->num_rows > 0) {
-        while ($row_blog = $result_blog_images->fetch_assoc()) {
-            $ruta_corregida = str_replace('\\', '/', $row_blog["ruta"]);
-            $ruta_final = '';
-            // Verifica si la ruta ya comienza con 'imagenes/'
-            if (strpos(strtolower($ruta_corregida), 'imagenes/') === 0) {
-                $ruta_final = htmlspecialchars($ruta_corregida);
-            } else {
-                $ruta_final = 'imagenes/' . htmlspecialchars($ruta_corregida);
-            }
-            $imagenes_blog[strtolower($row_blog["categoria"])] = $ruta_final;
-        }
-    } else {
-        echo "<p class='error-message'>Error al cargar las imágenes del blog.</p>";
-        if ($conn->error) {
-            echo "<p class='error-details'>" . htmlspecialchars($conn->error) . "</p>";
-        }
-    }
-    ?>
-
     <nav class="main-nav">
         <ul>
             <li><a href="#inicio">INICIO</a></li>
@@ -286,445 +276,256 @@ ob_start("ob_gzhandler");
     </nav>
 
     <section id="inicio" class="hero">
-        <div class="hero-image" style="background-image: url('<?php echo $imagen_inicio; ?>')">
-        </div>
+        <div class="hero-image" style="background-image: url('<?php echo $imagen_inicio; ?>')"></div>
         <div class="hero-content">
             <h1>Bienvenidos a mi portafolio</h1>
-            <a href="#portfolio" class="button">Ver galeria</a>
+            <a href="#portfolio" class="button">Ver galería</a>
         </div>
     </section>
 
     <section id="sobremi" class="sobremi intro-section">
         <div class="intro-seccion">
             <p class="titulo-principal">¡Hola! Soy Agustina Lopez, fotógrafa aficionada y creadora visual.</p>
-            <p class="mensaje-bienvenida">Explora mi mundo a través de mis imágenes y sígueme en Instagram para ver más.
-            </p>
+            <p class="mensaje-bienvenida">Explora mi mundo a través de mis imágenes y sígueme en Instagram para ver más.</p>
             <div class="redes-sociales">
-                <a href="https://www.instagram.com/aguslopez_fotografia/" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
-                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.11.281-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
-                </svg>
+                <a href="https://www.instagram.com/aguslopez_fotografia/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Instagram de Agustina Lopez">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                         class="bi bi-instagram" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                        <title>Instagram</title>
+                        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.11.281-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                    </svg>
+                    <span class="sr-only">Instagram de Agustina Lopez</span>
                 </a>
             </div>
         </div>
     </section>
 
-<section id="portfolio" class="portfolio">
-    <nav>
-        <ul>
-            <li><a href="#paisajes">Paisajes</a></li>
-            <li><a href="#autos">Autos</a></li>
-            <li><a href="#eventos">Eventos</a></li>
-            <li><a href="#viajes">Viajes</a></li>
-        </ul>
-    </nav>
-</section>
+    <section id="portfolio" class="portfolio">
+        <h2 class="sr-only">Galería</h2>
+        <nav>
+            <ul>
+                <li><a href="#paisajes">Paisajes</a></li>
+                <li><a href="#autos">Autos</a></li>
+                <li><a href="#eventos">Eventos</a></li>
+                <li><a href="#viajes">Viajes</a></li>
+            </ul>
+        </nav>
+    </section>
 
-<section id="paisajes" class="gallery">
-    <h3>Fotografías de Paisajes</h3>
-    <div class="galeria">
-        <?php
-        $sql = "SELECT * FROM fotos_paisajes";
-        $result = $conn->query($sql);
-
-        if ($result) {
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    $paisajes_id = htmlspecialchars($row["paisajes_id"]);
-                    $ruta = htmlspecialchars($row["ruta"]);
-                    $nombre = htmlspecialchars($row["nombre"]);
-                    $descripcion = htmlspecialchars($row["descripcion"]);
-
-                    // Contar los likes para esta imagen
-                    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = 'paisajes'";
-                    $stmt_count = $conn->prepare($sql_count);
-                    $stmt_count->bind_param("i", $paisajes_id);
-                    $stmt_count->execute();
-                    $result_count = $stmt_count->get_result();
-                    $likes_count = (int)$result_count->fetch_row()[0];
-                    $stmt_count->close();
-
-                    // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
-                    $liked_class = '';
-                    $display_empty = 'block'; // Mostrar corazón vacío por defecto
-                    $display_filled = 'none'; // Ocultar corazón lleno por defecto
-
-                    if (isset($_SESSION['usuario_id'])) {
-                        $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'paisajes' AND usuario_id = ?";
-                        $stmt_check_liked = $conn->prepare($sql_check_liked);
-                        $stmt_check_liked->bind_param("ii", $paisajes_id, $_SESSION['usuario_id']);
-                        $stmt_check_liked->execute();
-                        $result_check_liked = $stmt_check_liked->get_result();
-                        if ($result_check_liked->num_rows > 0) {
-                            $liked_class = ' liked';
-                            $display_empty = 'none';    // Si ya dio like, ocultar vacío
-                            $display_filled = 'block';  // y mostrar lleno
-                        }
-                        $stmt_check_liked->close();
-                    }
-
-                    echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
-                    echo '<p>' . $descripcion . '</p>';
-                    echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $paisajes_id . '" data-tabla-origen="paisajes">';
-                    // SVG del corazón vacío - RUTA CORREGIDA
-                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
-                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
-                    echo '</svg>';
-                    // SVG del corazón lleno
-                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
-                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
-                    echo '</svg>';
-                    echo '</button>';
-                    echo '<span class="like-count">' . $likes_count . '</span>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-            } else {
-                echo "<p>No se encontraron imágenes.</p>";
+    <?php
+    //Trae todos los likes de todas las imágenes de todas las galerías de una vez
+    $likes_all = [];
+    $user_likes = [];
+    $usuario_id = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : null;
+    $tablas = [
+        'paisajes' => ['id' => 'paisajes_id', 'tabla' => 'fotos_paisajes'],
+        'autos' => ['id' => 'autos_id', 'tabla' => 'fotos_autos'],
+        'eventos' => ['id' => 'eventos_id', 'tabla' => 'fotos_eventos'],
+        'viajes' => ['id' => 'viajes_id', 'tabla' => 'fotos_viajes']
+    ];
+    foreach ($tablas as $origen => $info) {
+        // Likes totales por imagen para la galería
+        $sql_likes = "SELECT item_id, COUNT(*) as likes FROM likes WHERE tabla_origen = '$origen' GROUP BY item_id";
+        $result_likes = $conn->query($sql_likes);
+        if ($result_likes) {
+            while ($row = $result_likes->fetch_assoc()) {
+                $likes_all[$origen][$row['item_id']] = (int)$row['likes'];
             }
-        } else {
-            echo "<p>Error en la consulta de la base de datos: " . $conn->error . "</p>";
         }
-        ?>
-    </div>
-</section>
-
-
-<section id="autos" class="gallery">
-    <h3>Fotografías de Autos</h3>
-    <div class="galeria">
-        <?php
-        $sql_autos = "SELECT * FROM fotos_autos WHERE categoria = 'autos'";
-        $result_autos = $conn->query($sql_autos);
-
-        if ($result_autos) {
-            if ($result_autos->num_rows > 0) {
-                while ($fila = $result_autos->fetch_assoc()) {
-                    $autos_id = htmlspecialchars($fila["autos_id"]);
-                    $ruta = htmlspecialchars($fila['ruta']);
-                    $nombre = htmlspecialchars($fila['nombre']);
-
-                    // Contar los likes para esta imagen
-                    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = 'autos'";
-                    $stmt_count = $conn->prepare($sql_count);
-                    $stmt_count->bind_param("i", $autos_id);
-                    $stmt_count->execute();
-                    $result_count = $stmt_count->get_result();
-                    $likes_count = (int)$result_count->fetch_row()[0];
-                    $stmt_count->close();
-
-                    // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
-                    $liked_class = '';
-                    $display_empty = 'block';
-                    $display_filled = 'none';
-                    if (isset($_SESSION['usuario_id'])) {
-                        $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'autos' AND usuario_id = ?";
-                        $stmt_check_liked = $conn->prepare($sql_check_liked);
-                        $stmt_check_liked->bind_param("ii", $autos_id, $_SESSION['usuario_id']);
-                        $stmt_check_liked->execute();
-                        $result_check_liked = $stmt_check_liked->get_result();
-                        if ($result_check_liked->num_rows > 0) {
-                            $liked_class = ' liked';
-                            $display_empty = 'none';
-                            $display_filled = 'block';
-                        }
-                        $stmt_check_liked->close();
-                    }
-
-                    echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
-                    echo '<p>' . $nombre . '</p>';
-                    echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $autos_id . '" data-tabla-origen="autos">';
-                    // SVG del corazón vacío - RUTA CORREGIDA
-                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
-                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
-                    echo '</svg>';
-                    // SVG del corazón lleno
-                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
-                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
-                    echo '</svg>';
-                    echo '</button>';
-                    echo '<span class="like-count">' . $likes_count . '</span>';
-                    echo '</div>';
-                    echo '</div>';
+        // Likes del usuario actual (solo si está logueado)
+        if ($usuario_id) {
+            $sql_user_likes = "SELECT item_id FROM likes WHERE tabla_origen = '$origen' AND usuario_id = $usuario_id";
+            $result_user_likes = $conn->query($sql_user_likes);
+            if ($result_user_likes) {
+                while ($row = $result_user_likes->fetch_assoc()) {
+                    $user_likes[$origen][$row['item_id']] = true;
                 }
-            } else {
-                echo "<p>No hay imágenes disponibles.</p>";
             }
-        } else {
-            echo "<p>Error en la consulta de la base de datos: " . $conn->error . "</p>";
         }
-        ?>
-    </div>
-</section>
+    }
+    ?>
 
+    <?php
+    function render_galeria($origen, $titulo, $id_col, $tabla, $likes_all, $user_likes, $conn) {
+    echo '<section id="'.$origen.'" class="gallery">';
+    echo '<h3>'.$titulo.'</h3>';
+    echo '<div class="galeria">';
+    $sql = "SELECT * FROM $tabla" . ($origen === 'autos' ? " WHERE categoria = 'autos'" : "");
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $item_id = htmlspecialchars($row[$id_col]);
+            $ruta = htmlspecialchars($row['ruta']);
+            $nombre = htmlspecialchars($row['nombre']);
+            $descripcion = isset($row['descripcion']) ? htmlspecialchars($row['descripcion']) : '';
+            $likes_count = isset($likes_all[$origen][$item_id]) ? $likes_all[$origen][$item_id] : 0;
+            $liked_class = (isset($user_likes[$origen][$item_id])) ? ' liked' : '';
+            $display_empty = ($liked_class) ? 'none' : 'block';
+            $display_filled = ($liked_class) ? 'block' : 'none';
+            $texto_like = ($liked_class) ? 'Quitar me gusta de ' . $nombre : 'Dar me gusta a ' . $nombre;
 
-<section id="eventos" class="gallery">
-    <h3>Evento de Motocross</h3>
-    <div class="galeria">
-        <?php
-        $sql_motocross = "SELECT * FROM fotos_eventos WHERE categoria = 'eventos_motocross'";
-        $result_motocross = $conn->query($sql_motocross);
-
-        if ($result_motocross) {
-            if ($result_motocross->num_rows > 0) {
-                while ($fila = $result_motocross->fetch_assoc()) {
-                    $eventos_id = htmlspecialchars($fila["eventos_id"]);
-                    $ruta = htmlspecialchars($fila['ruta']);
-                    $nombre = htmlspecialchars($fila['nombre']);
-
-                    // Contar los likes para esta imagen
-                    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = 'eventos'";
-                    $stmt_count = $conn->prepare($sql_count);
-                    $stmt_count->bind_param("i", $eventos_id);
-                    $stmt_count->execute();
-                    $result_count = $stmt_count->get_result();
-                    $likes_count = (int)$result_count->fetch_row()[0];
-                    $stmt_count->close();
-
-                    // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
-                    $liked_class = '';
-                    $display_empty = 'block';
-                    $display_filled = 'none';
-                    if (isset($_SESSION['usuario_id'])) {
-                        $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'eventos' AND usuario_id = ?";
-                        $stmt_check_liked = $conn->prepare($sql_check_liked);
-                        $stmt_check_liked->bind_param("ii", $eventos_id, $_SESSION['usuario_id']);
-                        $stmt_check_liked->execute();
-                        $result_check_liked = $stmt_check_liked->get_result();
-                        if ($result_check_liked->num_rows > 0) {
-                            $liked_class = ' liked';
-                            $display_empty = 'none';
-                            $display_filled = 'block';
-                        }
-                        $stmt_check_liked->close();
-                    }
-
-                    echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
-                    echo '<p>' . $nombre . '</p>';
-                    echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $eventos_id . '" data-tabla-origen="eventos">';
-                    // SVG del corazón vacío - RUTA CORREGIDA
-                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
-                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
-                    echo '</svg>';
-                    // SVG del corazón lleno
-                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
-                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
-                    echo '</svg>';
-                    echo '</button>';
-                    echo '<span class="like-count">' . $likes_count . '</span>';
-                    echo '</div>';
-                    echo '</div>';
-                }
-            } else {
-                echo "<p>No hay imágenes disponibles.</p>";
-            }
-        } else {
-            echo "<p>Error en la consulta de la base de datos: " . $conn->error . "</p>";
-        }
-        ?>
-    </div>
-</section>
-
-
-<section id="viajes" class="gallery">
-    <h3>Fotografías de Viajes</h3>
-    <div class="galeria">
-        <?php
-        $sql_viajes = "SELECT * FROM fotos_viajes";
-        $result_viajes = $conn->query($sql_viajes);
-
-        if ($result_viajes) {
-            if ($result_viajes->num_rows > 0) {
-                while ($fila = $result_viajes->fetch_assoc()) {
-                    $viajes_id = htmlspecialchars($fila["viajes_id"]);
-                    $ruta = htmlspecialchars($fila['ruta']);
-                    $descripcion = htmlspecialchars($fila['descripcion']);
-                    // Asegúrate de que 'nombre' también se extraiga si es necesario para el alt o la descripción
-                    $nombre_viajes = isset($fila['nombre']) ? htmlspecialchars($fila['nombre']) : $descripcion; // Usar descripción si no hay nombre
-
-                    // Contar los likes para esta imagen
-                    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = 'viajes'";
-                    $stmt_count = $conn->prepare($sql_count);
-                    $stmt_count->bind_param("i", $viajes_id);
-                    $stmt_count->execute();
-                    $result_count = $stmt_count->get_result();
-                    $likes_count = (int)$result_count->fetch_row()[0];
-                    $stmt_count->close();
-
-                    // Verificar si el usuario actual ya dio like (si hay sesión de usuario)
-                    $liked_class = '';
-                    $display_empty = 'block';
-                    $display_filled = 'none';
-                    if (isset($_SESSION['usuario_id'])) {
-                        $sql_check_liked = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = 'viajes' AND usuario_id = ?";
-                        $stmt_check_liked = $conn->prepare($sql_check_liked);
-                        $stmt_check_liked->bind_param("ii", $viajes_id, $_SESSION['usuario_id']);
-                        $stmt_check_liked->execute();
-                        $result_check_liked = $stmt_check_liked->get_result();
-                        if ($result_check_liked->num_rows > 0) {
-                            $liked_class = ' liked';
-                            $display_empty = 'none';
-                            $display_filled = 'block';
-                        }
-                        $stmt_check_liked->close();
-                    }
-
-                    echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre_viajes . '" data-description="' . $descripcion . '" loading="lazy">';
+            echo '<div class="item">';
+            echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $descripcion . '" loading="lazy">';
+            
+            if ($origen === 'paisajes' || $origen === 'viajes') {
+                if (!empty($descripcion)) {
                     echo '<p class="descripcion">' . $descripcion . '</p>';
-                    echo '<div class="like-container">';
-                    echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $viajes_id . '" data-tabla-origen="viajes">';
-                    // SVG del corazón vacío - RUTA CORREGIDA
-                    echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
-                    echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
-                    echo '</svg>';
-                    // SVG del corazón lleno
-                    echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
-                    echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
-                    echo '</svg>';
-                    echo '</button>';
-                    echo '<span class="like-count">' . $likes_count . '</span>';
-                    echo '</div>';
-                    echo '</div>';
+                }
+            } elseif ($origen === 'eventos') {
+                if (!empty($nombre)) {
+                    echo '<p>' . $nombre . '</p>';
                 }
             } else {
-                echo "<p>No hay imágenes disponibles.</p>";
+                echo '<p>' . $nombre . '</p>';
             }
-        } else {
-            echo "<p>Error en la consulta de la base de datos: " . $conn->error . "</p>";
+            echo '<div class="like-container">';
+            echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $item_id . '" data-tabla-origen="' . $origen . '" aria-label="' . $texto_like . '" title="' . $texto_like . '">';
+            echo '<span class="sr-only">' . $texto_like . '</span>';
+            // SVGs
+            echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+            echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+            echo '</svg>';
+            echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+            echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+            echo '</svg>';
+            echo '</button>';
+            echo '<span class="like-count">' . $likes_count . '</span>';
+            echo '</div>';
+            echo '</div>';
         }
-        ?>
-    </div>
-</section>
-
+    } else {
+        echo "<p>No hay imágenes disponibles.</p>";
+    }
+    echo '</div></section>';
+}
+    render_galeria('paisajes','Fotografías de Paisajes','paisajes_id','fotos_paisajes',$likes_all,$user_likes,$conn);
+    render_galeria('autos','Fotografías de Autos','autos_id','fotos_autos',$likes_all,$user_likes,$conn);
+    render_galeria('eventos','Evento de Motocross','eventos_id','fotos_eventos',$likes_all,$user_likes,$conn);
+    render_galeria('viajes','Fotografías de Viajes','viajes_id','fotos_viajes',$likes_all,$user_likes,$conn);
+    ?>
 
     <div id="lightbox" class="lightbox">
         <span class="close-fullscreen" onclick="closeLightbox()">&times;</span>
-        <div class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</div> <img id="lightbox-img" class="lightbox-img" src="" alt="Imagen Lightbox">
-        <div class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</div> <p id="lightbox-description"></p>
+        <div class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</div> 
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Imagen Lightbox">
+        <div class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</div> 
+        <p id="lightbox-description"></p>
     </div>
 
     <script src="scripts.js"></script>
 
-<section id="servicios">
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Sesiones de Fotos</h2>
-        <div class="plan-container">
-            <div class="plan-card">
-                <div class="plan-header bg-primary text-white text-center">
-                    <h3>Plan Básico</h3>
+    <section id="servicios">
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Sesiones de Fotos</h2>
+            <div class="plan-container">
+                <div class="plan-card">
+                    <div class="plan-header bg-primary text-white text-center">
+                        <h3>Plan Básico</h3>
+                    </div>
+                    <div class="plan-body text-center">
+                        <p class="plan-title">$100</p>
+                        <ul class="plan-list">
+                            <li>• Sesión de 1 hora</li>
+                            <li>• 20 fotos editadas</li>
+                            <li>• Entrega digital en alta resolución</li>
+                            <li>• 1 impresión en tamaño 10x15 a elección</li>
+                        </ul>
+                        <form action="procesar_reserva.php" method="POST">
+                            <input type="hidden" name="plan" value="basico">
+                            <div>
+                                <label for="nombre_basico">Nombre:</label>
+                                <input type="text" id="nombre_basico" name="nombre" required>
+                            </div>
+                            <div>
+                                <label for="email_basico">Correo Electrónico:</label>
+                                <input type="email" id="email_basico" name="email" required>
+                            </div>
+                            <div>
+                                <label for="fecha_basico">Fecha Deseada:</label>
+                                <input type="date" id="fecha_basico" name="fecha_deseada" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary mt-3">Reservar</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="plan-body text-center">
-                    <h1 class="plan-title">$100</h1>
-                    <ul class="plan-list">
-                        <li>• Sesión de 1 hora</li>
-                        <li>• 20 fotos editadas</li>
-                        <li>• Entrega digital en alta resolución</li>
-                        <li>• 1 impresión en tamaño 10x15 a elección</li>
-                    </ul>
-                    <form action="procesar_reserva.php" method="POST">
-                        <input type="hidden" name="plan" value="basico">
-                        <div>
-                            <label for="nombre_basico">Nombre:</label>
-                            <input type="text" id="nombre_basico" name="nombre" required>
-                        </div>
-                        <div>
-                            <label for="email_basico">Correo Electrónico:</label>
-                            <input type="email" id="email_basico" name="email" required>
-                        </div>
-                        <div>
-                            <label for="fecha_basico">Fecha Deseada:</label>
-                            <input type="date" id="fecha_basico" name="fecha_deseada" required>
-                        </div>
-                        <button type="submit" class="btn btn-outline-primary mt-3">Reservar</button>
-                    </form>
+                <div class="plan-card">
+                    <div class="plan-header bg-success text-white text-center">
+                        <h3>Plan Intermedio</h3>
+                    </div>
+                    <div class="plan-body text-center">
+                        <p class="plan-title">$250</p>
+                        <ul class="plan-list">
+                            <li>• Sesión de 2 horas</li>
+                            <li>• 40 fotos editadas</li>
+                            <li>• Entrega digital en alta resolución</li>
+                            <li>• Asesoramiento de vestuario básico</li>
+                            <li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
+                        </ul>
+                        <form action="procesar_reserva.php" method="POST">
+                            <input type="hidden" name="plan" value="intermedio">
+                            <div>
+                                <label for="nombre_intermedio">Nombre:</label>
+                                <input type="text" id="nombre_intermedio" name="nombre" required>
+                            </div>
+                            <div>
+                                <label for="email_intermedio">Correo Electrónico:</label>
+                                <input type="email" id="email_intermedio" name="email" required>
+                            </div>
+                            <div>
+                                <label for="fecha_intermedio">Fecha Deseada:</label>
+                                <input type="date" id="fecha_intermedio" name="fecha_deseada" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-success mt-3">Reservar</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div class="plan-card">
-                <div class="plan-header bg-success text-white text-center">
-                    <h3>Plan Intermedio</h3>
-                </div>
-                <div class="plan-body text-center">
-                    <h1 class="plan-title">$250</h1>
-                    <ul class="plan-list">
-                        <li>• Sesión de 2 horas</li>
-                        <li>• 40 fotos editadas</li>
-                        <li>• Entrega digital en alta resolución</li>
-                        <li>• Asesoramiento de vestuario básico</li>
-                        <li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
-                        
-                    </ul>
-                    <form action="procesar_reserva.php" method="POST">
-                        <input type="hidden" name="plan" value="intermedio">
-                        <div>
-                            <label for="nombre_intermedio">Nombre:</label>
-                            <input type="text" id="nombre_intermedio" name="nombre" required>
-                        </div>
-                        <div>
-                            <label for="email_intermedio">Correo Electrónico:</label>
-                            <input type="email" id="email_intermedio" name="email" required>
-                        </div>
-                        <div>
-                            <label for="fecha_intermedio">Fecha Deseada:</label>
-                            <input type="date" id="fecha_intermedio" name="fecha_deseada" required>
-                        </div>
-                        <button type="submit" class="btn btn-outline-success mt-3">Reservar</button>
-                    </form>
-                </div>
-            </div>
-            <div class="plan-card">
-                <div class="plan-header bg-warning text-white text-center">
-                    <h3>Plan Premium</h3>
-                </div>
-                <div class="plan-body text-center">
-                    <h1 class="plan-title">$400</h1>
-                    <ul class="plan-list">
-                        <li>• Sesión de 3 horas</li>
-                        <li>• 80 fotos editadas</li>
-                        <li>• Entrega digital en alta resolución</li>
-                        <li>• Video corto con momentos destacados de la sesión</li>
-                        <li>• Asesoramiento de vestuario y estilismo</li>
-                        <li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
-                    </ul>
-                    <form action="procesar_reserva.php" method="POST">
-                        <input type="hidden" name="plan" value="premium">
-                        <div>
-                            <label for="nombre_premium">Nombre:</label>
-                            <input type="text" id="nombre_premium" name="nombre" required>
-                        </div>
-                        <div>
-                            <label for="email_premium">Correo Electrónico:</label>
-                            <input type="email" id="email_premium" name="email" required>
-                        </div>
-                        <div>
-                            <label for="fecha_premium">Fecha Deseada:</label>
-                            <input type="date" id="fecha_premium" name="fecha_deseada" required>
-                        </div>
-                        <button type="submit" class="btn btn-outline-warning mt-3">Reservar</button>
-                    </form>
+                <div class="plan-card">
+                    <div class="plan-header bg-warning text-white text-center">
+                        <h3>Plan Premium</h3>
+                    </div>
+                    <div class="plan-body text-center">
+                        <p class="plan-title">$400</p>
+                        <ul class="plan-list">
+                            <li>• Sesión de 3 horas</li>
+                            <li>• 80 fotos editadas</li>
+                            <li>• Entrega digital en alta resolución</li>
+                            <li>• Video corto con momentos destacados de la sesión</li>
+                            <li>• Asesoramiento de vestuario y estilismo</li>
+                            <li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
+                        </ul>
+                        <form action="procesar_reserva.php" method="POST">
+                            <input type="hidden" name="plan" value="premium">
+                            <div>
+                                <label for="nombre_premium">Nombre:</label>
+                                <input type="text" id="nombre_premium" name="nombre" required>
+                            </div>
+                            <div>
+                                <label for="email_premium">Correo Electrónico:</label>
+                                <input type="email" id="email_premium" name="email" required>
+                            </div>
+                            <div>
+                                <label for="fecha_premium">Fecha Deseada:</label>
+                                <input type="date" id="fecha_premium" name="fecha_deseada" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-warning mt-3">Reservar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer>
-  <p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
-</footer>
-
+    <footer>
+      <p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
+    </footer>
 
     <section id="blog" class="blog-section cards-layout">
         <div class="container">
             <h2>Blog</h2>
-            <p class="blog-intro">¡Bienvenido a nuestro espacio dedicado a la pasión por la fotografía! Aquí podrás
-                compartir, aprender y conectar con otros entusiastas.</p>
-
+            <p class="blog-intro">¡Bienvenido a nuestro espacio dedicado a la pasión por la fotografía! Aquí podrás compartir, aprender y conectar con otros entusiastas.</p>
             <div class="blog-grid">
                 <article class="blog-card consejos">
                     <a href="blog.php?categoria=consejos">
@@ -736,12 +537,10 @@ ob_start("ob_gzhandler");
                         }
                         ?>
                         <h3>Consejos</h3>
-                        <p class="card-description">Aquí puedes recibir consejos sobre cómo mejorar en la fotografía.
-                            ¡Comparte tus trucos y aprende de la comunidad!</p>
+                        <p class="card-description">Aquí puedes recibir consejos sobre cómo mejorar en la fotografía. ¡Comparte tus trucos y aprende de la comunidad!</p>
                         <span class="read-more">Ver Consejos</span>
                     </a>
                 </article>
-
                 <article class="blog-card experiencias">
                     <a href="blog.php?categoria=experiencias">
                         <?php
@@ -752,15 +551,12 @@ ob_start("ob_gzhandler");
                         }
                         ?>
                         <h3>Experiencias y Viajes</h3>
-                        <p class="card-description">Aquí puedes contar historias y experiencias de viajes y aventuras
-                            que hayas tenido. ¡Inspira a otros con tus relatos fotográficos!</p>
+                        <p class="card-description">Aquí puedes contar historias y experiencias de viajes y aventuras que hayas tenido. ¡Inspira a otros con tus relatos fotográficos!</p>
                         <span class="read-more">Ver Experiencias</span>
                     </a>
                 </article>
-
                 <article class="blog-card comentarios">
-                <a href="blog.php?categoria=comentarios">
-                    
+                    <a href="blog.php?categoria=comentarios">
                         <?php
                         if (isset($imagenes_blog['comentarios']) && !empty($imagenes_blog['comentarios'])) {
                             echo '<img src="' . $imagenes_blog['comentarios'] . '" alt="Comentarios y Sugerencias">';
@@ -769,44 +565,41 @@ ob_start("ob_gzhandler");
                         }
                         ?>
                         <h3>Comentarios y Sugerencias</h3>
-                        <p class="card-description">Aquí puedes comentar y opinar sobre el sitio web. ¡Tu feedback es
-                            valioso para seguir mejorando!</p>
+                        <p class="card-description">Aquí puedes comentar y opinar sobre el sitio web. ¡Tu feedback es valioso para seguir mejorando!</p>
                         <span class="read-more">Ver Comentarios</span>
                     </a>
                 </article>
             </div>
-
         </div>
     </section>
 
     <section id="contacto" class="contacto">
-    <div class="contenido-seccion">
-        <h2>Contacto</h2>
-        <p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos personalizada? ¡No dudes en ponerte en contacto conmigo!</p>
-        <div class="formulario-contacto">
-            <form action="send_email.php" method="POST">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="button">Enviar Mensaje</button>
-            </form>
-        </div>
-        <div class="info-contacto">
-            <h3>Información de Contacto</h3>
-            <p><i class="bi bi-envelope"></i> Email: al5261486@gmail.com</p>
-            <p><i class="bi bi-instagram"></i> Instagram: <a href="https://www.instagram.com/aguslopez_fotografia/" target="_blank" rel="noopener noreferrer">@aguslopez_fotografia</a></p>
+        <div class="contenido-seccion">
+            <h2>Contacto</h2>
+            <p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos personalizada? ¡No dudes en ponerte en contacto conmigo!</p>
+            <div class="formulario-contacto">
+                <form action="send_email.php" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="button">Enviar Mensaje</button>
+                </form>
             </div>
-    </div>
-</section>
-
+            <div class="info-contacto">
+                <h3>Información de Contacto</h3>
+                <p><i class="bi bi-envelope"></i> Email: al5261486@gmail.com</p>
+                <p><i class="bi bi-instagram"></i> Instagram: <a href="https://www.instagram.com/aguslopez_fotografia/" target="_blank" rel="noopener noreferrer">@aguslopez_fotografia</a></p>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

@@ -1,5 +1,8 @@
 <?php
+ob_start("ob_gzhandler");
+?>
 
+<?php
 session_start();
 session_regenerate_id(true); // Prevenir fijación de sesión
 
@@ -50,8 +53,9 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Agustina López</title>
+    <meta name="description" content="Descubre artículos, consejos y experiencias en el blog de Agustina López sobre fotografia, edicion de imagenes y más.">
     <link rel="stylesheet" href="styles.css">
-    <title>Mi Blog</title>
 </head>
 <body class="blog-list-page">
     <header>
