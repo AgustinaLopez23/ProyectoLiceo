@@ -1,3 +1,7 @@
+<?php
+ob_start("ob_gzhandler");
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +11,7 @@
         content="Portafolio de Agustina Lopez, fotógrafa aficionada. Descubre sus mejores trabajos.">
     <meta name="keywords" content="fotografía, portfolio, Agustina Lopez, fotografía aficionada">
     <title>Portafolio de Agustina Lopez</title>
+    <script src="scripts.js" defer></script>
 
     <style>
         /* Global Styles (from styles.css) - Essential for initial layout */
@@ -359,7 +364,7 @@
                     }
 
                     echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $descripcion . '">';
+                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
                     echo '<p>' . $descripcion . '</p>';
                     echo '<div class="like-container">';
                     echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $paisajes_id . '" data-tabla-origen="paisajes">';
@@ -429,7 +434,7 @@
                     }
 
                     echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '">';
+                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
                     echo '<p>' . $nombre . '</p>';
                     echo '<div class="like-container">';
                     echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $autos_id . '" data-tabla-origen="autos">';
@@ -499,7 +504,7 @@
                     }
 
                     echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '">';
+                    echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $nombre . '" loading="lazy">';
                     echo '<p>' . $nombre . '</p>';
                     echo '<div class="like-container">';
                     echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $eventos_id . '" data-tabla-origen="eventos">';
@@ -571,7 +576,7 @@
                     }
 
                     echo '<div class="item">';
-                    echo '<img src="' . $ruta . '" alt="' . $nombre_viajes . '" data-description="' . $descripcion . '">';
+                    echo '<img src="' . $ruta . '" alt="' . $nombre_viajes . '" data-description="' . $descripcion . '" loading="lazy">';
                     echo '<p class="descripcion">' . $descripcion . '</p>';
                     echo '<div class="like-container">';
                     echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $viajes_id . '" data-tabla-origen="viajes">';
@@ -804,5 +809,4 @@
 </section>
 
 </body>
-
 </html>
