@@ -216,3 +216,4 @@ const applyResponsiveStyles = () => {
 
 window.addEventListener('load', applyResponsiveStyles);
 window.addEventListener('resize', applyResponsiveStyles);
+

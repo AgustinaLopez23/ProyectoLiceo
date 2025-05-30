@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <link rel="stylesheet" href="/ProyectoLiceo/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body class="login-body">
-    <div class="login-container">
-        <h2 class="login-h2">Iniciar Sesión</h2>
-        <?php if (isset($_GET['error'])): ?>
-            <p class="login-error-message"><?php echo htmlspecialchars($_GET['error']); ?></p>
-        <?php endif; ?>
-        <form class="login-form" action="procesar_login.php" method="POST">
-            <div class="mb-3">
-                <label for="usuario" class="form-label">Nombre de Usuario o Correo Electrónico:</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" required aria-required="true">
-            </div>
-            <div class="mb-3 password-toggle-container">
-                <label for="contrasena" class="form-label">Contraseña:</label>
-                <input type="password" class="form-control" id="contrasena" name="contrasena" required aria-required="true">
-                <i id="togglePassword" class="bi bi-eye-slash password-toggle-icon" onclick="togglePasswordVisibility()"></i>
-            </div>
-            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        </form>
-        <p class="login-signup-link">¿No tienes una cuenta? <a href="registro.php">Regístrate aquí</a></p>
-    </div>
+  <div class="circle-bg circle-top-left"></div>
+  <div class="circle-bg circle-bottom-right"></div>
+  <div class="login-container">
+    <h2 class="login-h2">Iniciar Sesión</h2>
 
-    <script>
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('contrasena');
-            const togglePasswordIcon = document.getElementById('togglePassword');
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                togglePasswordIcon.classList.remove('bi-eye-slash');
-                togglePasswordIcon.classList.add('bi-eye');
-            } else {
-                passwordInput.type = "password";
-                togglePasswordIcon.classList.remove('bi-eye');
-                togglePasswordIcon.classList.add('bi-eye-slash');
-            }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <form class="login-form" action="procesar_login.php" method="POST" autocomplete="on">
+      <div class="mb-3">
+        <label for="usuario" class="form-label">Nombre de Usuario o Correo Electrónico:</label>
+        <input type="text" id="usuario" name="usuario" required autofocus>
+      </div>
+      <div class="mb-3 password-toggle-container">
+        <label for="contrasena" class="form-label">Contraseña:</label>
+        <div class="password-input-wrapper">
+          <input type="password" id="contrasena" name="contrasena" required>
+          <span class="password-toggle-icon" id="togglePassword" tabindex="0" aria-label="Mostrar/Ocultar contraseña">
+            <!-- OJO ABIERTO: Contraseña visible -->
+            <svg id="icon-eye" viewBox="0 0 24 24" width="22" height="22" fill="none" style="display:none;">
+              <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#333" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2" fill="none"/>
+            </svg>
+            <!-- OJO CERRADO: Contraseña oculta -->
+            <svg id="icon-eye-off" viewBox="0 0 24 24" width="22" height="22" fill="none" style="display:inline;">
+              <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#333" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="12" r="3" stroke="#333" stroke-width="2" fill="none"/>
+              <line x1="4" y1="4" x2="20" y2="20" stroke="#333" stroke-width="2"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+    <p class="login-signup-link">¿No tienes una cuenta? <a href="registro.php">Regístrate aquí</a></p>
+  </div>
+
+  <!-- Enlaza tu JS personalizado aquí -->
+  <script src="login_script.js"></script>
 </body>
 </html>

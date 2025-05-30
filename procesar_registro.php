@@ -97,12 +97,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado del Registro</title>
-
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background:rgb(195, 229, 191);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .mensaje-resultado {
+            background:rgba(103, 144, 105, 0.78);
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.46);
+            padding: 2rem 2.5rem;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .mensaje-resultado h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            margin-bottom: 1.1rem;
+        }
+        .mensaje-resultado .success {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 1.1rem;
+        }
+        .mensaje-resultado .error {
+            color:rgb(11, 71, 13);
+            background:rgba(163, 226, 154, 0.27);
+            padding: 0.7rem;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 1.1rem;
+        }
+        .mensaje-resultado a {
+            color: #1976d2;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .mensaje-resultado a:hover {
+            color: #0d47a1;
+        }
+        @media (max-width: 500px) {
+            .mensaje-resultado {
+                padding: 1.1rem 0.5rem;
+                max-width: 94vw;
+            }
+            .mensaje-resultado h1 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Resultado del Registro</h1>
-
-    <div class="mensaje">
+    <div class="mensaje-resultado">
+        <h1>Resultado del Registro</h1>
         <?php if (!empty($errores)): ?>
             <div class="error">
                 <?php foreach ($errores as $error): ?>
@@ -117,10 +172,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <p><?php echo $mensaje_exito; ?></p>
             </div>
         <?php endif; ?>
-    </div>
 
-    <div class="volver">
-        <p><a href="index.php">Volver a la página principal</a></p>
+        <div style="margin-top:1.5rem;">
+            <a href="/ProyectoLiceo/blog.php">Volver a la página principal</a>
+        </div>
     </div>
 </body>
 </html>

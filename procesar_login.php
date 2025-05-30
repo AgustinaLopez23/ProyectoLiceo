@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["usuario_id"] = $usuario["id"];
             $_SESSION["nombre_usuario"] = $usuario["nombre_usuario"];
 
-            // Redirigir al panel de usuario o a la página principal
-            header("Location: panel_usuario.php"); // ¡Aún no hemos creado panel_usuario.php!
+            // Redirigir a la página principal del blog
+            header("Location: /ProyectoLiceo/blog.php");
             exit();
         } else {
             // Contraseña incorrecta
