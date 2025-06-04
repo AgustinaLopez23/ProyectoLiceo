@@ -704,121 +704,160 @@ nav .active a {
 }
 
 /* Estilo general para sección contacto */
-  
-  .contacto {
-    position:relative;
-    z-index:1;
-    padding:40px 40px;
-    overflow:hidden
-    }
-  
-  .contenido-seccion {
-  max-width:900px;
-  margin:0 auto;
-  background-color:#ffffff5d;
-  border-radius:12px;
-  box-shadow:0 4px 20px #0000001a;
-  display:flex;
-  flex-direction: column;
-  padding:40px;
-  gap:20px
-  }
-  
-  /* Izquierda: info contacto */
-  
-  .info-contacto {
-  flex:1;
-  min-width:280px
-  }
-  
-  .info-contacto h3 {
-    font-size: 1.8em; 
-    margin-bottom: 15px; 
-  }
-  
-  .info-contacto p {
-  margin:10px 0;
-  color:#000;
-  font-size: 1em;
-  }
-  
-  .info-contacto i {
-  margin-right:10px;
-  color:#000000
-  }
-  
-  .info-contacto a {
-  color:#f5f5f5;
-  text-decoration:none
-  }
-  
-  
-/* Derecha: formulario */
-.formulario-contacto {
-  min-width: 280px;
-}
-  
-  .formulario-contacto form {
-  display:flex;
-  flex-direction:column;
-  gap:15px
-  }
-  
-  .form-group {
-  display:flex;
-  flex-direction:column
-  }
-  
-  .form-group label {
-  margin-bottom:6px;
-  font-weight:500;
-  color:#000
-  }
-  
-  .form-group input,.form-group textarea {
-  padding:10px 12px;
-  border:1px solid #616161ad;
-  border-radius:6px;
-  font-size:15px;
-  background-color:#f7f7f7;
-  transition:border-color .3s ease
-  }
-  
-  .form-group input:focus,.form-group textarea:focus {
-  outline:none;
-  border-color:#2e7d32
-  }
-  
-/* Botón enviar */
-.button {
-  padding: 10px 15px; 
-  font-size: 1em; 
+
+body {
+    background:linear-gradient(90deg, #274427, #64a34d);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
 }
 
-  .button:hover {
-  background-color:#256228
-  }
-  
-  
-  /* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
-  .contenido-seccion {
-    flex-direction: column; 
-  }
-  .info-contacto,
-  .formulario-contacto {
-    flex: 1; 
-    min-width: auto; 
-  }
-  .info-contacto h3 {
-    font-size: 1.5em;
-  }
-  .info-contacto p {
-    font-size: 0.9em;
-  }
-  .button {
-    font-size: 0.9em;
-  }
+.contacto-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contacto-card {
+    background: #c0bebe;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px #1a1a1a58;
+    width: 100%;
+    max-width: 540px;
+    padding: 40px 32px 32px 32px;
+    margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+.contacto-card h2 {
+    color: #388e3c;
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Descripción */
+.contacto-card > p {
+    color: #333;
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.06em;
+}
+
+/* Formulario */
+.formulario-contacto {
+    width: 100%;
+}
+
+.formulario-contacto form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 2px;
+}
+
+/* Inputs igual al login */
+.form-group input, .form-group textarea {
+    padding: 12px;
+    border: 2px solid #388e3c33;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #eaf3fa;
+    color: #222;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: none;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: #388e3c;
+    background: #f5fff5;
+}
+
+/* Botón enviar igual al login */
+.button {
+    margin-top: 8px;
+    padding: 12px 0;
+    background: #388e3c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.15em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s;
+    box-shadow: 0 2px 8px #388e3c22;
+    letter-spacing: 0.5px;
+}
+.button:hover {
+    background: #256228;
+}
+
+/* Info de contacto */
+.info-contacto {
+    margin-top: 30px;
+    width: 100%;
+    background: #f6faf6;
+    border-radius: 10px;
+    padding: 18px 16px 10px 16px;
+    box-shadow: 0 2px 10px #0000000a;
+}
+.info-contacto h3 {
+    font-size: 1.15em;
+    color: #222;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+.info-contacto p {
+    margin: 10px 0;
+    color: #222;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.info-contacto i {
+    font-size: 1.2em;
+    color: #388e3c;
+    margin-right: 5px;
+}
+.info-contacto a {
+    color: #388e3c;
+    font-weight: 600;
+    text-decoration: underline dotted;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .contacto-card {
+        padding: 24px 7vw 20px 7vw;
+        max-width: 98vw;
+    }
+    .formulario-contacto form {
+        gap: 14px;
+    }
+    .info-contacto {
+        padding: 13px 5vw 8px 5vw;
+    }
+    .contacto-card h2 {
+        font-size: 1.5em;
+    }
 }
   
 /* Estilos para la Sección de Listado de Blog (blog.php) */
@@ -1998,44 +2037,75 @@ nav .active a {
   }
 }
 
-
-
-/* Estilos para los iconos de corazón SVG */
-
-.like-container .like-btn .heart-icon {
-    font-size:1.8em; 
-    vertical-align:middle;
-    color:transparent; 
-    transition:color .3s ease-in-out;
-    -webkit-text-stroke:none;
-    -webkit-text-fill-color:#000000;
-    opacity:.6;
-    width: 30px; 
-    height: 30px; 
-    fill: #000; 
+/* Estilo para el botón de me gusta */
+.like-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    background-color: #ffffff59;
+    padding: 8px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px #0000001a;
 }
 
-/* Para el corazón lleno cuando el botón está 'liked' */
+.like-btn {
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.like-btn:hover {
+    transform: scale(1.1);
+    opacity: 1;
+    background-color: transparent;
+}
+
+.like-btn:active {
+    transform: scale(1.0);
+    background-color: transparent;
+}
+
+.like-btn:focus {
+    background-color: transparent;
+    outline: none;
+}
+
+/* íconos de like SVG */
+.heart-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.like-btn.liked .heart-empty-icon {
+    display: none;
+}
+
+.heart-filled-icon {
+    fill: #E74C3C;
+    display: none;
+}
+
 .like-btn.liked .heart-filled-icon {
-    fill:#e74c3c; 
-    opacity:1;
-}
-
-.like-btn .heart-empty-icon {
-    fill: none; 
-    stroke: #000000; 
-    stroke-width: 0.3; 
-    opacity: .6;
+    display: block;
 }
 
 .like-count {
-    margin-left:8px;
-    font-size:1em;
-    color:#000000;
-    font-weight:700
+    margin-left: 8px;
+    font-size: 1em;
+    color: #000000;
+    font-weight: 700;
 }
 
-  
+
 /* Estilo específicos para el mensaje de articulo actualizado (procesar_editar_articulo.php) */
 
   .cuerpo-mensaje {
