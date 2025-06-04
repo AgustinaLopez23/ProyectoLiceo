@@ -51,11 +51,20 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
     </script>
     <script src="scripts.js" defer></script>
 
+<<<<<<< HEAD
 <style>
     /* Global Styles (from styles.css) - Essential for initial layout */
     * {
         box-sizing: border-box;
     }
+=======
+    <style>
+    
+        /* Global Styles (from styles.css) - Essential for initial layout */
+        * {
+            box-sizing: border-box;
+        }
+>>>>>>> 1bb89a4813494137842a4e0061fd65ae3c38180e
 
     body {
         margin: 0;
@@ -281,10 +290,67 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
         background-color: transparent;
     }
 
+<<<<<<< HEAD
     .like-btn:focus {
         background-color: transparent;
         outline: none;
     }
+=======
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 768px) {
+            #sobremi.intro-section .titulo-principal {
+                font-size: 1.5em;
+            }
+            #sobremi.intro-section .mensaje-bienvenida {
+                max-width: 90%;
+            }
+            .redes-sociales a .bi-instagram {
+                font-size: 20px;
+            }
+        }
+        
+        /* Estilo para el botón de me gusta */
+
+        .like-container {
+    position:absolute;
+    top:10px;
+    right:10px;
+    display:flex;
+    align-items:center;
+    z-index:10;
+    background-color:#ffffff59; 
+    padding:8px 12px;
+    border-radius:20px;
+    box-shadow:0 2px 5px #0000001a
+}
+
+.like-btn {
+    padding:0;
+    cursor:pointer;
+    border:none;
+    background-color:transparent; 
+    outline:none; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.like-btn:hover {
+    transform:scale(1.1);
+    opacity:1;
+    background-color:transparent; 
+}
+
+.like-btn:active {
+    transform:scale(1.0);
+    background-color:transparent; 
+}
+
+.like-btn:focus { 
+    background-color:transparent;
+    outline:none; 
+}
+>>>>>>> 1bb89a4813494137842a4e0061fd65ae3c38180e
 
     /* íconos de like SVG */
     .heart-icon {
@@ -419,6 +485,7 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
             width: 92vw;
             padding: 1.5em 0.5em;
         }
+<<<<<<< HEAD
         .modal-login-required .modal-box .button {
             width: 96%;
             margin: 0.3em 0;
@@ -431,6 +498,128 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
     }
 </style>
 
+=======
+        
+        .modal-login-required {
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100vw; height: 100vh; 
+    z-index: 10000;
+    background: rgba(0,0,0,0.35);
+    display: none;
+    align-items: center; 
+    justify-content: center;
+    backdrop-filter: blur(2px);
+    transition: background 0.3s;
+}
+
+.modal-login-required .modal-box {
+    background: rgba(255,255,255,0.96);
+    padding: 2.5em 2em 2.2em 2em;
+    border-radius: 18px;
+    text-align: center;
+    position: relative;
+    min-width: 340px;
+    box-shadow: 0 8px 32px #0002, 0 1.5px 7px #79a97622;
+    animation: modalPop .27s cubic-bezier(.4,2,.4,1.3);
+}
+
+@keyframes modalPop {
+    0% { transform: scale(.7) translateY(40px); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-login-required .modal-box #btn-close-modal {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b0b0b0;
+    transition: color .16s, transform .13s;
+    line-height: 1;
+    z-index: 2;
+    padding: 0;
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-login-required .modal-box #btn-close-modal:hover {
+    color: #79a976;
+    transform: rotate(90deg) scale(1.1);
+}
+
+.modal-login-required .modal-box h3 {
+    margin-top: 0;
+    margin-bottom: 0.4em;
+    font-size: 1.6em;
+    color: #254E36;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.modal-login-required .modal-box p {
+    color: #222;
+    font-size: 1.08em;
+    margin-bottom: 2em;
+}
+
+.modal-login-required .modal-box .button {
+    background: #79a976;
+    color: #fff;
+    padding: 11px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 0 8px;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+    font-size: 1.08em;
+    font-weight: 600;
+    box-shadow: 0 2px 6px #6ea16b33;
+    transition: background .2s, transform .16s, box-shadow .2s;
+}
+
+.modal-login-required .modal-box .button:hover,
+.modal-login-required .modal-box .button:focus {
+    background: #55885f;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 18px #6ea16b22;
+}
+
+.modal-login-required .modal-box .button.registro {
+    background: #55885f;
+}
+
+.modal-login-required .modal-box .button.registro:hover,
+.modal-login-required .modal-box .button.registro:focus {
+    background: #395c44;
+}
+
+@media (max-width: 500px) {
+    .modal-login-required .modal-box { 
+        min-width: unset; 
+        width: 92vw; 
+        padding: 1.5em 0.5em; 
+    }
+    .modal-login-required .modal-box .button { 
+        width: 96%; 
+        margin: 0.3em 0; 
+    }
+    .modal-login-required .modal-box #btn-close-modal {
+        right: 10px;
+        top: 10px;
+        font-size: 1.5em;
+    }
+}
+
+    </style>
+>>>>>>> 1bb89a4813494137842a4e0061fd65ae3c38180e
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
