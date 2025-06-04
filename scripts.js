@@ -229,3 +229,24 @@
   window.addEventListener('resize', applyResponsiveStyles);
 
 })();
+
+    // Mostrar modal si no logueado y se intenta dar like
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.like-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+          if (typeof usuarioLogueado !== 'undefined' && !usuarioLogueado) {
+            event.preventDefault();
+            document.getElementById('modal-login-required').style.display = 'flex';
+            return false;
+          }
+        });
+      });
+      document.getElementById('btn-close-modal').onclick = function() {
+        document.getElementById('modal-login-required').style.display = 'none';
+      };
+      // Opcional: cerrar al hacer click fuera del modal
+      window.onclick = function(e) {
+        var modal = document.getElementById('modal-login-required');
+        if (e.target === modal) modal.style.display = 'none';
+      };
+    });

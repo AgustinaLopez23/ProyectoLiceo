@@ -12,11 +12,6 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Incluir los archivos de PHPMailer
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-// Ajusta estas rutas PARA QUE COINCIDAN EXACTAMENTE con las de send_mail.php
 require __DIR__ . '/phpmailer/PHPMailer-master/src/Exception.php';
 require __DIR__ . '/phpmailer/PHPMailer-master/src/PHPMailer.php';
 require __DIR__ . '/phpmailer/PHPMailer-master/src/SMTP.php';
@@ -59,17 +54,17 @@ function validarDatos($datos, $conn) {
 
 // Función para enviar correo electrónico con PHPMailer
 function enviarEmailPHPMailer(string $destinatario, string $asunto, string $mensaje, string $nombreDestinatario = '') {
-    $mail = new PHPMailer(true);
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
 
     try {
         // Configuración del servidor SMTP
-        $mail->SMTPDebug = SMTP::DEBUG_OFF; // Cambiar a SMTP::DEBUG_SERVER para depuración detallada
+        $mail->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_OFF; // Cambiar a SMTP::DEBUG_SERVER para depuración detallada
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';  // Servidor SMTP de Gmail
         $mail->SMTPAuth   = true;
         $mail->Username   = 'al5261486@gmail.com'; // Tu dirección de correo electrónico de Gmail
         $mail->Password   = 'uplmjkxrrbtgspie'; // ¡UTILIZANDO LA CONTRASEÑA DE APLICACIÓN DE send_mail.php!
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Usar SSL
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS; // Usar SSL
         $mail->Port       = 465;                   // Puerto TCP para SSL
 
         // Remitente y destinatario
@@ -89,7 +84,6 @@ function enviarEmailPHPMailer(string $destinatario, string $asunto, string $mens
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores_validacion = validarDatos($_POST, $conn);
 
     if (empty($errores_validacion)) {
