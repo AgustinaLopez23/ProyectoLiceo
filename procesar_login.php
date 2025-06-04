@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["nombre_usuario"] = $usuario["nombre_usuario"];
 
             // Redirigir a la página principal del blog
-            header("Location: /ProyectoLiceo/blog.php");
+            header("Location: /ProyectoLiceo/ProyectoLiceo.php#inicio");
             exit();
         } else {
             // Contraseña incorrecta

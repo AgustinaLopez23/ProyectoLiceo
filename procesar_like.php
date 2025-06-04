@@ -34,32 +34,27 @@ if (isset($_POST['item_id']) && isset($_POST['tabla_origen'])) {
     // Obtener el ID del usuario de la sesión si está logueado
     $usuarioId = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : null;
 
-    // Verificar si el usuario ya dio "me gusta" a este ítem en esta tabla (si el usuario está logueado)
-    $sql_check = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = ?";
-    if ($usuarioId !== null) {
-        $sql_check .= " AND usuario_id = ?";
+    // SOLO PERMITIR LIKES SI ESTÁ LOGUEADO
+    if ($usuarioId === null) {
+        $response = array('success' => false, 'error' => 'Debes iniciar sesión para dar like.');
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        $conn->close();
+        exit();
     }
+
+    // Verificar si el usuario ya dio "me gusta" a este ítem en esta tabla
+    $sql_check = "SELECT id_like FROM likes WHERE item_id = ? AND tabla_origen = ? AND usuario_id = ?";
     $stmt_check = $conn->prepare($sql_check);
-    if ($usuarioId !== null) {
-        $stmt_check->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
-    } else {
-        $stmt_check->bind_param("is", $itemId, $tablaOrigen);
-    }
+    $stmt_check->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
     $stmt_check->execute();
     $result_check = $stmt_check->get_result();
 
     if ($result_check->num_rows > 0) {
-        // El usuario ya dio "me gusta", entonces lo quitamos
-        $sql_delete = "DELETE FROM likes WHERE item_id = ? AND tabla_origen = ?";
-        if ($usuarioId !== null) {
-            $sql_delete .= " AND usuario_id = ?";
-        }
+        // Ya dio like, lo quitamos
+        $sql_delete = "DELETE FROM likes WHERE item_id = ? AND tabla_origen = ? AND usuario_id = ?";
         $stmt_delete = $conn->prepare($sql_delete);
-        if ($usuarioId !== null) {
-            $stmt_delete->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
-        } else {
-            $stmt_delete->bind_param("is", $itemId, $tablaOrigen);
-        }
+        $stmt_delete->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
         if ($stmt_delete->execute()) {
             $response = array('success' => true, 'likes' => contarLikes($conn, $itemId, $tablaOrigen));
         } else {
@@ -67,16 +62,29 @@ if (isset($_POST['item_id']) && isset($_POST['tabla_origen'])) {
         }
         $stmt_delete->close();
     } else {
-        // El usuario no ha dado "me gusta", entonces lo agregamos
-        $sql_insert = "INSERT INTO likes (item_id, tabla_origen, usuario_id) VALUES (?, ?, ?)";
-        $stmt_insert = $conn->prepare($sql_insert);
-        $stmt_insert->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
-        if ($stmt_insert->execute()) {
-            $response = array('success' => true, 'likes' => contarLikes($conn, $itemId, $tablaOrigen));
+        // Antes de insertar, revisa si ya existe el like para ese usuario (por seguridad)
+        $sql_exists = "SELECT 1 FROM likes WHERE item_id = ? AND tabla_origen = ? AND usuario_id = ?";
+        $stmt_exists = $conn->prepare($sql_exists);
+        $stmt_exists->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
+        $stmt_exists->execute();
+        $stmt_exists->store_result();
+
+        if ($stmt_exists->num_rows == 0) {
+            // No ha dado like, lo agregamos
+            $sql_insert = "INSERT INTO likes (item_id, tabla_origen, usuario_id) VALUES (?, ?, ?)";
+            $stmt_insert = $conn->prepare($sql_insert);
+            $stmt_insert->bind_param("isi", $itemId, $tablaOrigen, $usuarioId);
+            if ($stmt_insert->execute()) {
+                $response = array('success' => true, 'likes' => contarLikes($conn, $itemId, $tablaOrigen));
+            } else {
+                $response = array('success' => false, 'error' => 'Error al dar like: ' . $stmt_insert->error);
+            }
+            $stmt_insert->close();
         } else {
-            $response = array('success' => false, 'error' => 'Error al dar like: ' . $stmt_insert->error);
+            // Ya existe el like, solo contamos
+            $response = array('success' => true, 'likes' => contarLikes($conn, $itemId, $tablaOrigen));
         }
-        $stmt_insert->close();
+        $stmt_exists->close();
     }
     $stmt_check->close();
 
@@ -91,9 +99,9 @@ if (isset($_POST['item_id']) && isset($_POST['tabla_origen'])) {
     echo json_encode($response);
 }
 
-// Función para contar los likes de un ítem específico en una tabla
+// Función para contar los likes de un ítem específico en una tabla (solo de usuarios logueados)
 function contarLikes($conn, $itemId, $tablaOrigen) {
-    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = ?";
+    $sql_count = "SELECT COUNT(*) FROM likes WHERE item_id = ? AND tabla_origen = ? AND usuario_id IS NOT NULL";
     $stmt_count = $conn->prepare($sql_count);
     $stmt_count->bind_param("is", $itemId, $tablaOrigen);
     $stmt_count->execute();

@@ -48,6 +48,7 @@ footer,
   }
 }
 
+
 #paisajes,
 #autos,
 #eventos {
@@ -1997,47 +1998,7 @@ nav .active a {
   }
 }
 
-/* Estilo para el botón de me gusta */
 
-.like-container {
-    position:absolute;
-    top:10px;
-    right:10px;
-    display:flex;
-    align-items:center;
-    z-index:10;
-    background-color:#ffffff59; 
-    padding:8px 12px;
-    border-radius:20px;
-    box-shadow:0 2px 5px #0000001a
-}
-
-.like-btn {
-    padding:0;
-    cursor:pointer;
-    border:none;
-    background-color:transparent; 
-    outline:none; 
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-}
-
-.like-btn:hover {
-    transform:scale(1.1);
-    opacity:1;
-    background-color:transparent; 
-}
-
-.like-btn:active {
-    transform:scale(1.0);
-    background-color:transparent; 
-}
-
-.like-btn:focus { 
-    background-color:transparent;
-    outline:none; 
-}
 
 /* Estilos para los iconos de corazón SVG */
 
@@ -2073,6 +2034,7 @@ nav .active a {
     color:#000000;
     font-weight:700
 }
+
   
 /* Estilo específicos para el mensaje de articulo actualizado (procesar_editar_articulo.php) */
 

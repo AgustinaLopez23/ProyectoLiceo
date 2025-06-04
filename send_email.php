@@ -3,58 +3,121 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\Exception.php';
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\PHPMailer.php';
-require 'C:\xampp\htdocs\ProyectoLiceo\phpmailer\PHPMailer-master\src\SMTP.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/Exception.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/PHPMailer.php';
+require __DIR__ . '/phpmailer/PHPMailer-master/src/SMTP.php';
 
+function mostrar_mensaje($titulo, $mensaje, $esExito = true) {
+    // Mismo estilo que confirmacion_reserva.php
+    ?>
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo htmlspecialchars($titulo); ?></title>
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                min-height: 100vh;
+                background-color:rgba(176, 228, 170, 0.83);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .container {
+                width: 70%;
+                max-width: 1300px;
+                margin: 32px auto;
+                background-color: #fff;
+                padding: 40px 0px 40px 0px;
+                border-radius: 10px;
+                box-shadow: 0 0 16px rgba(0, 0, 0, 0.58), 0 1.5px 7px #79a97622;
+                text-align: center;
+            }
+            h1 {
+                color: <?php echo $esExito ? '#5cb85c' : '#d9534f'; ?>;
+                font-size: 2.5em;
+                margin-bottom: 20px;
+                font-weight: 700;
+            }
+            p {
+                margin-bottom: 25px;
+                font-size: 1.2em;
+            }
+            .boton-volver {
+                display: inline-block;
+                padding: 12px 28px;
+                background-color: #007bff;
+                color: white;
+                text-decoration: none;
+                border-radius: 7px;
+                font-size: 1.1em;
+                font-weight: 500;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 2px 6px #6ea16b33;
+                transition: background .2s, transform .16s, box-shadow .2s;
+            }
+            .boton-volver:hover {
+                background-color: #0056b3;
+                transform: translateY(-2px) scale(1.04);
+                box-shadow: 0 6px 18px #6ea16b22;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1><?php echo htmlspecialchars($titulo); ?></h1>
+            <p><?php echo nl2br(htmlspecialchars($mensaje)); ?></p>
+            <a href="ProyectoLiceo.php" class="boton-volver">Volver a la página principal</a>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir los datos del formulario
     $nombre = strip_tags(trim($_POST["nombre"]));
     $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
     $mensaje = strip_tags(trim($_POST["mensaje"]));
 
-    // Validar los datos
     if (empty($nombre) || empty($mensaje) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        http_response_code(400);
-        echo "Por favor, completa todos los campos correctamente.";
-        exit;
+        mostrar_mensaje("Error", "Por favor, completa todos los campos correctamente.", false);
     }
 
-    // Crear una instancia de PHPMailer
     $mail = new PHPMailer(true);
 
     try {
-        // Configuración del servidor SMTP
-        $mail->SMTPDebug = SMTP::DEBUG_OFF; // 0 = off (producción), 1 = client messages, 2 = client and server messages
-        $mail->isSMTP();                                            // Usar SMTP para enviar
-        $mail->Host       = 'smtp.gmail.com';                     // Servidor SMTP de Gmail
-        $mail->SMTPAuth   = true;                                   // Habilitar la autenticación SMTP
-        $mail->Username   = 'al5261486@gmail.com';                // Tu dirección de correo electrónico de Gmail
-        $mail->Password   = 'uplmjkxrrbtgspie';        // ¡REEMPLAZA CON TU CONTRASEÑA DE APLICACIÓN DE GMAIL!
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        // Usar TLS
-        $mail->Port       = 465;                                    // Puerto TCP para TLS
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'al5261486@gmail.com';
+        $mail->Password   = 'uplmjkxrrbtgspie';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
 
-        // Remitente y destinatario
         $mail->setFrom($email, $nombre);
-        $mail->addAddress('al5261486@gmail.com', 'Agustina Lopez');     // Tu dirección de correo electrónico de destino
+        $mail->addAddress('al5261486@gmail.com', 'Agustina Lopez');
 
-        // Contenido del correo
-        $mail->isHTML(false);                                  // Establecer el formato del correo como texto plano
+        $mail->isHTML(false);
         $mail->Subject = 'Nuevo mensaje de contacto desde tu sitio web';
         $mail->Body    = "Nombre: $nombre\n";
         $mail->Body   .= "Email: $email\n\n";
         $mail->Body   .= "Mensaje:\n$mensaje\n";
 
         $mail->send();
-        http_response_code(200);
-        echo '¡Gracias! Tu mensaje ha sido enviado.';
+        mostrar_mensaje("¡Gracias!", " Tu mensaje ha sido enviado.");
     } catch (Exception $e) {
-        http_response_code(500);
-        echo "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente más tarde. Error: {$mail->ErrorInfo}";
+        mostrar_mensaje("Error", "Hubo un error al enviar tu mensaje. Por favor, intenta nuevamente más tarde. Error: {$mail->ErrorInfo}", false);
     }
 } else {
-    http_response_code(403);
-    echo "Acceso prohibido.";
+    mostrar_mensaje("Acceso prohibido", "No tienes permiso para acceder a esta página.", false);
 }
 ?>

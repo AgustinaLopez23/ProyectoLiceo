@@ -2,6 +2,11 @@
 ob_start("ob_gzhandler");
 session_start();
 
+// Generar el token CSRF si no existe
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 include "conexion.php";
 
 // Manejo de errores para la conexión a la base de datos
@@ -40,240 +45,433 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
         content="Portafolio de Agustina Lopez, fotógrafa aficionada. Descubre sus mejores trabajos.">
     <meta name="keywords" content="fotografía, portfolio, Agustina Lopez, fotografía aficionada">
     <title>Portafolio de Agustina Lopez</title>
+    <script>
+      // Variable JS para saber si el usuario está logueado
+      var usuarioLogueado = <?php echo isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
+    </script>
     <script src="scripts.js" defer></script>
 
-    <style>
-        /* Global Styles (from styles.css) - Essential for initial layout */
-        * {
-            box-sizing: border-box;
-        }
+<style>
+    /* Global Styles (from styles.css) - Essential for initial layout */
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif; 
-            
-        }
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
 
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
 
-        /* Estilos para el menú de navegación principal  */
-        .main-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #00000032;
-            color: #fff;
-            z-index: 100;
-            padding: 20px 0;
-            margin: 0;
-        }
+    /* Estilos para el menú de navegación principal  */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #00000032;
+        color: #fff;
+        z-index: 100;
+        padding: 20px 0;
+        margin: 0;
+    }
 
+    .main-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-nav li {
+        margin: 0 10px;
+    }
+
+    .main-nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 15px;
+    }
+
+    .main-nav a:hover {
+        background-color: #79a976;
+        color: #000;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Media query para pantallas pequeñas */
+    @media (max-width: 768px) {
         .main-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
-
         .main-nav li {
-            margin: 0 10px;
+            margin: 5px 0;
         }
+    }
 
-        .main-nav a {
-            color: #fff;
-            text-decoration: none;
+    /* Estilos para la sección de inicio (Hero)  */
+    .hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-content {
+        padding: 20px;
+        z-index: 10;
+    }
+
+    .hero-content h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        font-weight: 400;
+        text-shadow: 2px 2px 4px #00000039;
+    }
+
+    .hero-content .button {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #00000098;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        transition: background-color 0.3s ease;
+        font-size: 1.1em;
+    }
+
+    .hero-content .button:hover {
+        background-color: #1f522b66;
+    }
+
+    /* Media query para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .hero-content h1 {
+            font-size: 2em;
+        }
+        .hero-content .button {
+            font-size: 0.9em;
             padding: 10px 15px;
         }
+    }
 
-        .main-nav a:hover {
-            background-color: #79a976;
-            color: #000;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    /* SECCIÓN SOBRE MÍ  */
+    #sobremi.intro-section {
+        background: -webkit-linear-gradient(90deg, #274427, #64a34d);
+        background: linear-gradient(90deg, #274427, #64a34d);
+        color: #000;
+        padding: 40px 20px;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 200px;
+    }
 
-        /* Media query para pantallas pequeñas */
-        @media (max-width: 768px) {
-            .main-nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            .main-nav li {
-                margin: 5px 0;
-            }
-        }
+    #sobremi.intro-section .titulo-principal {
+        font-size: 2em;
+        font-weight: 300;
+        margin-bottom: 15px;
+    }
 
-        /* Estilos para la sección de inicio (Hero)  */
-        .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-        }
+    #sobremi.intro-section .mensaje-bienvenida {
+        font-size: 1em;
+        line-height: 1.5;
+        color: #eee;
+        margin: 0 auto 15px;
+    }
 
-        .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-size: cover;
-            background-position: center;
-        }
+    /* Estilos para el contenedor de redes sociales */
+    .redes-sociales {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
-        .hero-content {
-            padding: 20px;
-            z-index: 10;
-        }
+    /* Estilos para el enlace del icono */
+    .redes-sociales a {
+        color: #000;
+        text-decoration: none;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
 
-        .hero-content h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            font-weight: 400;
-            text-shadow: 2px 2px 4px #00000039;
-        }
+    .redes-sociales a:hover {
+        opacity: 1;
+    }
 
-        .hero-content .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #00000098;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            border: 1px solid #fff;
-            transition: background-color 0.3s ease;
-            font-size: 1.1em;
-        }
-
-        .hero-content .button:hover {
-            background-color: #1f522b66;
-        }
-
-        /* Media query para pantallas pequeñas */
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2em;
-            }
-            .hero-content .button {
-                font-size: 0.9em;
-                padding: 10px 15px;
-            }
-        }
-
-        /* SECCIÓN SOBRE MÍ  */
-        #sobremi.intro-section {
-            background: -webkit-linear-gradient(90deg, #274427,#64a34d);
-            background: linear-gradient(90deg, #274427,#64a34d);
-            color: #000;
-            padding: 40px 20px;
-            text-align: center;
-            font-family: 'Arial', sans-serif; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 200px;
-        }
-
+    /* Media query para pantallas pequeñas */
+    @media (max-width: 768px) {
         #sobremi.intro-section .titulo-principal {
-            font-size: 2em;
-            font-weight: 300;
-            margin-bottom: 15px;
+            font-size: 1.5em;
         }
-
         #sobremi.intro-section .mensaje-bienvenida {
-            font-size: 1em;
-            line-height: 1.5;
-            color: #eee;
-            margin: 0 auto 15px;
+            max-width: 90%;
         }
-
-        /* Estilos para el contenedor de redes sociales */
-        .redes-sociales {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+        .redes-sociales a .bi-instagram {
+            font-size: 20px;
         }
+    }
 
-        /* Estilos para el enlace del icono */
-        .redes-sociales a {
-            color: #000;
-            text-decoration: none;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
+    /* Estilo para el botón de me gusta */
+    .like-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        z-index: 10;
+        background-color: #ffffff59;
+        padding: 8px 12px;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px #0000001a;
+    }
 
-        .redes-sociales a:hover {
-            opacity: 1;
-        }
+    .like-btn {
+        padding: 0;
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
+    .like-btn:hover {
+        transform: scale(1.1);
+        opacity: 1;
+        background-color: transparent;
+    }
 
+    .like-btn:active {
+        transform: scale(1.0);
+        background-color: transparent;
+    }
 
-        /* Media query para pantallas pequeñas */
-        @media (max-width: 768px) {
-            #sobremi.intro-section .titulo-principal {
-                font-size: 1.5em;
-            }
-            #sobremi.intro-section .mensaje-bienvenida {
-                max-width: 90%;
-            }
-            .redes-sociales a .bi-instagram {
-                font-size: 20px;
-            }
-        }
+    .like-btn:focus {
+        background-color: transparent;
+        outline: none;
+    }
 
-        /* íconos de like SVG */
-        .heart-icon {
-            vertical-align: middle;
-        }
+    /* íconos de like SVG */
+    .heart-icon {
+        vertical-align: middle;
+    }
 
-        .like-btn.liked .heart-empty-icon {
-            display: none !important; 
-        }
-        .like-btn.liked .heart-filled-icon {
-            display: block !important; 
-            color: #E74C3C; 
-        }
+    .like-btn.liked .heart-empty-icon {
+        display: none !important;
+    }
+    .like-btn.liked .heart-filled-icon {
+        display: block !important;
+        color: #E74C3C;
+    }
 
-        .sr-only {
+    .sr-only {
         position: absolute !important;
-        width: 1px; height: 1px;
-        padding: 0; margin: -1px;
-        overflow: hidden; clip: rect(0,0,0,0);
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
         border: 0;
+    }
+
+    .modal-login-required {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10000;
+        background: rgba(0,0,0,0.35);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(2px);
+        transition: background 0.3s;
+    }
+
+    .modal-login-required .modal-box {
+        background: rgba(255,255,255,0.96);
+        padding: 2.5em 2em 2.2em 2em;
+        border-radius: 18px;
+        text-align: center;
+        position: relative;
+        min-width: 340px;
+        box-shadow: 0 8px 32px #0002, 0 1.5px 7px #79a97622;
+        animation: modalPop .27s cubic-bezier(.4,2,.4,1.3);
+    }
+
+    @keyframes modalPop {
+        0% { transform: scale(.7) translateY(40px); opacity: 0; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .modal-login-required .modal-box #btn-close-modal {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        font-size: 2em;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #b0b0b0;
+        transition: color .16s, transform .13s;
+        line-height: 1;
+        z-index: 2;
+        padding: 0;
+        width: 1.5em;
+        height: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-login-required .modal-box #btn-close-modal:hover {
+        color: #79a976;
+        transform: rotate(90deg) scale(1.1);
+    }
+
+    .modal-login-required .modal-box h3 {
+        margin-top: 0;
+        margin-bottom: 0.4em;
+        font-size: 1.6em;
+        color: #254E36;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+    }
+
+    .modal-login-required .modal-box p {
+        color: #222;
+        font-size: 1.08em;
+        margin-bottom: 2em;
+    }
+
+    .modal-login-required .modal-box .button {
+        background: #79a976;
+        color: #fff;
+        padding: 11px 28px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin: 0 8px;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        font-size: 1.08em;
+        font-weight: 600;
+        box-shadow: 0 2px 6px #6ea16b33;
+        transition: background .2s, transform .16s, box-shadow .2s;
+    }
+
+    .modal-login-required .modal-box .button:hover,
+    .modal-login-required .modal-box .button:focus {
+        background: #55885f;
+        transform: translateY(-2px) scale(1.04);
+        box-shadow: 0 6px 18px #6ea16b22;
+    }
+
+    .modal-login-required .modal-box .button.registro {
+        background: #55885f;
+    }
+
+    .modal-login-required .modal-box .button.registro:hover,
+    .modal-login-required .modal-box .button.registro:focus {
+        background: #395c44;
+    }
+
+    @media (max-width: 500px) {
+        .modal-login-required .modal-box {
+            min-width: unset;
+            width: 92vw;
+            padding: 1.5em 0.5em;
         }
-    </style>
+        .modal-login-required .modal-box .button {
+            width: 96%;
+            margin: 0.3em 0;
+        }
+        .modal-login-required .modal-box #btn-close-modal {
+            right: 10px;
+            top: 10px;
+            font-size: 1.5em;
+        }
+    }
+</style>
+
     <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
 <body>
-    <nav class="main-nav">
-        <ul>
-            <li><a href="#inicio">INICIO</a></li>
-            <li><a href="#sobremi">SOBRE MÍ</a></li>
-            <li><a href="#portfolio">GALERIA</a></li>
-            <li><a href="#servicios">SERVICIOS</a></li>
-            <li><a href="#blog">BLOG</a></li>
-            <li><a href="#contacto">CONTACTO</a></li>
-        </ul>
-    </nav>
+
+<nav class="main-nav">
+    <ul>
+        <li><a href="#inicio">INICIO</a></li>
+        <li><a href="#sobremi">SOBRE MÍ</a></li>
+        <li><a href="#portfolio">GALERIA</a></li>
+        <li><a href="#servicios">SERVICIOS</a></li>
+        <li><a href="#blog">BLOG</a></li>
+        <li><a href="#contacto">CONTACTO</a></li>
+        <?php if (isset($_SESSION['usuario_id'])): ?>
+            <li class="logout-nav">
+                <a href="logout.php">
+                    <!-- SVG puerta ABIERTA (sesión iniciada) -->
+                    <span class="login-icon" style="vertical-align: middle;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
+                          <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+                        </svg>
+                    </span>
+                    Cerrar sesión
+                </a>
+            </li>
+        <?php else: ?>
+            <li class="login-nav">
+                <a href="login.php">
+                    <!-- SVG puerta CERRADA (sesión no iniciada) -->
+                    <span class="login-icon" style="vertical-align: middle;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-closed-fill" viewBox="0 0 16 16">
+                          <path d="M12 1a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V2a1 1 0 0 1 1-1zm-2 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                        </svg>
+                    </span>
+                    Iniciar sesión
+                </a>
+            </li>
+        <?php endif; ?>
+    </ul>
+</nav>
+    
 
     <section id="inicio" class="hero">
         <div class="hero-image" style="background-image: url('<?php echo $imagen_inicio; ?>')"></div>
@@ -302,6 +500,18 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
             </div>
         </div>
     </section>
+
+<div id="modal-login-required" class="modal-login-required">
+  <div class="modal-box">
+    <button id="btn-close-modal" aria-label="Cerrar">&times;</button>
+    <h3>¡Atención!</h3>
+    <p>Debes iniciar sesión o registrarte para dar like.</p>
+    <div style="margin-top:1.5em;display:flex;gap:15px;justify-content:center;">
+      <a href="login.php" class="button">Iniciar sesión</a>
+      <a href="registro.php" class="button registro">Registrarse</a>
+    </div>
+  </div>
+</div>
 
     <section id="portfolio" class="portfolio">
         <h2 class="sr-only">Galería</h2>
@@ -417,106 +627,112 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
 
     <script src="scripts.js"></script>
 
-    <section id="servicios">
-        <div class="container mt-5">
-            <h2 class="text-center mb-4">Sesiones de Fotos</h2>
-            <div class="plan-container">
-                <div class="plan-card">
-                    <div class="plan-header bg-primary text-white text-center">
-                        <h3>Plan Básico</h3>
-                    </div>
-                    <div class="plan-body text-center">
-                        <p class="plan-title">$100</p>
-                        <ul class="plan-list">
-                            <li>• Sesión de 1 hora</li>
-                            <li>• 20 fotos editadas</li>
-                            <li>• Entrega digital en alta resolución</li>
-                            <li>• 1 impresión en tamaño 10x15 a elección</li>
-                        </ul>
-                        <form action="procesar_reserva.php" method="POST">
-                            <input type="hidden" name="plan" value="basico">
-                            <div>
-                                <label for="nombre_basico">Nombre:</label>
-                                <input type="text" id="nombre_basico" name="nombre" required>
-                            </div>
-                            <div>
-                                <label for="email_basico">Correo Electrónico:</label>
-                                <input type="email" id="email_basico" name="email" required>
-                            </div>
-                            <div>
-                                <label for="fecha_basico">Fecha Deseada:</label>
-                                <input type="date" id="fecha_basico" name="fecha_deseada" required>
-                            </div>
-                            <button type="submit" class="btn btn-outline-primary mt-3">Reservar</button>
-                        </form>
-                    </div>
+<section id="servicios">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Sesiones de Fotos</h2>
+        <div class="plan-container">
+            <!-- Plan Básico -->
+            <div class="plan-card">
+                <div class="plan-header bg-primary text-white text-center">
+                    <h3>Plan Básico</h3>
                 </div>
-                <div class="plan-card">
-                    <div class="plan-header bg-success text-white text-center">
-                        <h3>Plan Intermedio</h3>
-                    </div>
-                    <div class="plan-body text-center">
-                        <p class="plan-title">$250</p>
-                        <ul class="plan-list">
-                            <li>• Sesión de 2 horas</li>
-                            <li>• 40 fotos editadas</li>
-                            <li>• Entrega digital en alta resolución</li>
-                            <li>• Asesoramiento de vestuario básico</li>
-                            <li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
-                        </ul>
-                        <form action="procesar_reserva.php" method="POST">
-                            <input type="hidden" name="plan" value="intermedio">
-                            <div>
-                                <label for="nombre_intermedio">Nombre:</label>
-                                <input type="text" id="nombre_intermedio" name="nombre" required>
-                            </div>
-                            <div>
-                                <label for="email_intermedio">Correo Electrónico:</label>
-                                <input type="email" id="email_intermedio" name="email" required>
-                            </div>
-                            <div>
-                                <label for="fecha_intermedio">Fecha Deseada:</label>
-                                <input type="date" id="fecha_intermedio" name="fecha_deseada" required>
-                            </div>
-                            <button type="submit" class="btn btn-outline-success mt-3">Reservar</button>
-                        </form>
-                    </div>
+                <div class="plan-body text-center">
+                    <p class="plan-title">$100</p>
+                    <ul class="plan-list">
+                        <li>• Sesión de 1 hora</li>
+                        <li>• 20 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• 1 impresión en tamaño 10x15 a elección</li>
+                    </ul>
+                    <form action="procesar_reserva.php" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                        <input type="hidden" name="plan" value="basico">
+                        <div>
+                            <label for="nombre_basico">Nombre:</label>
+                            <input type="text" id="nombre_basico" name="nombre" required>
+                        </div>
+                        <div>
+                            <label for="email_basico">Correo Electrónico:</label>
+                            <input type="email" id="email_basico" name="email" required>
+                        </div>
+                        <div>
+                            <label for="fecha_basico">Fecha Deseada:</label>
+                            <input type="date" id="fecha_basico" name="fecha_deseada" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary mt-3">Reservar</button>
+                    </form>
                 </div>
-                <div class="plan-card">
-                    <div class="plan-header bg-warning text-white text-center">
-                        <h3>Plan Premium</h3>
-                    </div>
-                    <div class="plan-body text-center">
-                        <p class="plan-title">$400</p>
-                        <ul class="plan-list">
-                            <li>• Sesión de 3 horas</li>
-                            <li>• 80 fotos editadas</li>
-                            <li>• Entrega digital en alta resolución</li>
-                            <li>• Video corto con momentos destacados de la sesión</li>
-                            <li>• Asesoramiento de vestuario y estilismo</li>
-                            <li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
-                        </ul>
-                        <form action="procesar_reserva.php" method="POST">
-                            <input type="hidden" name="plan" value="premium">
-                            <div>
-                                <label for="nombre_premium">Nombre:</label>
-                                <input type="text" id="nombre_premium" name="nombre" required>
-                            </div>
-                            <div>
-                                <label for="email_premium">Correo Electrónico:</label>
-                                <input type="email" id="email_premium" name="email" required>
-                            </div>
-                            <div>
-                                <label for="fecha_premium">Fecha Deseada:</label>
-                                <input type="date" id="fecha_premium" name="fecha_deseada" required>
-                            </div>
-                            <button type="submit" class="btn btn-outline-warning mt-3">Reservar</button>
-                        </form>
-                    </div>
+            </div>
+            <!-- Plan Intermedio -->
+            <div class="plan-card">
+                <div class="plan-header bg-success text-white text-center">
+                    <h3>Plan Intermedio</h3>
+                </div>
+                <div class="plan-body text-center">
+                    <p class="plan-title">$250</p>
+                    <ul class="plan-list">
+                        <li>• Sesión de 2 horas</li>
+                        <li>• 40 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• Asesoramiento de vestuario básico</li>
+                        <li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
+                    </ul>
+                    <form action="procesar_reserva.php" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                        <input type="hidden" name="plan" value="intermedio">
+                        <div>
+                            <label for="nombre_intermedio">Nombre:</label>
+                            <input type="text" id="nombre_intermedio" name="nombre" required>
+                        </div>
+                        <div>
+                            <label for="email_intermedio">Correo Electrónico:</label>
+                            <input type="email" id="email_intermedio" name="email" required>
+                        </div>
+                        <div>
+                            <label for="fecha_intermedio">Fecha Deseada:</label>
+                            <input type="date" id="fecha_intermedio" name="fecha_deseada" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success mt-3">Reservar</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Plan Premium -->
+            <div class="plan-card">
+                <div class="plan-header bg-warning text-white text-center">
+                    <h3>Plan Premium</h3>
+                </div>
+                <div class="plan-body text-center">
+                    <p class="plan-title">$400</p>
+                    <ul class="plan-list">
+                        <li>• Sesión de 3 horas</li>
+                        <li>• 80 fotos editadas</li>
+                        <li>• Entrega digital en alta resolución</li>
+                        <li>• Video corto con momentos destacados de la sesión</li>
+                        <li>• Asesoramiento de vestuario y estilismo</li>
+                        <li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
+                    </ul>
+                    <form action="procesar_reserva.php" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                        <input type="hidden" name="plan" value="premium">
+                        <div>
+                            <label for="nombre_premium">Nombre:</label>
+                            <input type="text" id="nombre_premium" name="nombre" required>
+                        </div>
+                        <div>
+                            <label for="email_premium">Correo Electrónico:</label>
+                            <input type="email" id="email_premium" name="email" required>
+                        </div>
+                        <div>
+                            <label for="fecha_premium">Fecha Deseada:</label>
+                            <input type="date" id="fecha_premium" name="fecha_deseada" required>
+                        </div>
+                        <button type="submit" class="btn btn-outline-warning mt-3">Reservar</button>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <footer>
       <p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
@@ -601,5 +817,3 @@ if ($result_blog_images = $conn->query($sql_blog_images)) {
             </div>
         </div>
     </section>
-</body>
-</html>
