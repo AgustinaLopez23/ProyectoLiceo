@@ -1,0 +1,15 @@
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Imágenes: cachear por 1 año
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png  "access plus 1 year"
+  ExpiresByType image/gif  "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  # Hojas de estilo: cachear por 1 mes
+  ExpiresByType text/css "access plus 1 month"
+  # JS: cachear por 1 mes
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresDefault "access plus 1 month"
+</IfModule>
