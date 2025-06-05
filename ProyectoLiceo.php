@@ -604,7 +604,7 @@
 		</div>
 	</section>
 
-	<div class="contacto-wrapper">
+	<div class="contacto-wrapper" id="contacto">
 		<div class="contacto-card">
 			<h2>Contacto</h2>
 			<p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos personalizada? ¡No dudes en ponerte en contacto conmigo!</p>

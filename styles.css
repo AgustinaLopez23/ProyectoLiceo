@@ -1,15 +1,16 @@
-/* Estilos generales de gradiente */
+/* Estilos generales de gradiente solo para ProyectoLiceo.php */
 .bg-green-gradient,
 #portfolio nav,
 #paisajes,
 #autos,
 #eventos,
 #viajes,
+#blog,
 #servicios,
 footer,
 .contacto {
-  background: -webkit-linear-gradient(90deg, #274427,#64a34d);
-  background: linear-gradient(90deg, #274427,#64a34d);
+  background: -webkit-linear-gradient(90deg, #274427, #64a34d);
+  background: linear-gradient(90deg, #274427, #64a34d);
 }
 
 /* Estilos para el menú del portafolio */
@@ -254,7 +255,7 @@ footer,
   opacity: 1;
 }
 
-/* Específico para autos: fondo negro y texto blanco */
+/* Específico para autos */
 #autos .item p {
   position:absolute;
   max-width:80%;
@@ -324,19 +325,6 @@ footer,
   opacity:1;
 }
 
-/* Responsive para galerías */
-@media (max-width: 768px) {
-  #paisajes .galeria,
-  #autos .galeria,
-  #eventos .galeria {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-  }
-  #viajes .item {
-    width: calc(100% - 10px); 
-  }
-}
-
-  
 /* Lightbox */
 
 .lightbox {
@@ -613,7 +601,7 @@ footer a:hover {
 /* --- Estilos Generales Blog --- */
 
 #blog {
-  background: linear-gradient(90deg, #274427, #64a34d);
+  background: none;
   font-family: 'Segoe UI';
   padding: 40px;
   line-height: 1.5;
@@ -638,8 +626,8 @@ footer a:hover {
 }
 
 .blog-section {
-  padding: 40px 40px; 
-  text-align: center; 
+  padding: 40px 0;
+  border-bottom: 1px solid #eee;
 }
 
 .container {
@@ -665,7 +653,7 @@ footer a:hover {
   display: flex;
   flex-direction: column;
   height: 100%; 
-}
+} 
 
 .blog-card:hover {
   transform: scale(1.05); 
@@ -681,14 +669,15 @@ footer a:hover {
 }
 
 /* Estilos para la imagen de la tarjeta */
+
 .blog-card img {
   width: 100%;
-  height: 350px;
-  max-height: 350px;
+  height: 190px;
+  max-height: 190px;
+  object-fit: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   display: block;
-  object-fit: cover;
 }
 
  .blog-card h3 {
@@ -728,10 +717,17 @@ footer a:hover {
 
 /* --- Estilos Generales de Header y Navegación (FUERA DE #blog) --- */
 header {
-  background: #a8b6a4;
+  background: #609153;
   padding: 1em 20px;
   text-align: center;
   box-shadow: 0 1px 3px #0000000d;
+}
+
+body.pagina-articulo,
+body.blog-list-page,
+body.panel-usuario-body,
+body.pagina-articulo-publicar {
+background: #adeb899c; 
 }
 
 header h1 {
@@ -839,9 +835,9 @@ body {
 }
 
 .contacto-card {
-    background: #c0bebe;
+    background: #d5d5d5;
     border-radius: 20px;
-    box-shadow: 0 8px 32px #1a1a1a58;
+    box-shadow: 0 8px 32px #00000060;
     width: 100%;
     max-width: 540px;
     padding: 40px 32px 32px 32px;
@@ -959,7 +955,8 @@ body {
 .info-contacto a {
     color: #388e3c;
     font-weight: 600;
-    text-decoration: underline dotted;
+    outline: none;
+    text-decoration: none;
 }
 
 /* Responsive */
@@ -984,14 +981,13 @@ body {
   main.blog-list-page {
   padding:30px 30px;
   max-width:960px;
-  margin:2em auto
+  margin:2em auto;
   }
   
-  .blog-section {
-  padding:40px 0;
-  background-color:#ffffff;
-  border-bottom:1px solid #eee
-  }
+.blog-section {
+  padding: 40px 0;
+  border-bottom: 1px solid #eee;
+}
   
   .blog-section:last-child {
   border-bottom:none
@@ -1255,7 +1251,7 @@ body {
 /* Estilos para las tarjetas de comentarios y experiencias */
 .comentarios-grid .comentario-item,
 .consejos-grid .comentario-item { 
-  background-color: rgba(179, 238, 185, 0.648);
+  background-color: rgba(255, 255, 255, 0.843);
   border: 1px solid rgba(0, 0, 0, 0.65);
   border-radius: 8px;
   padding: 15px;
@@ -1401,7 +1397,6 @@ body {
   .panel-usuario-body {
   font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
   margin:0;
-  background-color:#a8b6a4;
   color:#333;
   line-height:1.6;
   padding:20px
@@ -1688,7 +1683,6 @@ body {
   font-family:'Arial',sans-serif;
   line-height:1.6;
   color:#000;
-  background-color:#ffffff;
   margin:0;
   padding:0;
   display:flex;
@@ -1908,7 +1902,6 @@ body {
   font-family:'Arial',sans-serif;
   line-height:1.6;
   color:#000000;
-  background-color:#f4f4f4;
   margin:0;
   padding:0;
   display:flex;
@@ -2499,28 +2492,22 @@ button:hover, .btn:hover, button:focus {
   background: #e0e0e0;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 500px) {
-  .login-container, .registro-container {
-    padding: 1.4rem 0.4rem;
-    max-width: 94vw;
-  }
-  .login-h2, .registro-h2 {
-    font-size: 1.3rem;
-  }
-}
+/* ===== GENERAL RESPONSIVE STYLES ===== */
 
-  /* GENERAL RESPONSIVE STYLES */
-* {
+/* BOX-SIZING RESET */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+/* BASE BODY STYLES */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
 
-/* RESPONSIVE GRID LAYOUT */
+/* CONTAINER */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -2531,10 +2518,10 @@ body {
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
-
-/* RESPONSIVE NAVIGATION */
+/* ===== NAVIGATION ===== */
 nav {
   background-color: #fff;
   color: #000;
@@ -2566,59 +2553,111 @@ nav a:hover {
   color: #fff;
 }
 
+/* ===== GRID GALLERIES (BASE) ===== */
+#paisajes .galeria,
+#autos .galeria,
+#eventos .galeria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
 
-/* RESPONSIVE MEDIA QUERIES */
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
+#viajes .galeria {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
 
-  nav li {
-    margin: 5px 0;
-  }
+#viajes .item {
+  flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
+  width: calc(50% - 5px); 
+  max-width: 350px; 
+  height: 350px;
+  border-radius: 15px;
+  box-shadow: 0 6px 10px #0000004d;
+  margin-bottom: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
 
+/* ===== FORMS ===== */
+.login-container, .registro-container {
+  padding: 2.5rem 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.login-h2, .registro-h2 {
+  font-size: 1.7rem;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+
+/* Tablets y pantallas medianas */
+@media (max-width: 900px) {
   .container {
-    max-width: 95%;
+    max-width: 97vw;
   }
-
   #paisajes .galeria,
   #autos .galeria,
   #eventos .galeria {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  #viajes .galeria {
-    flex-direction: column;
-    align-items: center;
-  }
-
   #viajes .item {
     width: 80%;
+    height: 220px;
+    max-width: 95vw;
   }
 }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2em;
+/* Móviles y pantallas chicas */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
   }
-
-  h2 {
-    font-size: 1.5em;
+  nav li {
+    margin: 5px 0;
   }
-
-  h3 {
-    font-size: 1.2em;
+  .container {
+    max-width: 98vw;
+    padding: 0 7px;
   }
-
   #paisajes .galeria,
   #autos .galeria,
   #eventos .galeria {
     grid-template-columns: 1fr;
   }
-
+  #viajes .galeria {
+    flex-direction: column;
+    align-items: center;
+  }
   #viajes .item {
     width: 95%;
+    height: 150px;
+    max-width: 98vw;
+  }
+}
+
+/* Teléfonos muy pequeños */
+@media (max-width: 500px) {
+  .login-container, .registro-container {
+    padding: 1.4rem 0.4rem;
+    max-width: 97vw;
+  }
+  .login-h2, .registro-h2 {
+    font-size: 1.3rem;
+  }
+  .container {
+    padding: 0 3px;
+  }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.2em; }
+  #viajes .item {
+    height: 110px;
   }
 }
 
