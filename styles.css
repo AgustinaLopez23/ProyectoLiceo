@@ -404,173 +404,174 @@ footer,
 .lightbox.show-description #lightbox-description {
   opacity:1;
 }
-  
-  /* SECCIÓN PLANES */
 
-  #servicios {
-  padding: 40px 40px;
-  text-align:center;
-  height: auto;
-  margin: 0;
-  }
-  
-  #servicios h2 {
-  color:#000;
-  font-size:2em;
-  margin-bottom:20px
-  }
-  
-  .plan-container {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:20px;
-  }
-  
-  .plan-header {
-  padding:15px;
-  border-top-left-radius:10px;
-  border-top-right-radius:10px;
-  background-color:#397c36;
-  color:#000
-  }
-  
-  .plan-card {
-  width:30%;
-  margin-bottom:20px;
-  background-color:#fff;
-  border-radius:10px;
-  box-shadow:0 4px 8px #0000001a;
-  overflow:hidden;
-  transition:transform 0.3s,box-shadow .3s
-  }
-  
-  .plan-header h3 {
-  color:#fff;
-  margin:0
-  }
-  
-  .plan-body {
-  padding:15px
-  }
-  
-  .plan-title {
-  font-size:2em;
-  margin-bottom:10px
-  }
-  
-  .plan-list {
-  list-style:none;
-  padding:10px 0;
-  margin-bottom:10px
-  }
-  
-  .plan-list li {
-  color:#000;
-  margin-bottom:5px
-  }
-  
-  .btn {
-  background-color:transparent;
-  color:#333;
-  border:1px solid #333;
-  padding:8px 15px;
-  border-radius:3px;
-  cursor:pointer;
-  font-size:1em;
-  transition:background-color .3s ease
-  }
-  
-  .btn:hover {
-  background-color:#397c36;
-  color:#fff
-  }
-  
-  /* Animaciones */
-  .animated {
-  animation:fadeInUp 1s ease-in-out
-  }
-  
-  @keyframes fadeInUp {
-  from {
-  opacity:0;
-  transform:translateY(30px)
-  }
-  
-  to {
-  opacity:1;
-  transform:translateY(0)
-  }
-  }
-  
-  button:hover {
-  background-color:#a9d599;
-  color:#fff
-  }
-  
-  .plan-card:hover {
-  transform:scale(1.05);
-  box-shadow:0 8px 16px #0003
-  }
+/* Planes*/
 
-  /* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
+ #servicios {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.planes-titulo {
+  color: #000000;
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.planes-descripcion {
+  color: #000000;
+  font-size: 1.1em;
+  margin-bottom: 30px;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.plan-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch; 
+  gap: 24px;
+}
+
+.plan-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px #00000069;
+  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 300px;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: unset; 
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.plan-card:hover {
+  box-shadow: 0 8px 32px #00000022;
+  transform: translateY(-4px) scale(1.03);
+}
+
+.plan-header {
+  background-color: #5f925b;
+  color: #000000;
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 600;
+  padding: 14px 0 8px 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom: 1.5px solid #eeeeee;
+}
+
+.plan-body {
+  padding: 7px 8px 7px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+}
+
+.plan-precio {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #5f925b;
+}
+
+.plan-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  color: #000000;
+  font-size: 1,6em;
+  text-align: center;
+}
+
+.plan-list li {
+  margin-bottom: 6px;
+}
+
+.plan-form {
+  width: 100%;
+  margin-top: auto;
+}
+
+.plan-form input[type="text"],
+.plan-form input[type="email"],
+.plan-form input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  font-size: 1em;
+  background: #f7faf75c;
+  color: #000000;
+  transition: border 0.2s;
+}
+
+.plan-form input[type="text"]:focus,
+.plan-form input[type="email"]:focus,
+.plan-form input[type="date"]:focus {
+  border-color: #397c36;
+  outline: none;
+}
+
+.plan-btn {
+  background-color: #5f925b;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  padding: 14px 0;
+  font-size: 1.12em;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 10px;
+}
+
+.plan-btn:hover {
+  background-color: #255320;
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
   .plan-card {
-    width: 100%; /* Ocupa todo el ancho */
+    min-width: 260px;
+    max-width: 340px;
   }
 }
-  
-  /* Estilos específicos para el formulario de reserva dentro de cada plan */
-  .plan-card form {
-  padding:15px;
-  text-align:left
+
+@media (max-width: 900px) {
+  .plan-container {
+    flex-wrap: wrap;
+    gap: 20px;
   }
-  
-  .plan-card form div {
-  margin-bottom:10px
+  .plan-card {
+    min-width: 240px;
+    max-width: 100%;
   }
-  
-  .plan-card label {
-  display:block;
-  margin-bottom:5px;
-  font-weight:700;
-  color:#232323;
-  font-size:.9em
+}
+
+@media (max-width: 700px) {
+  .plan-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
   }
-  
-  .plan-card input[type="text"],.plan-card input[type="email"],.plan-card input[type="date"] {
-  width:calc(100% - 12px);
-  padding:8px;
-  border:1px solid #444444c7;
-  border-radius:4px;
-  box-sizing:border-box;
-  margin-bottom:10px;
-  font-size:1em
+  .plan-card {
+    width: 100%;
+    max-width: 400px;
+    min-width: unset;
+    min-height: 0;
   }
-  
-  .plan-card .btn {
-  width:100%;
-  box-sizing:border-box;
-  padding:10px 15px;
-  border-radius:4px;
-  cursor:pointer;
-  font-size:1em;
-  transition:background-color .3s ease;
-  margin-top:10px;
-  text-align:center;
-  display:inline-block
-  }
-  
-  .plan-card .bg-success.btn-outline-success:hover {
-  background-color:#28a745;
-  color:#fff
-  }
-  
-  .plan-card .bg-warning.btn-outline-warning:hover {
-  background-color:#ffc107;
-  color:#000
-  }
-  
+}
+
 /* Estilos para el footer de sesion personalizada */
 
 footer {
@@ -725,6 +726,7 @@ header {
 
 body.pagina-articulo,
 body.blog-list-page,
+body.pagina-editar-articulo,
 body.panel-usuario-body,
 body.pagina-articulo-publicar {
 background: #adeb899c; 
@@ -835,9 +837,9 @@ body {
 }
 
 .contacto-card {
-    background: #d5d5d5;
+    background: #d5d5d5bf;
     border-radius: 20px;
-    box-shadow: 0 8px 32px #00000060;
+    box-shadow: 0 8px 32px #000000a1;
     width: 100%;
     max-width: 540px;
     padding: 40px 32px 32px 32px;
@@ -858,7 +860,7 @@ body {
 
 /* Descripción */
 .contacto-card > p {
-    color: #333;
+    color: #000000;
     text-align: center;
     margin-bottom: 24px;
     font-size: 1.06em;
@@ -884,7 +886,7 @@ body {
 
 .form-group label {
     font-weight: 600;
-    color: #222;
+    color: #000000;
     margin-bottom: 2px;
 }
 
@@ -895,7 +897,7 @@ body {
     border-radius: 8px;
     font-size: 1em;
     background: #eaf3fa;
-    color: #222;
+    color: #000000;
     transition: border-color 0.2s;
     outline: none;
     resize: none;
@@ -935,13 +937,13 @@ body {
 }
 .info-contacto h3 {
     font-size: 1.15em;
-    color: #222;
+    color: #000000;
     margin-bottom: 12px;
     font-weight: 700;
 }
 .info-contacto p {
     margin: 10px 0;
-    color: #222;
+    color: #000000;
     font-size: 1em;
     display: flex;
     align-items: center;
@@ -1406,9 +1408,9 @@ body {
   max-width:960px;
   margin:20px auto;
   padding:30px;
-  background-color:#0000003e;
+  background-color:#3268266b;
   border-radius:8px;
-  box-shadow:0 2px 10px #0000001a
+  box-shadow:0 2px 10px #000000
   }
   
   .panel-usuario-h1 {
@@ -1453,7 +1455,7 @@ body {
   padding-bottom:10px
   }
   
-  /* Estilos para la Tabla de Artículos  */
+/* Estilos para la Tabla de Artículos y sus botones de acción */
 
 .articulos-table {
   width: 100%;
@@ -1488,46 +1490,52 @@ body {
   background-color: #f2f2f2;
 }
 
+/* Estilos para las acciones: ambos botones alineados y del mismo tamaño */
 .articulos-table .actions {
-  display: flex; 
-  gap: 10px; 
-  align-items: center; 
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-.articulos-table .actions a {
-  text-decoration: none;
-  color: #007bff;
+.articulos-table .actions a,
+.articulos-table .actions .delete-btn {
+  display: inline-block;
+  min-width: 90px;           
+  text-align: center;
+  padding: 8px 12px;         
+  font-family: inherit;
   font-weight: 700;
-  transition: all 0.3s ease;
-  border-radius: 4px;
-  padding: 6px 10px;
-  border: 1px solid #007bff;
-  background-color: #fff;
-  margin-right: 0;
-}
-
-.articulos-table .actions a:hover {
-  color: #fff;
-  background-color: #007bff;
-}
-
-.articulos-table .delete-btn {
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: 700;
-  transition: background-color 0.3s ease;
-  margin-right: 0; 
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: 1.2;
+  vertical-align: middle;
 }
 
-.articulos-table .delete-btn:hover {
+/* Botón Editar */
+.articulos-table .actions a {
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #007bff;
+  text-decoration: none;
+}
+.articulos-table .actions a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Botón Eliminar */
+.articulos-table .actions .delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: 1px solid #dc3545;
+}
+.articulos-table .actions .delete-btn:hover {
   background-color: #c82333;
+  border-color: #c82333;
 }
-
-/* --- Estilos para los Enlaces de Acción Inferiores --- */
 
 .panel-usuario-acciones {
   margin-top: 30px;
@@ -1566,23 +1574,45 @@ body {
 }
   
   /* Responsividad */
+@media (max-width: 700px) {
+  .articulos-table th,
+  .articulos-table td {
+    padding: 10px 6px;
+    font-size: 0.98em;
+  }
+  .articulos-table .actions a,
+  .articulos-table .actions .delete-btn {
+    min-width: 70px;
+    padding: 7px 6px;
+    font-size: 0.95em;
+  }
+}
 
-  @media (max-width: 768px) {
-  .panel-usuario-container {
-  padding:15px
+@media (max-width: 500px) {
+  .articulos-table,
+  .panel-usuario-acciones {
+    font-size: 0.97em;
   }
-  
-  .articulos-table,.articulos-table th,.articulos-table td {
-  font-size:14px;
-  padding:8px
+  .articulos-table th,
+  .articulos-table td {
+    padding: 8px 3px;
+    font-size: 0.93em;
+    word-break: break-word;
   }
-  
-  .panel-usuario-acciones a {
-  margin:10px 0;
-  display:block;
-  width:100%
+  .articulos-table .actions {
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
   }
+  .articulos-table .actions a,
+  .articulos-table .actions .delete-btn {
+    min-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1em;
+    padding: 10px 0;
   }
+}
   
 /* Estilos para la Página del Artículo (articulo.php) */
 
@@ -1691,7 +1721,7 @@ body {
   }
   
   body.pagina-articulo-publicar header {
-  background-color:#9cc392;
+  background-color:#326826c1;
   color:#fff;
   padding:20px;
   text-align:center;
@@ -1704,7 +1734,7 @@ body {
   }
   
   body.pagina-articulo-publicar main {
-  background-color:#729675c4;
+  background-color:#326826a3;
   padding:40px;
   margin: 30px 50px;
   border-radius:8px;
@@ -1906,11 +1936,11 @@ body {
   padding:0;
   display:flex;
   flex-direction:column;
-  min-height:100vh
+  min-height:100vh;
   }
   
   body.pagina-editar-articulo header {
-  background-color:#a8b6a4;
+  background-color:#326826c1;
   color:#fff;
   padding:20px;
   text-align:center;
@@ -1923,7 +1953,7 @@ body {
   }
   
   body.pagina-editar-articulo main {
-    background-color:#729675c4;
+    background-color:#326826a3;
     padding:40px;
     margin: 30px 50px;
     border-radius:8px;
@@ -2227,13 +2257,12 @@ body {
   min-height:100vh;
   margin:0;
   padding:20px;
-  background-color:#bae2a7;
   box-sizing:border-box
   }
   
   .mensaje-exito-icono {
   color:#0f5132;
-  background-color:#4a724566;
+  background-color:#ffffff66;
   border:1px solid #badbcc;
   padding:25px 40px;
   border-radius:10px;

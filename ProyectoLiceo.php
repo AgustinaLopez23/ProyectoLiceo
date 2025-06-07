@@ -412,112 +412,82 @@
 
 	<script src="scripts.js"></script>
 
-	<section id="servicios">
-		<div class="container mt-5">
-			<h2 class="text-center mb-4">Sesiones de Fotos</h2>
-			<div class="plan-container">
-				<!-- Plan Básico -->
-				<div class="plan-card">
-					<div class="plan-header bg-primary text-white text-center">
-						<h3>Plan Básico</h3>
-					</div>
-					<div class="plan-body text-center">
-						<p class="plan-title">$100</p>
-						<ul class="plan-list">
-							<li>• Sesión de 1 hora</li>
-							<li>• 20 fotos editadas</li>
-							<li>• Entrega digital en alta resolución</li>
-							<li>• 1 impresión en tamaño 10x15 a elección</li>
-						</ul>
-						<form action="procesar_reserva.php" method="POST">
-							<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-							<input type="hidden" name="plan" value="basico">
-							<div>
-								<label for="nombre_basico">Nombre:</label>
-								<input type="text" id="nombre_basico" name="nombre" required>
-							</div>
-							<div>
-								<label for="email_basico">Correo Electrónico:</label>
-								<input type="email" id="email_basico" name="email" required>
-							</div>
-							<div>
-								<label for="fecha_basico">Fecha Deseada:</label>
-								<input type="date" id="fecha_basico" name="fecha_deseada" required>
-							</div>
-							<button type="submit" class="btn btn-outline-primary mt-3">Reservar</button>
-						</form>
-					</div>
-				</div>
-				<!-- Plan Intermedio -->
-				<div class="plan-card">
-					<div class="plan-header bg-success text-white text-center">
-						<h3>Plan Intermedio</h3>
-					</div>
-					<div class="plan-body text-center">
-						<p class="plan-title">$250</p>
-						<ul class="plan-list">
-							<li>• Sesión de 2 horas</li>
-							<li>• 40 fotos editadas</li>
-							<li>• Entrega digital en alta resolución</li>
-							<li>• Asesoramiento de vestuario básico</li>
-							<li>• Posibilidad de un cambio de locación dentro de la ciudad</li>
-						</ul>
-						<form action="procesar_reserva.php" method="POST">
-							<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-							<input type="hidden" name="plan" value="intermedio">
-							<div>
-								<label for="nombre_intermedio">Nombre:</label>
-								<input type="text" id="nombre_intermedio" name="nombre" required>
-							</div>
-							<div>
-								<label for="email_intermedio">Correo Electrónico:</label>
-								<input type="email" id="email_intermedio" name="email" required>
-							</div>
-							<div>
-								<label for="fecha_intermedio">Fecha Deseada:</label>
-								<input type="date" id="fecha_intermedio" name="fecha_deseada" required>
-							</div>
-							<button type="submit" class="btn btn-outline-success mt-3">Reservar</button>
-						</form>
-					</div>
-				</div>
-				<!-- Plan Premium -->
-				<div class="plan-card">
-					<div class="plan-header bg-warning text-white text-center">
-						<h3>Plan Premium</h3>
-					</div>
-					<div class="plan-body text-center">
-						<p class="plan-title">$400</p>
-						<ul class="plan-list">
-							<li>• Sesión de 3 horas</li>
-							<li>• 80 fotos editadas</li>
-							<li>• Entrega digital en alta resolución</li>
-							<li>• Video corto con momentos destacados de la sesión</li>
-							<li>• Asesoramiento de vestuario y estilismo</li>
-							<li>• Posibilidad de hasta dos locaciones dentro de la ciudad</li>
-						</ul>
-						<form action="procesar_reserva.php" method="POST">
-							<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-							<input type="hidden" name="plan" value="premium">
-							<div>
-								<label for="nombre_premium">Nombre:</label>
-								<input type="text" id="nombre_premium" name="nombre" required>
-							</div>
-							<div>
-								<label for="email_premium">Correo Electrónico:</label>
-								<input type="email" id="email_premium" name="email" required>
-							</div>
-							<div>
-								<label for="fecha_premium">Fecha Deseada:</label>
-								<input type="date" id="fecha_premium" name="fecha_deseada" required>
-							</div>
-							<button type="submit" class="btn btn-outline-warning mt-3">Reservar</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+<section id="servicios">
+  <div class="planes-section">
+    <h2 class="planes-titulo">Sesiones de Fotos</h2>
+    <div class="planes-descripcion">
+      Elige tu plan y reserva tu sesión. Todos incluyen edición profesional y entrega digital de alta calidad.
+    </div>
+    <div class="plan-container">
+      <!-- Plan Básico -->
+      <div class="plan-card">
+        <div class="plan-header">Plan Básico</div>
+        <div class="plan-body">
+          <div class="plan-precio">$100</div>
+          <ul class="plan-list">
+            <li>• Sesión de 1 hora</li>
+            <li>• 20 fotos editadas</li>
+            <li>• Entrega digital en alta resolución</li>
+            <li>• 1 impresión en tamaño 10x15 a elección</li>
+          </ul>
+          <form action="procesar_reserva.php" method="POST" class="plan-form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <input type="hidden" name="plan" value="basico">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="date" name="fecha_deseada" required>
+            <button type="submit" class="plan-btn">Reservar</button>
+          </form>
+        </div>
+      </div>
+      <!-- Plan Intermedio -->
+      <div class="plan-card">
+        <div class="plan-header">Plan Intermedio</div>
+        <div class="plan-body">
+          <div class="plan-precio">$250</div>
+          <ul class="plan-list">
+            <li>• Sesión de 2 horas</li>
+            <li>• 40 fotos editadas</li>
+            <li>• Entrega digital en alta resolución</li>
+            <li>• Asesoramiento de vestuario básico</li>
+            <li>• Cambio de locación dentro de la ciudad</li>
+          </ul>
+          <form action="procesar_reserva.php" method="POST" class="plan-form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <input type="hidden" name="plan" value="intermedio">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="date" name="fecha_deseada" required>
+            <button type="submit" class="plan-btn">Reservar</button>
+          </form>
+        </div>
+      </div>
+      <!-- Plan Premium -->
+      <div class="plan-card">
+        <div class="plan-header">Plan Premium</div>
+        <div class="plan-body">
+          <div class="plan-precio">$400</div>
+          <ul class="plan-list">
+            <li>• Sesión de 3 horas</li>
+            <li>• 80 fotos editadas</li>
+            <li>• Entrega digital en alta resolución</li>
+            <li>• Video corto con momentos destacados</li>
+            <li>• Asesoramiento de vestuario y estilismo</li>
+            <li>• Hasta dos locaciones dentro de la ciudad</li>
+          </ul>
+          <form action="procesar_reserva.php" method="POST" class="plan-form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+            <input type="hidden" name="plan" value="premium">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="date" name="fecha_deseada" required>
+            <button type="submit" class="plan-btn">Reservar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 	<footer>
 		<p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>

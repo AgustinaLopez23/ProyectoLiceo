@@ -45,7 +45,7 @@ if ($resultado && $resultado->num_rows > 0) {
 </head>
 <body class="pagina-articulo">
     <header>
-        <h1>Nuestro Rincón de Fotografía - Blog</h1>
+        <h1> Blog </h1>
     </header>
 
     <main>
