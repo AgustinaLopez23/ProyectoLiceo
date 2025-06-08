@@ -488,7 +488,6 @@
     </div>
   </div>
 </section>
-
 	<footer>
 		<p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
 	</footer>
