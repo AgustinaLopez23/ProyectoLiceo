@@ -9,7 +9,6 @@ if (!isset($_SESSION["usuario_id"])) {
     exit();
 }
 
-// Incluir el código de conexión a la base de datos
 $host = 'localhost';
 $usuario = 'root';
 $contrasena = '';
@@ -23,28 +22,27 @@ if ($conn->connect_error) {
 
 $conn->set_charset("utf8");
 
-// Verificar si se recibieron datos del formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recibir y sanitizar los datos del formulario
     $titulo = $conn->real_escape_string($_POST["titulo"]);
     $categoria = $conn->real_escape_string($_POST["categoria"]);
     $contenido = $conn->real_escape_string($_POST["contenido"]);
     $autor = $conn->real_escape_string($_POST["autor"]);
     $slug = !empty($_POST["slug"]) ? $conn->real_escape_string($_POST["slug"]) : generarSlug($titulo);
-    $imagen_principal = null;
+    $imagen_articulo = null; // Para guardar la imagen principal/articulo
+    $imagen_portada = null; // Si quieres permitir portada aparte
 
-    // Manejar la carga de la imagen principal (portada)
+    // Manejar la carga de la imagen principal
     if (isset($_FILES["imagen_principal"]) && $_FILES["imagen_principal"]["error"] == 0) {
-        $carpeta_destino = "images/blog/"; // Asegúrate de que esta carpeta exista y tenga permisos de escritura
+        $carpeta_destino = "images/blog/";
         $nombre_base = basename($_FILES["imagen_principal"]["name"]);
-        $nombre_archivo = uniqid() . "_" . $nombre_base; // Añadir un prefijo único para evitar conflictos
+        $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
         $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
 
         if (in_array($extension, $tipos_permitidos)) {
             if (move_uploaded_file($_FILES["imagen_principal"]["tmp_name"], $ruta_destino)) {
-                $imagen_principal = $ruta_destino; // Guardar la ruta para la base de datos
+                $imagen_articulo = $ruta_destino;
             } else {
                 echo "Error al subir la imagen de portada.";
             }
@@ -54,11 +52,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Insertar los datos en la tabla 'articulos'
-    $sql = "INSERT INTO articulos (usuario_id, titulo, contenido, fecha_publicacion, autor, categoria, slug, imagen)
-            VALUES (?, ?, NOW(), ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO articulos (usuario_id, titulo, contenido, fecha_publicacion, autor, categoria, slug, imagen_articulo, imagen_portada)
+            VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssssss", $_SESSION["usuario_id"], $titulo, $autor, $categoria, $slug, $imagen_principal, $contenido);
+    $stmt->bind_param(
+        "issssssss",
+        $_SESSION["usuario_id"], // usuario_id
+        $titulo,                 // titulo
+        $contenido,              // contenido
+        $autor,                  // autor
+        $categoria,              // categoria
+        $slug,                   // slug
+        $imagen_articulo,        // imagen_articulo
+        $imagen_portada          // imagen_portada (puede quedar NULL)
+    );
 
     if ($stmt->execute()) {
         echo "¡Artículo publicado exitosamente! <a href='blog.php'>Volver al Blog</a>";

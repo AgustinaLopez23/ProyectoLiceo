@@ -1,10 +1,9 @@
 <?php
 session_start();
-session_regenerate_id(true); // Prevenir fijación de sesión
+session_regenerate_id(true);
 
-// Verificación de autenticación
 if (!isset($_SESSION['usuario_id'])) {
-    die("<div class='mensaje-error'>No estás autenticado.</div>");
+    die(mostrarMensajeError("No estás autenticado."));
 }
 
 $host = 'localhost';
@@ -14,9 +13,8 @@ $base_de_datos = 'portafolio_db';
 
 $conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 if ($conn->connect_error) {
-    die("<div class='mensaje-error'>Error de conexión: " . $conn->connect_error . "</div>");
+    die(mostrarMensajeError("Error de conexión: " . htmlspecialchars($conn->connect_error)));
 }
-
 $conn->set_charset("utf8");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,22 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contenido = $_POST["contenido"];
     $autor = $_POST["autor"];
     $usuario_logueado_id = $_SESSION['usuario_id'];
-
     $imagen_portada_nueva = null;
     $imagen_articulo_nueva = null;
 
     $eliminar_imagen_portada = isset($_POST['eliminar_imagen_portada']) && $_POST['eliminar_imagen_portada'] == 1;
     $eliminar_imagen_articulo = isset($_POST['eliminar_imagen_articulo']) && $_POST['eliminar_imagen_articulo'] == 1;
 
-    $ruta_imagen_portada_anterior = null;
-    $ruta_imagen_articulo_anterior = null;
-
-    // Consultar el artículo existente
+    // Consultar el artículo existente y validar permiso
     $stmt = $conn->prepare("SELECT usuario_id, imagen_portada, imagen_articulo FROM articulos WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
-
     if ($resultado && $resultado->num_rows > 0) {
         $articulo = $resultado->fetch_assoc();
         if ($usuario_logueado_id != $articulo['usuario_id']) {
@@ -53,15 +46,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die(mostrarMensajeError("Artículo no encontrado."));
     }
 
-    // --- Manejo de la nueva imagen de portada ---
+    // --- Imagen portada ---
     if (isset($_FILES["imagen_portada_nueva"]) && $_FILES["imagen_portada_nueva"]["error"] == 0) {
-        $carpeta_destino = "imagenes/"; // MODIFICADO
+        $carpeta_destino = "imagenes/";
         $nombre_base = basename($_FILES["imagen_portada_nueva"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
         $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
-
         if (!in_array($extension, $tipos_permitidos)) {
             die(mostrarMensajeError("Solo se permiten archivos JPG, JPEG, PNG y GIF para la nueva imagen de portada."));
         }
@@ -81,15 +73,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imagen_portada_nueva = $ruta_imagen_portada_anterior;
     }
 
-    // --- Manejo de la nueva imagen del artículo ---
+    // --- Imagen articulo ---
     if (isset($_FILES["imagen_articulo_nueva"]) && $_FILES["imagen_articulo_nueva"]["error"] == 0) {
-        $carpeta_destino = "imagenes/"; // MODIFICADO
+        $carpeta_destino = "imagenes/";
         $nombre_base = basename($_FILES["imagen_articulo_nueva"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
         $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
-
         if (!in_array($extension, $tipos_permitidos)) {
             die(mostrarMensajeError("Solo se permiten archivos JPG, JPEG, PNG y GIF para la nueva imagen del artículo."));
         }
@@ -109,14 +100,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imagen_articulo_nueva = $ruta_imagen_articulo_anterior;
     }
 
-    // Actualizar el artículo incluyendo las imágenes
+    // Actualizar el artículo
     $stmt = $conn->prepare("UPDATE articulos SET titulo = ?, contenido = ?, categoria = ?, autor = ?, imagen_portada = ?, imagen_articulo = ? WHERE id = ?");
     $stmt->bind_param("ssssssi", $titulo, $contenido, $categoria, $autor, $imagen_portada_nueva, $imagen_articulo_nueva, $id);
 
     if ($stmt->execute()) {
         mostrarMensajeExito();
     } else {
-        echo mostrarMensajeError("Error al actualizar el artículo: " . $conn->error);
+        echo mostrarMensajeError("Error al actualizar el artículo: " . htmlspecialchars($conn->error));
     }
 
     $stmt->close();
@@ -157,7 +148,7 @@ function mostrarMensajeError($mensaje) {
     </head>
     <body class="cuerpo-mensaje">
         <div class="mensaje-error">
-            ⚠️ ' . $mensaje . '
+            ⚠️ ' . htmlspecialchars($mensaje) . '
         </div>
     </body>
     </html>';

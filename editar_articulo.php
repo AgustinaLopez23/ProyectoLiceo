@@ -1,12 +1,8 @@
 <?php
-
 session_start();
-session_regenerate_id(true); // Prevenir fijación de sesión
-
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION["usuario_id"])) {
-    header("Location: login.php");
-    exit();
+session_regenerate_id(true);
+if (!isset($_SESSION['usuario_id'])) {
+    die("No estás autenticado.");
 }
 
 $host = 'localhost';
@@ -15,108 +11,97 @@ $contrasena = '';
 $base_de_datos = 'portafolio_db';
 
 $conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
-
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
-
 $conn->set_charset("utf8");
 
-$articulo_id = isset($_GET['id']) ? $conn->real_escape_string($_GET['id']) : null;
-
-if (!$articulo_id) {
-    die("ID de artículo no válido.");
+if (!isset($_GET['id'])) {
+    die("Acceso inválido.");
 }
 
-$sql = "SELECT id, titulo, contenido, categoria, autor, slug, imagen_articulo, imagen_portada, usuario_id FROM articulos WHERE id = '$articulo_id'";
-$resultado = $conn->query($sql);
-
-$articulo = $resultado->fetch_assoc();
-
-if (!$articulo) {
+$id = $_GET['id'];
+$stmt = $conn->prepare("SELECT * FROM articulos WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$resultado = $stmt->get_result();
+if (!$resultado || $resultado->num_rows == 0) {
     die("Artículo no encontrado.");
 }
+$articulo = $resultado->fetch_assoc();
 
-if ((int)$articulo['usuario_id'] !== (int)$_SESSION["usuario_id"]) {
+if ($articulo['usuario_id'] != $_SESSION['usuario_id']) {
     die("No tienes permiso para editar este artículo.");
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Artículo</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Editar Artículo: <?php echo htmlspecialchars($articulo['titulo']); ?></title>
 </head>
-
 <body class="pagina-editar-articulo">
-    <header>
-        <h1>Editar Artículo</h1>
+    <header class="pagina-editar-articulo-header">
+        Editar Artículo
     </header>
-
-    <main>
-        <form action="procesar_editar_articulo.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="<?php echo $articulo['id']; ?>">
-
+    <main class="pagina-editar-articulo-main">
+        <form action="procesar_editar_articulo.php" method="POST" enctype="multipart/form-data" class="pagina-editar-articulo-form">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($articulo['id']); ?>">
             <div>
                 <label for="titulo">Título del Artículo:</label>
                 <input type="text" id="titulo" name="titulo" value="<?php echo htmlspecialchars($articulo['titulo']); ?>" required>
             </div>
-
-            <div>
-                <label for="contenido">Contenido del Artículo:</label>
-                <textarea id="contenido" name="contenido" rows="20" required style="width: 95%; box-sizing: border-box;"><?php echo htmlspecialchars($articulo['contenido']); ?></textarea>
-            </div>
-
             <div>
                 <label for="categoria">Categoría:</label>
-                <select id="categoria" name="categoria" required>
-                    <option value="">Seleccionar Categoría</option>
-                    <option value="consejos" <?php if ($articulo['categoria'] == 'consejos') echo 'selected'; ?>>Consejos</option>
-                    <option value="experiencias" <?php if ($articulo['categoria'] == 'experiencias') echo 'selected'; ?>>Experiencias y Viajes</option>
-                    <option value="comentarios" <?php if ($articulo['categoria'] == 'comentarios') echo 'selected'; ?>>Comentarios y Sugerencias</option>
-                </select>
+                <input type="text" id="categoria" name="categoria" value="<?php echo htmlspecialchars($articulo['categoria']); ?>" required>
             </div>
-
             <div>
                 <label for="autor">Autor:</label>
                 <input type="text" id="autor" name="autor" value="<?php echo htmlspecialchars($articulo['autor']); ?>" required>
             </div>
-
             <div>
-                <label for="imagen_portada_nueva">Imagen de Portada:</label>
-                <?php if (!empty($articulo['imagen_portada'])): ?>
-                    <p>Imagen actual: <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="Imagen de portada actual" style="max-width: 100px; height: auto;"></p>
-                    <label><input type="checkbox" name="eliminar_imagen_portada" value="1"> Eliminar imagen actual</label>
-                <?php else: ?>
-                    <p>No hay imagen de portada actual.</p>
-                <?php endif; ?>
-                <input type="file" id="imagen_portada_nueva" name="imagen_portada_nueva">
-                <small>Selecciona una nueva imagen para reemplazar la actual (opcional).</small>
+                <label for="contenido">Contenido del Artículo:</label>
+                <textarea id="contenido" name="contenido" rows="10" required><?php echo htmlspecialchars($articulo['contenido']); ?></textarea>
             </div>
-
             <div>
-                <label for="imagen_articulo_nueva">Imagen Principal del Artículo:</label>
-                <?php if (!empty($articulo['imagen_articulo'])): ?>
-                    <p>Imagen actual: <img src="<?php echo htmlspecialchars($articulo['imagen_articulo']); ?>" alt="Imagen principal actual" style="max-width: 100px; height: auto;"></p>
-                    <label><input type="checkbox" name="eliminar_imagen_articulo" value="1"> Eliminar imagen actual</label>
+                <label>Imagen de Portada Actual:</label>
+                <?php if ($articulo['imagen_portada']): ?>
+                    <div class="imagen-actual">
+                        <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="Imagen de portada actual">
+                    </div>
+                    <label>
+                        <input type="checkbox" name="eliminar_imagen_portada" value="1">
+                        Eliminar imagen portada
+                    </label>
                 <?php else: ?>
-                    <p>No hay imagen principal actual.</p>
+                    <em>No hay imagen de portada.</em>
                 <?php endif; ?>
-                <input type="file" id="imagen_articulo_nueva" name="imagen_articulo_nueva">
-                <small>Selecciona una nueva imagen para reemplazar la actual (opcional).</small>
+                <input type="file" name="imagen_portada_nueva" accept="image/*">
             </div>
-
+            <div>
+                <label>Imagen del Artículo Actual:</label>
+                <?php if ($articulo['imagen_articulo']): ?>
+                    <div class="imagen-actual">
+                        <img src="<?php echo htmlspecialchars($articulo['imagen_articulo']); ?>" alt="Imagen de artículo actual">
+                    </div>
+                    <label>
+                        <input type="checkbox" name="eliminar_imagen_articulo" value="1">
+                        Eliminar imagen artículo
+                    </label>
+                <?php else: ?>
+                    <em>No hay imagen de artículo.</em>
+                <?php endif; ?>
+                <input type="file" name="imagen_articulo_nueva" accept="image/*">
+            </div>
             <button type="submit">Guardar Cambios</button>
+            <div class="opciones">
+                <a href="panel_usuario.php">Volver al Panel de Usuario</a>
+            </div>
         </form>
-
-        <p><a href="panel_usuario.php">Volver a mi panel</a></p>
     </main>
-
-    <footer>
+    <footer class="pagina-editar-articulo-footer">
+        &copy; <?php echo date("Y"); ?> - Panel de Edición de Artículos
     </footer>
 </body>
 </html>

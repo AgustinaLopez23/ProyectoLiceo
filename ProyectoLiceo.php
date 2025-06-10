@@ -435,7 +435,8 @@
             <input type="hidden" name="plan" value="basico">
             <input type="text" name="nombre" placeholder="Nombre" required>
             <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="date" name="fecha_deseada" required>
+            <label for="fecha_deseada_basico">Elegí una fecha</label>
+			<input type="date" name="fecha_deseada" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -457,7 +458,8 @@
             <input type="hidden" name="plan" value="intermedio">
             <input type="text" name="nombre" placeholder="Nombre" required>
             <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="date" name="fecha_deseada" required>
+            <label for="fecha_deseada_basico">Elegí una fecha</label>
+			<input type="date" name="fecha_deseada" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -480,7 +482,8 @@
             <input type="hidden" name="plan" value="premium">
             <input type="text" name="nombre" placeholder="Nombre" required>
             <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="date" name="fecha_deseada" required>
+            <label for="fecha_deseada_basico">Elegí una fecha</label>
+			<input type="date" name="fecha_deseada" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
