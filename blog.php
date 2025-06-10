@@ -51,11 +51,11 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="stylesheet" href="styles.css"> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog de Agustina López</title>
     <meta name="description" content="Descubre artículos, consejos y experiencias en el blog de Agustina López sobre fotografia, edicion de imagenes y más.">
-    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="blog-list-page">
     <header>
@@ -126,7 +126,7 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : null;
                             <article class="consejo-item">
                                 <div class="consejo-imagen">
                                     <?php if (!empty($articulo['imagen_portada'])): ?>
-                                        <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="<?php echo htmlspecialchars($articulo['titulo']); ?>">
+                                        <img src="<?php echo htmlspecialchars($articulo['imagen_portada']); ?>" alt="<?php echo htmlspecialchars($articulo['titulo']); ?>" fetchpriority="high">
                                     <?php endif; ?>
                                     <div class="consejo-contenido-overlay">
                                         <h3><?php echo htmlspecialchars($articulo['titulo']); ?></h3>

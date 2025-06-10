@@ -9,7 +9,6 @@ if (!isset($_SESSION["usuario_id"])) {
 }
 
 $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +26,8 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
 
     <main>
         <form action="procesar_publicar_articulo.php" method="POST" enctype="multipart/form-data">
+            <!-- Límite máximo de archivo: 40MB -->
+            <input type="hidden" name="MAX_FILE_SIZE" value="40000000">
             <div>
                 <label for="titulo">Título del Artículo:</label>
                 <input type="text" id="titulo" name="titulo" required>
@@ -49,18 +50,18 @@ $categoria_seleccionada = isset($_GET['categoria']) ? $_GET['categoria'] : '';
 
             <div>
                 <label for="autor">Tu Nombre:</label>
-                <input type="text" id="autor" name="autor" value="<?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>" readonly>
+                <input type="text" id="autor" name="autor" value="<?php echo isset($_SESSION['nombre_usuario']) ? htmlspecialchars($_SESSION['nombre_usuario']) : ''; ?>" readonly>
             </div>
 
             <div>
                 <label for="imagen_portada">Imagen de Portada (para la lista):</label>
-                <input type="file" id="imagen_portada" name="imagen_portada">
+                <input type="file" id="imagen_portada" name="imagen_portada" accept=".jpg,.jpeg,.webp,.png,.gif">
                 <p class="ayuda">Esta imagen se mostrará en la lista de artículos.</p>
             </div>
 
             <div>
                 <label for="imagen_articulo">Imagen Principal del Artículo:</label>
-                <input type="file" id="imagen_articulo" name="imagen_articulo">
+                <input type="file" id="imagen_articulo" name="imagen_articulo" accept=".jpg,.jpeg,.webp,.png,.gif">
                 <p class="ayuda">Esta imagen se mostrará dentro del artículo.</p>
             </div>
 

@@ -52,10 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_base = basename($_FILES["imagen_portada_nueva"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
-        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $tipos_permitidos = array("jpg", "jpeg","webp", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
         if (!in_array($extension, $tipos_permitidos)) {
-            die(mostrarMensajeError("Solo se permiten archivos JPG, JPEG, PNG y GIF para la nueva imagen de portada."));
+            die(mostrarMensajeError("Solo se permiten archivos JPG, WEBP, JPEG, PNG y GIF para la nueva imagen de portada."));
         }
         if (!move_uploaded_file($_FILES["imagen_portada_nueva"]["tmp_name"], $ruta_destino)) {
             die(mostrarMensajeError("Error al subir la nueva imagen de portada."));
@@ -79,10 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_base = basename($_FILES["imagen_articulo_nueva"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
-        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $tipos_permitidos = array("jpg", "jpeg","webp", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
         if (!in_array($extension, $tipos_permitidos)) {
-            die(mostrarMensajeError("Solo se permiten archivos JPG, JPEG, PNG y GIF para la nueva imagen del artículo."));
+            die(mostrarMensajeError("Solo se permiten archivos JPG, WEBP, JPEG, PNG y GIF para la nueva imagen del artículo."));
         }
         if (!move_uploaded_file($_FILES["imagen_articulo_nueva"]["tmp_name"], $ruta_destino)) {
             die(mostrarMensajeError("Error al subir la nueva imagen del artículo."));

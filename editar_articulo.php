@@ -1,8 +1,37 @@
 <?php
 session_start();
 session_regenerate_id(true);
+
+function mostrarMensajeError($mensaje, $botonLogin = false) {
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Error</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body class="cuerpo-mensaje">
+        <div class="mensaje-error">
+            <span style="background: #c8483b; color:#fff; display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; font-size:1.6em; margin-right:16px;">
+                &#10060;
+            </span>
+            <?php echo htmlspecialchars($mensaje); ?>
+            <?php if ($botonLogin): ?>
+                <br>
+                <a href="login.php">
+                    <button style="margin-top:10px; background:rgb(26, 83, 19); color: #fff; border: none; border-radius: 6px; padding: 9px 20px; font-size: 1em; font-weight: 500; cursor: pointer;">Iniciar sesión</button>
+                </a>
+            <?php endif; ?>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit();
+}
+
 if (!isset($_SESSION['usuario_id'])) {
-    die("No estás autenticado.");
+    mostrarMensajeError("Para editar este artículo necesitas iniciar sesión.", true);
 }
 
 $host = 'localhost';
@@ -12,12 +41,12 @@ $base_de_datos = 'portafolio_db';
 
 $conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
+    mostrarMensajeError("Error de conexión: " . $conn->connect_error);
 }
 $conn->set_charset("utf8");
 
 if (!isset($_GET['id'])) {
-    die("Acceso inválido.");
+    mostrarMensajeError("Acceso inválido.");
 }
 
 $id = $_GET['id'];
@@ -26,12 +55,12 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 if (!$resultado || $resultado->num_rows == 0) {
-    die("Artículo no encontrado.");
+    mostrarMensajeError("Artículo no encontrado.");
 }
 $articulo = $resultado->fetch_assoc();
 
 if ($articulo['usuario_id'] != $_SESSION['usuario_id']) {
-    die("No tienes permiso para editar este artículo.");
+    mostrarMensajeError("No tienes permiso para editar este artículo.");
 }
 ?>
 <!DOCTYPE html>

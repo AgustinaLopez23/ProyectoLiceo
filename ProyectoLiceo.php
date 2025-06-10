@@ -244,12 +244,7 @@
 
 	<section id="inicio" class="hero">
 		<div class="hero-image">
-			<img 
-				src="<?php echo $imagen_inicio; ?>"
-				alt="Imagen principal de bienvenida"
-				width="1200"
-				height="600"
-				fetchpriority="high"
+			<img src="<?php echo $imagen_inicio; ?>" alt="Imagen principal de bienvenida" width="1200" height="600" fetchpriority="high"
 				style="object-fit: cover; width: 100%; height: 100%; display: block;"
 			>
 		</div>

@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_base = basename($_FILES["imagen_principal"]["name"]);
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
-        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $tipos_permitidos = array("jpg", "jpeg","webp", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
 
         if (in_array($extension, $tipos_permitidos)) {

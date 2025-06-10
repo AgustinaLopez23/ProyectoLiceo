@@ -54,9 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_base = preg_replace('/[^A-Za-z0-9_.-]/', '', basename($_FILES["imagen_portada"]["name"]));
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
-        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $tipos_permitidos = array("jpg", "jpeg", "webp", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
-        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_portada']['size'] <= 2000000) { // 2MB max
+        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_portada']['size'] <= 40000000) { // 40MB max
             if (move_uploaded_file($_FILES["imagen_portada"]["tmp_name"], $ruta_destino)) {
                 $imagen_portada_ruta = $ruta_destino;
             } else {
@@ -67,6 +67,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Formato de imagen de portada no válido o tamaño demasiado grande.";
             exit();
         }
+    } elseif (isset($_FILES['imagen_portada']) && $_FILES['imagen_portada']['error'] != UPLOAD_ERR_NO_FILE) {
+        // Depuración: mostrar el código de error de PHP si no es que no se subió ningún archivo
+        echo "Error al subir la imagen de portada. Código de error: " . $_FILES['imagen_portada']['error'];
+        exit();
     }
 
     // --- Manejo de la imagen del artículo ---
@@ -78,9 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_base = preg_replace('/[^A-Za-z0-9_.-]/', '', basename($_FILES["imagen_articulo"]["name"]));
         $nombre_archivo = uniqid() . "_" . $nombre_base;
         $ruta_destino = $carpeta_destino . $nombre_archivo;
-        $tipos_permitidos = array("jpg", "jpeg", "png", "gif");
+        $tipos_permitidos = array("jpg", "jpeg", "webp", "png", "gif");
         $extension = strtolower(pathinfo($nombre_base, PATHINFO_EXTENSION));
-        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_articulo']['size'] <= 5000000) { // 5MB max
+        if (in_array($extension, $tipos_permitidos) && $_FILES['imagen_articulo']['size'] <= 40000000) { // 40MB max
             if (move_uploaded_file($_FILES["imagen_articulo"]["tmp_name"], $ruta_destino)) {
                 $imagen_articulo_ruta = $ruta_destino;
             } else {
@@ -91,6 +95,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Formato de imagen del artículo no válido o tamaño demasiado grande.";
             exit();
         }
+    } elseif (isset($_FILES['imagen_articulo']) && $_FILES['imagen_articulo']['error'] != UPLOAD_ERR_NO_FILE) {
+        // Depuración: mostrar el código de error de PHP si no es que no se subió ningún archivo
+        echo "Error al subir la imagen del artículo. Código de error: " . $_FILES['imagen_articulo']['error'];
+        exit();
     }
 
     // Insertar el nuevo artículo
