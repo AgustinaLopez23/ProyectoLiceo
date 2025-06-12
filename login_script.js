@@ -1,28 +1,37 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const passwordInput = document.getElementById('contrasena');
-  const togglePasswordIcon = document.getElementById('togglePassword');
-  const iconEye = document.getElementById('icon-eye');
-  const iconEyeOff = document.getElementById('icon-eye-off');
+ document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.password-toggle-icon').forEach(function(toggle) {
+        const inputId = toggle.getAttribute('data-input');
+        const input = document.getElementById(inputId);
+        const iconEye = toggle.querySelector('.icon-eye');
+        const iconEyeOff = toggle.querySelector('.icon-eye-off');
 
-  if (togglePasswordIcon && passwordInput && iconEye && iconEyeOff) {
-    togglePasswordIcon.addEventListener('click', function() {
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        iconEye.style.display = 'inline';        // OJO ABIERTO visible (contraseña visible)
-        iconEyeOff.style.display = 'none';       // OJO CERRADO oculto
-      } else {
-        passwordInput.type = 'password';
-        iconEye.style.display = 'none';          // OJO ABIERTO oculto
-        iconEyeOff.style.display = 'inline';     // OJO CERRADO visible (contraseña oculta)
-      }
-    });
+        // Inicialización: ojos
+        function setIcons() {
+          if (input.type === 'password') {
+            iconEye.style.display = 'none';
+            iconEyeOff.style.display = 'inline';
+          } else {
+            iconEye.style.display = 'inline';
+            iconEyeOff.style.display = 'none';
+          }
+        }
+        setIcons();
 
-    // Accesibilidad: alternar con Enter o Espacio
-    togglePasswordIcon.addEventListener('keydown', function(e) {
-      if (e.key === " " || e.key === "Enter") {
-        togglePasswordIcon.click();
-        e.preventDefault();
-      }
+        toggle.addEventListener('click', function() {
+          if (input.type === 'password') {
+            input.type = 'text';
+          } else {
+            input.type = 'password';
+          }
+          setIcons();
+        });
+
+        // Accesibilidad: alternar con Enter o Espacio
+        toggle.addEventListener('keydown', function(e) {
+          if (e.key === " " || e.key === "Enter") {
+            toggle.click();
+            e.preventDefault();
+          }
+        });
+      });
     });
-  }
-});

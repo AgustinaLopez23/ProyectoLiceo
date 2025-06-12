@@ -1,5 +1,3 @@
-// scripts.js - Optimización estructural y modularización
-
 (() => {
   // === Lightbox Module ===
   const Lightbox = (() => {
@@ -258,3 +256,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.target === modal) modal.style.display = 'none';
   };
 });
+
