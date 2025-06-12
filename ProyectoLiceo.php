@@ -571,33 +571,36 @@
 		</div>
 	</section>
 
-	<div class="contacto-wrapper" id="contacto">
-		<div class="contacto-card">
-			<h2>Contacto</h2>
-			<p>¿Tienes alguna pregunta o te gustaría reservar una sesión de fotos personalizada? ¡No dudes en ponerte en contacto conmigo!</p>
-			<div class="formulario-contacto">
-				<form action="send_email.php" method="POST">
-					<div class="form-group">
-						<label for="nombre">Nombre:</label>
-						<input type="text" id="nombre" name="nombre" required>
-					</div>
-					<div class="form-group">
-						<label for="email">Email:</label>
-						<input type="email" id="email" name="email" required>
-					</div>
-					<div class="form-group">
-						<label for="mensaje">Mensaje:</label>
-						<textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-					</div>
-					<button type="submit" class="button">Enviar Mensaje</button>
-				</form>
-			</div>
-			<div class="info-contacto">
-				<h3>Información de Contacto</h3>
-				<p><i class="bi bi-envelope"></i> Email: al5261486@gmail.com</p>
-				<p><i class="bi bi-instagram"></i> Instagram: <a href="https://www.instagram.com/aguslopez_fotografia/" target="_blank" rel="noopener noreferrer">@aguslopez_fotografia</a></p>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+<section id="contacto" class="contact-bg">
+  <iframe
+    class="contact-map-bg"
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10165.234435936516!2d-64.2960613883883!3d-36.63003485794948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1749700089168!5m2!1ses-419!2sar" 
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+  <div class="contact-modal">
+    <h2>Ponete en contacto</h2>
+    <form class="contact-form" action="send_email.php" method="POST" autocomplete="off">
+      <div class="row">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="nombre" placeholder="Ingresá tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Ingresá tu correo electrónico" required>
+        </div>
+      </div>
+      <div class="form-group full-width">
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="mensaje" placeholder="Tu mensaje aquí..." rows="4" required></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">
+          Enviar <span class="arrow">&rarr;</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
