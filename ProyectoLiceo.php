@@ -45,167 +45,8 @@
 	<meta name="keywords" content="fotografía, portfolio, Agustina Lopez, fotografía aficionada">
 	<title>Portafolio de Agustina Lopez</title>
 	<link rel="stylesheet" href="styles.css">
-	<script>
-		var usuarioLogueado = <?php echo isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
-	</script>
-	<script src="scripts.js" defer></script>
-
-	<style>
-		/* Global Styles (from styles.css) - Essential for initial layout */
-		* { box-sizing: border-box; }
-		body { margin: 0; font-family: Arial, sans-serif; }
-		.container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-		img { max-width: 100%; height: auto; }
-
-		/* Estilos para el menú de navegación principal  */
-		.main-nav {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			background: #00000032;
-			color: #fff;
-			z-index: 100;
-			padding: 20px 0;
-			margin: 0;
-		}
-		.main-nav ul {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			justify-content: center;
-		}
-		.main-nav li { margin: 0 10px; }
-		.main-nav a {
-			color: #fff;
-			text-decoration: none;
-			padding: 10px 15px;
-		}
-		.main-nav a:hover {
-			background-color: #79a976;
-			color: #000;
-			transition: background-color 0.3s ease, color 0.3s ease;
-		}
-		@media (max-width: 768px) {
-			.main-nav ul {
-				flex-direction: column;
-				align-items: center;
-			}
-			.main-nav li { margin: 5px 0; }
-		}
-
-		/* Estilos para la sección de inicio (Hero)  */
-		.hero {
-			position: relative;
-			height: 100vh;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			color: #fff;
-			overflow: hidden;
-			margin: 0;
-			padding: 0;
-		}
-		.hero-image {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			z-index: -1;
-		}
-		.hero-image img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			display: block;
-		}
-		.hero-content {
-			padding: 20px;
-			z-index: 10;
-			position: relative;
-		}
-		.hero-content h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-			font-weight: 400;
-			text-shadow: 2px 2px 4px #00000039;
-		}
-		.hero-content .button {
-			display: inline-block;
-			padding: 12px 24px;
-			background-color: #00000098;
-			color: #fff;
-			text-decoration: none;
-			border-radius: 5px;
-			border: 1px solid #fff;
-			transition: background-color 0.3s ease;
-			font-size: 1.1em;
-		}
-		.hero-content .button:hover { background-color: #1f522b66; }
-		@media (max-width: 768px) {
-			.hero-content h1 { font-size: 2em; }
-			.hero-content .button { font-size: 0.9em; padding: 10px 15px; }
-		}
-
-		/* SECCIÓN SOBRE MÍ  */
-		#sobremi.intro-section {
-			background: -webkit-linear-gradient(90deg, #274427, #64a34d);
-			background: linear-gradient(90deg, #274427, #64a34d);
-			color: #000;
-			padding: 40px 20px;
-			text-align: center;
-			font-family: 'Arial', sans-serif;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			min-height: 200px;
-		}
-		#sobremi.intro-section .titulo-principal {
-			font-size: 2em;
-			font-weight: 300;
-			margin-bottom: 15px;
-		}
-		#sobremi.intro-section .mensaje-bienvenida {
-			font-size: 1em;
-			line-height: 1.5;
-			color: #eee;
-			margin: 0 auto 15px;
-		}
-		.redes-sociales {
-			display: flex;
-			justify-content: center;
-			gap: 10px;
-			margin-top: 10px;
-		}
-		.redes-sociales a {
-			color: #000;
-			text-decoration: none;
-			opacity: 0.7;
-			transition: opacity 0.3s ease;
-		}
-		.redes-sociales a:hover { opacity: 1; }
-		@media (max-width: 768px) {
-			#sobremi.intro-section .titulo-principal { font-size: 1.5em; }
-			#sobremi.intro-section .mensaje-bienvenida { max-width: 90%; }
-			.redes-sociales a .bi-instagram { font-size: 20px; }
-		}
-		.sr-only {
-			position: absolute !important;
-			width: 1px;
-			height: 1px;
-			padding: 0;
-			margin: -1px;
-			overflow: hidden;
-			clip: rect(0,0,0,0);
-			border: 0;
-		}
-	</style>
 </head>
 <body>
-
 	<nav class="main-nav">
 		<ul>
 			<li><a href="#inicio">INICIO</a></li>
@@ -220,7 +61,7 @@
 						<span class="login-icon" style="vertical-align: middle;">
 							<!-- SVG puerta ABIERTA (sesión iniciada) -->
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
-								<path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+								<path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.22.5.5-.5z"/>
 							</svg>
 						</span>
 						Cerrar sesión
@@ -266,7 +107,7 @@
 					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
 						 class="bi bi-instagram" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
 						<title>Instagram</title>
-						<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.11.281-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+						<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.853.174 1.434.372 1.943.198.51.493.975.923 1.417a3.9 3.9 0 0 0 1.417.923c.509.197 1.09.332 1.943.372.853.039 1.125.048 3.297.048 2.172 0 2.444-.009 3.297-.048.853-.04 1.434-.175 1.943-.372a3.9 3.9 0 0 0 1.417-.923 3.9 3.9 0 0 0 .923-1.417c.197-.509.332-1.09.372-1.943.039-.853.048-1.125.048-3.297 0-2.174-.009-2.446-.048-3.299-.04-.853-.175-1.434-.372-1.943a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.509-.198-1.09-.332-1.943-.372C10.444.01 10.172 0 8 0zm0 1.438c2.135 0 2.389.008 3.229.047.78.036 1.203.166 1.486.277.374.146.641.324.921.604.28.28.458.547.604.921.111.283.241.706.277 1.486.039.84.047 1.094.047 3.229s-.008 2.389-.047 3.229c-.036.78-.166 1.203-.277 1.486a2.44 2.44 0 0 1-.604.921 2.44 2.44 0 0 1-.921.604c-.283.111-.706.241-1.486.277-.84.039-1.094.047-3.229.047s-2.389-.008-3.229-.047c-.78-.036-1.203-.166-1.486-.277a2.44 2.44 0 0 1-.921-.604 2.44 2.44 0 0 1-.604-.921c-.111-.283-.241-.706-.277-1.486C1.446 10.389 1.438 10.135 1.438 8s.008-2.389.047-3.229c.036-.78.166-1.203.277-1.486.146-.374.324-.641.604-.921.28-.28.547-.458.921-.604.283-.111.706-.241 1.486-.277C5.611 1.446 5.865 1.438 8 1.438zM8 3.938A4.062 4.062 0 1 0 8 12.062 4.062 4.062 0 0 0 8 3.938zm0 1.438a2.625 2.625 0 1 1 0 5.25 2.625 2.625 0 0 1 0-5.25zm5.406-1.25a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
 					</svg>
 					<span class="sr-only">Instagram de Agustina Lopez</span>
 				</a>
@@ -405,8 +246,6 @@
 		<p id="lightbox-description"></p>
 	</div>
 
-	<script src="scripts.js"></script>
-
 <section id="servicios">
   <div class="planes-section">
     <h2 class="planes-titulo">Sesiones de Fotos</h2>
@@ -428,10 +267,10 @@
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="basico">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="text" name="nombre" id="nombre_basico" placeholder="Nombre" required>
+            <input type="email" name="email" id="email_basico" placeholder="Correo electrónico" required>
             <label for="fecha_deseada_basico">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" required>
+			<input type="date" name="fecha_deseada" id="fecha_deseada_basico" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -451,10 +290,10 @@
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="intermedio">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <label for="fecha_deseada_basico">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" required>
+            <input type="text" name="nombre" id="nombre_intermedio" placeholder="Nombre" required>
+            <input type="email" name="email" id="email_intermedio" placeholder="Correo electrónico" required>
+            <label for="fecha_deseada_intermedio">Elegí una fecha</label>
+			<input type="date" name="fecha_deseada" id="fecha_deseada_intermedio" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -475,10 +314,10 @@
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="premium">
-            <input type="text" name="nombre" placeholder="Nombre" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <label for="fecha_deseada_basico">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" required>
+            <input type="text" name="nombre" id="nombre_premium" placeholder="Nombre" required>
+            <input type="email" name="email" id="email_premium" placeholder="Correo electrónico" required>
+            <label for="fecha_deseada_premium">Elegí una fecha</label>
+			<input type="date" name="fecha_deseada" id="fecha_deseada_premium" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -574,14 +413,16 @@
 <section id="contacto" class="contact-bg">
   <iframe
     class="contact-map-bg"
-    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10165.234435936516!2d-64.2960613883883!3d-36.63003485794948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1749700089168!5m2!1ses-419!2sar" 
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d10165.234435936516!2d-64.2960613883883!3d-36.63003485794948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1749700089168"
     allowfullscreen=""
     loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade">
-  </iframe>
+    referrerpolicy="no-referrer-when-downgrade"
+    title="Mapa de ubicación del estudio fotográfico"
+  ></iframe>
   <div class="contact-modal">
     <h2>Ponete en contacto</h2>
     <form class="contact-form" action="send_email.php" method="POST" autocomplete="off">
+      <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
       <div class="row">
         <div class="form-group">
           <label for="name">Nombre</label>
@@ -604,3 +445,6 @@
     </form>
   </div>
 </section>
+<script src="scripts.js" defer></script>
+</body>
+</html>

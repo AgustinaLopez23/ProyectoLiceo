@@ -63,11 +63,11 @@ $resultado = $stmt->get_result();
 
 <body class="panel-usuario-body">
     <div class="panel-usuario-container">
-        <h1 class="panel-usuario-h1">Panel de Usuario</h1>
+        <h1 class="panel-titulo panel-usuario-h1">Panel de Usuario</h1>
 
         <p class="panel-usuario-logout"><a href="/ProyectoLiceo/cerrar_sesion.php">Cerrar Sesión</a></p>
 
-        <h2 class="panel-usuario-h2">Mis Artículos Publicados</h2>
+        <h2 class="panel-titulo panel-usuario-h2">Mis Artículos Publicados</h2>
 
         <?php if ($resultado->num_rows > 0): ?>
             <table class="articulos-table">
