@@ -233,7 +233,7 @@ img {
 #eventos,
 #viajes,
 #blog,
-#servicios,
+section#servicios,
 #blog.blog-section.cards-layout,
 footer {
   background: linear-gradient(90deg, #274427, #64a34d);
@@ -592,125 +592,150 @@ footer {
 }
 .lightbox.show-description #lightbox-description { opacity: 1; }
 
-/* ========== 12. Planes/Servicios ========== */
+/* ========== 12. Planes/Servicios (Bento Grid) ========== */
+
+/* General de la sección */
 #servicios {
-  padding: 40px 20px;
-  text-align: center;
+  padding: 40px 15px;
+  background: #f9f9f9;
+  font-family: 'Segoe UI', sans-serif;
+  color: #000000;
 }
+
+/* Título y descripción */
 .planes-titulo {
-  color: #000000;
-  font-size: 2em;
-  margin-bottom: 10px;
-}
-.planes-descripcion {
-  color: #000000;
-  font-size: 1.1em;
-  margin-bottom: 30px;
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.plan-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-}
-.plan-card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px #00000069;
-  overflow: hidden;
-  flex: 1 1 0;
-  min-width: 300px;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-height: unset;
-  transition: box-shadow 0.25s, transform 0.25s;
-}
-.plan-card:hover {
-  box-shadow: 0 8px 32px #00000022;
-  transform: translateY(-4px) scale(1.03);
-}
-.plan-header {
-  background-color: #5f925b;
-  color: #000000;
   text-align: center;
-  font-size: 1.3em;
-  font-weight: 600;
-  padding: 14px 0 8px 0;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  border-bottom: 1.5px solid #eeeeee;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #000000;
 }
-.plan-body {
-  padding: 7px 8px 7px 8px;
+
+.planes-descripcion {
+  text-align: center;
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  color: #000000;
+}
+
+/* Grid más compacto */
+.plan-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Cards estilo Bento */
+.plan-card {
+  border-radius: 16px;
+  padding: 16px;
+  color: #fff;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex: 1 1 auto;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
+
+/* Efecto hover */
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal interno de la card */
+.plan-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Contenido fijo arriba (para alinear precios) */
+.plan-contenido {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Encabezado */
+.plan-header {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Precio alineado visualmente */
 .plan-precio {
-  font-size: 2em;
-  font-weight: 700;
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: bold;
   margin-bottom: 12px;
-  color: #5f925b;
+  min-height: 2.2em; 
+  text-align: center;
 }
+
+/* Lista de características */
 .plan-list {
   list-style: none;
   padding: 0;
   margin: 0 0 10px 0;
-  color: #000000;
-  font-size: 1.1em;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  flex-grow: 1;
   text-align: center;
 }
-.plan-list li { margin-bottom: 6px; }
-.plan-form { width: 100%; margin-top: auto; }
-.plan-form label {
-  display: block;
-  text-align: left;
-  margin-bottom: 4px;
-  font-weight: 500;
-  margin-left: 2px;
+
+/* Formulario compacto */
+.plan-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
 }
+
 .plan-form input[type="text"],
 .plan-form input[type="email"],
 .plan-form input[type="date"] {
-  width: 100%;
-  padding: 10px;
-  border: 1.5px solid #000000;
-  border-radius: 5px;
-  margin-bottom: 12px;
-  font-size: 1em;
-  background: #f7faf75c;
-  color: #000000;
-  transition: border 0.2s;
-}
-.plan-form input[type="text"]:focus,
-.plan-form input[type="email"]:focus,
-.plan-form input[type="date"]:focus {
-  border-color: #397c36;
-  outline: none;
-}
-.plan-btn {
-  background-color: #5f925b;
-  color: #000000;
+  padding: 6px 10px;
   border: none;
-  border-radius: 5px;
-  padding: 14px 0;
-  font-size: 1.12em;
-  font-weight: 600;
-  width: 100%;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  margin-top: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
 }
-.plan-btn:hover {
-  background-color: #255320;
+
+.plan-form input:focus {
+  outline: 2px solid #fff;
+}
+
+/* Botón */
+.plan-btn {
+  background: #2e7d32;
   color: #fff;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
+
+.plan-btn:hover {
+  background: #1b5e20;
+}
+
+
+.basico, .intermedio,.premium {
+  background-color: #ffffff93; 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.29);
+  color: #000;
+}
+
 
 /* ========== 13. Footer ========== */
 footer {
@@ -733,102 +758,197 @@ footer a:hover {
   color: #cccccc;
 }
 
-/* ========== 14. Blog Section ========== */
-#blog {
-  background: none;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  padding: 40px;
-  line-height: 1.5;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  height: auto;
-}
-#blog h2 {
-  font-size: 2.5em;
-  color: #000000;
-  text-align: center;
-  margin-bottom: 20px;
-}
-#blog .blog-intro {
-  color: #000000;
-  line-height: 1.6;
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.1em;
-}
-.blog-section {
+/* ========== 14. Blog Section (Bento Grid) ========== */
+
+
+.bento-section {
   padding: 40px 0;
-  border-bottom: 1px solid #eee;
+  background: #ffffffa7;
+  color: #000000;
+  text-align: center;
 }
-.blog-grid {
+
+.bento-section h2 {
+  font-size: 2.5em;
+  color: #000000 !important;
+  text-align: center !important;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.bento-section .blog-intro {
+  font-size: 1.1em;
+  color: #000000 !important;
+  text-align: center !important;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+.bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
 }
-.blog-card {
-  background-color: #ffffffd4;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px #0000001a;
+
+.bento-card {
+  background: #ffffffa7;
+  border-radius: 22px;
   overflow: hidden;
+  box-shadow: 0 4px 8px #0000001a;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  height: 90%;
+  min-height: 440px;
+  position: relative;
 }
-.blog-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px #00000026;
+
+.bento-card:hover {
+  transform: translateY(-8px) scale(1.025);
 }
-.blog-card a {
+
+.bento-card a {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
   color: inherit;
   height: 100%;
+  text-decoration: none !important;
 }
-.blog-card img {
+
+.bento-card img {
   width: 100%;
-  height: 190px;
-  max-height: 190px;
+  height: 210px;
   object-fit: cover;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   display: block;
-}
-.blog-card h3 {
-  padding: 15px;
+  background: #ffffff00;
+  border-bottom: 1.5px solid #00000076;
   margin-bottom: 0;
-  font-size: 1.3em;
-  color: #000000;
-  text-align: center;
+  transition: filter 0.3s;
 }
-.blog-card .card-description {
-  padding: 0 15px 15px;
+
+.bento-card:hover img {
+  filter: brightness(0.85) saturate(1.15);
+}
+
+.bento-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: space-between;
+  padding: 24px 20px 18px 20px;
+}
+
+.bento-card h3 {
+  color: #000000 !important;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 0.8em;
+  margin-top: 0;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.bento-card .card-description {
+  color: #000000 !important;
   font-size: 1em;
-  color: #000000;
+  margin-bottom: 1.5em;
   text-align: center;
-  flex-grow: 1;
 }
+
 .read-more {
-  display: block;
-  padding: 10px 15px;
-  background-color: #173d09;
-  color: #fff;
-  text-align: center;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-  transition: background-color .3s ease;
-  font-size: .9em;
-  margin: 0 auto 1em;
+  display: inline-block;
+  background: #609153;
+  color: #ffffff;
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-size: 1em;
   font-weight: bold;
-}
-.read-more:hover {
-  background-color: #7ba96a;
-  color: #0056b3;
+  box-shadow: 0 2px 9px #2bffb122;
+  margin-top: auto;
+  text-align: center;
+  transition: background 0.16s, color 0.16s;
+  text-decoration: none !important;
+  border: none;
 }
 
+.read-more:hover,
+.read-more:focus {
+  background: #274427;
+  color: #000000;
+  text-decoration: none !important;
+}
 
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablets */
+@media (max-width: 900px) {
+  .bento-section {
+    padding: 25px 0;
+  }
+  .bento-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+  }
+  .bento-card {
+    min-height: 340px;
+    border-radius: 16px;
+  }
+  .bento-card img {
+    height: 140px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  .bento-content {
+    padding: 18px 12px 12px 12px;
+  }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+  .bento-section {
+    padding: 14px 0;
+  }
+  .bento-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+  .bento-card {
+    min-height: 220px;
+    border-radius: 10px;
+    padding: 0;
+  }
+  .bento-card img {
+    height: 28vw;
+    min-height: 90px;
+    max-height: 140px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .bento-content {
+    padding: 10px 6px 6px 6px;
+  }
+  .bento-section h2 {
+    font-size: 1.45em;
+    margin-bottom: 12px;
+  }
+  .bento-section .blog-intro {
+    font-size: 0.97em;
+    margin-bottom: 10px;
+  }
+  .bento-card h3 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+  }
+  .read-more {
+    font-size: 0.93em;
+    padding: 8px 10px;
+    border-radius: 7px;
+  }
+}
 
 /* ========== 15. Blog Header and Navegacion (blog.php)========== */
 

@@ -250,74 +250,82 @@
   <div class="planes-section">
     <h2 class="planes-titulo">Sesiones de Fotos</h2>
     <div class="planes-descripcion">
-      Elige tu plan y reserva tu sesión. Todos incluyen edición profesional y entrega digital de alta calidad.
+      Elige tu plan y reservá tu sesión. Todos incluyen edición profesional y entrega digital de alta calidad.
     </div>
     <div class="plan-container">
       <!-- Plan Básico -->
-      <div class="plan-card">
-        <div class="plan-header">Plan Básico</div>
+      <div class="plan-card bento-plan basico">
         <div class="plan-body">
-          <div class="plan-precio">$100</div>
-          <ul class="plan-list">
-            <li>• Sesión de 1 hora</li>
-            <li>• 20 fotos editadas</li>
-            <li>• Entrega digital en alta resolución</li>
-            <li>• 1 impresión en tamaño 10x15 a elección</li>
-          </ul>
+          <div class="plan-contenido">
+            <div class="plan-header">Plan Básico</div>
+            <div class="plan-precio">$100</div>
+            <ul class="plan-list">
+              <li>• Sesión de 1 hora</li>
+              <li>• 20 fotos editadas</li>
+              <li>• Entrega digital en alta resolución</li>
+              <li>• 1 impresión en tamaño 10x15 a elección</li>
+            </ul>
+          </div>
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="basico">
             <input type="text" name="nombre" id="nombre_basico" placeholder="Nombre" required>
             <input type="email" name="email" id="email_basico" placeholder="Correo electrónico" required>
             <label for="fecha_deseada_basico">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" id="fecha_deseada_basico" required>
+            <input type="date" name="fecha_deseada" id="fecha_deseada_basico" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
       </div>
+
       <!-- Plan Intermedio -->
-      <div class="plan-card">
-        <div class="plan-header">Plan Intermedio</div>
+      <div class="plan-card bento-plan intermedio">
         <div class="plan-body">
-          <div class="plan-precio">$250</div>
-          <ul class="plan-list">
-            <li>• Sesión de 2 horas</li>
-            <li>• 40 fotos editadas</li>
-            <li>• Entrega digital en alta resolución</li>
-            <li>• Asesoramiento de vestuario básico</li>
-            <li>• Cambio de locación dentro de la ciudad</li>
-          </ul>
+          <div class="plan-contenido">
+            <div class="plan-header">Plan Intermedio</div>
+            <div class="plan-precio">$250</div>
+            <ul class="plan-list">
+              <li>• Sesión de 2 horas</li>
+              <li>• 40 fotos editadas</li>
+              <li>• Entrega digital en alta resolución</li>
+              <li>• Asesoramiento de vestuario básico</li>
+              <li>• Cambio de locación dentro de la ciudad</li>
+            </ul>
+          </div>
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="intermedio">
             <input type="text" name="nombre" id="nombre_intermedio" placeholder="Nombre" required>
             <input type="email" name="email" id="email_intermedio" placeholder="Correo electrónico" required>
             <label for="fecha_deseada_intermedio">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" id="fecha_deseada_intermedio" required>
+            <input type="date" name="fecha_deseada" id="fecha_deseada_intermedio" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
       </div>
+
       <!-- Plan Premium -->
-      <div class="plan-card">
-        <div class="plan-header">Plan Premium</div>
+      <div class="plan-card bento-plan premium">
         <div class="plan-body">
-          <div class="plan-precio">$400</div>
-          <ul class="plan-list">
-            <li>• Sesión de 3 horas</li>
-            <li>• 80 fotos editadas</li>
-            <li>• Entrega digital en alta resolución</li>
-            <li>• Video corto con momentos destacados</li>
-            <li>• Asesoramiento de vestuario y estilismo</li>
-            <li>• Hasta dos locaciones dentro de la ciudad</li>
-          </ul>
+          <div class="plan-contenido">
+            <div class="plan-header">Plan Premium</div>
+            <div class="plan-precio">$400</div>
+            <ul class="plan-list">
+              <li>• Sesión de 3 horas</li>
+              <li>• 80 fotos editadas</li>
+              <li>• Entrega digital en alta resolución</li>
+              <li>• Video corto con momentos destacados</li>
+              <li>• Asesoramiento de vestuario y estilismo</li>
+              <li>• Hasta dos locaciones dentro de la ciudad</li>
+            </ul>
+          </div>
           <form action="procesar_reserva.php" method="POST" class="plan-form">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <input type="hidden" name="plan" value="premium">
             <input type="text" name="nombre" id="nombre_premium" placeholder="Nombre" required>
             <input type="email" name="email" id="email_premium" placeholder="Correo electrónico" required>
             <label for="fecha_deseada_premium">Elegí una fecha</label>
-			<input type="date" name="fecha_deseada" id="fecha_deseada_premium" required>
+            <input type="date" name="fecha_deseada" id="fecha_deseada_premium" required>
             <button type="submit" class="plan-btn">Reservar</button>
           </form>
         </div>
@@ -325,90 +333,100 @@
     </div>
   </div>
 </section>
+
+
 	<footer>
 		<p>¿No encuentras lo que buscas? <a href="#contacto">¡Contáctame para una sesión completamente personalizada!</a></p>
 	</footer>
 
-	<section id="blog" class="blog-section cards-layout">
-		<div class="container">
-			<h2>Blog</h2>
-			<p class="blog-intro">¡Bienvenido a nuestro espacio dedicado a la pasión por la fotografía! Aquí podrás compartir, aprender y conectar con otros entusiastas.</p>
-			<div class="blog-grid">
+<!-- Bento Grid para Blog -->
 
-				<!-- Consejos -->
-				<article class="blog-card consejos">
-					<a href="blog.php?categoria=consejos">
-						<?php
-							$imgBase = isset($imagenes_blog['consejos']) && !empty($imagenes_blog['consejos'])
-								? $imagenes_blog['consejos']
-								: 'images/consejos-placeholder.webp';
-							$img400 = str_replace('.webp', '-400.webp', $imgBase);
-							$img800 = $imgBase;
-						?>
-						<img 
-							src="<?php echo $img800; ?>"
-							srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
-							sizes="(max-width: 600px) 400px, 800px"
-							alt="Consejos de Fotografía"
-							width="800" height="533"
-							loading="lazy"
-						>
-						<h3>Consejos</h3>
-						<p class="card-description">Aquí puedes recibir consejos sobre cómo mejorar en la fotografía. ¡Comparte tus trucos y aprende de la comunidad!</p>
-						<span class="read-more">Ver Consejos</span>
-					</a>
-				</article>
+<section id="blog" class="blog-section bento-section">
+  <div class="container">
+    <h2>Blog</h2>
+    <p class="blog-intro">¡Bienvenido a nuestro espacio dedicado a la pasión por la fotografía! Aquí podrás compartir, aprender y conectar con otros entusiastas.</p>
+    <div class="bento-grid">
 
-				<!-- Experiencias -->
-				<article class="blog-card experiencias">
-					<a href="blog.php?categoria=experiencias">
-						<?php
-							$imgBase = isset($imagenes_blog['experiencias']) && !empty($imagenes_blog['experiencias'])
-								? $imagenes_blog['experiencias']
-								: 'images/experiencias-placeholder.webp';
-							$img400 = str_replace('.webp', '-400.webp', $imgBase);
-							$img800 = $imgBase;
-						?>
-						<img 
-							src="<?php echo $img800; ?>"
-							srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
-							sizes="(max-width: 600px) 400px, 800px"
-							alt="Experiencias y Viajes"
-							width="800" height="533"
-							loading="lazy"
-						>
-						<h3>Experiencias y Viajes</h3>
-						<p class="card-description">Aquí puedes contar historias y experiencias de viajes y aventuras que hayas tenido. ¡Inspira a otros con tus relatos fotográficos!</p>
-						<span class="read-more">Ver Experiencias</span>
-					</a>
-				</article>
+      <!-- Consejos -->
+      <article class="bento-card consejos">
+        <a href="blog.php?categoria=consejos">
+          <?php
+            $imgBase = isset($imagenes_blog['consejos']) && !empty($imagenes_blog['consejos'])
+              ? $imagenes_blog['consejos']
+              : 'images/consejos-placeholder.webp';
+            $img400 = str_replace('.webp', '-400.webp', $imgBase);
+            $img800 = $imgBase;
+          ?>
+          <img 
+            src="<?php echo $img800; ?>"
+            srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
+            sizes="(max-width: 600px) 400px, 800px"
+            alt="Consejos de Fotografía"
+            width="800" height="533"
+            loading="lazy"
+          >
+          <div class="bento-content">
+            <h3>Consejos</h3>
+            <p class="card-description">Aquí puedes recibir consejos sobre cómo mejorar en la fotografía. ¡Comparte tus trucos y aprende de la comunidad!</p>
+            <span class="read-more">Ver Consejos</span>
+          </div>
+        </a>
+      </article>
 
-				<!-- Comentarios -->
-				<article class="blog-card comentarios">
-					<a href="blog.php?categoria=comentarios">
-						<?php
-							$imgBase = isset($imagenes_blog['comentarios']) && !empty($imagenes_blog['comentarios'])
-								? $imagenes_blog['comentarios']
-								: 'images/comentarios-placeholder.webp';
-							$img400 = str_replace('.webp', '-400.webp', $imgBase);
-							$img800 = $imgBase;
-						?>
-						<img 
-							src="<?php echo $img800; ?>"
-							srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
-							sizes="(max-width: 600px) 400px, 800px"
-							alt="Comentarios y Sugerencias"
-							width="800" height="533"
-							loading="lazy"
-						>
-						<h3>Comentarios y Sugerencias</h3>
-						<p class="card-description">Aquí puedes comentar y opinar sobre el sitio web. ¡Tu feedback es valioso para seguir mejorando!</p>
-						<span class="read-more">Ver Comentarios</span>
-					</a>
-				</article>
-			</div>
-		</div>
-	</section>
+      <!-- Experiencias -->
+      <article class="bento-card experiencias">
+        <a href="blog.php?categoria=experiencias">
+          <?php
+            $imgBase = isset($imagenes_blog['experiencias']) && !empty($imagenes_blog['experiencias'])
+              ? $imagenes_blog['experiencias']
+              : 'images/experiencias-placeholder.webp';
+            $img400 = str_replace('.webp', '-400.webp', $imgBase);
+            $img800 = $imgBase;
+          ?>
+          <img 
+            src="<?php echo $img800; ?>"
+            srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
+            sizes="(max-width: 600px) 400px, 800px"
+            alt="Experiencias y Viajes"
+            width="800" height="533"
+            loading="lazy"
+          >
+          <div class="bento-content">
+            <h3>Experiencias y Viajes</h3>
+            <p class="card-description">Aquí puedes contar historias y experiencias de viajes y aventuras que hayas tenido. ¡Inspira a otros con tus relatos fotográficos!</p>
+            <span class="read-more">Ver Experiencias</span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Comentarios -->
+      <article class="bento-card comentarios">
+        <a href="blog.php?categoria=comentarios">
+          <?php
+            $imgBase = isset($imagenes_blog['comentarios']) && !empty($imagenes_blog['comentarios'])
+              ? $imagenes_blog['comentarios']
+              : 'images/comentarios-placeholder.webp';
+            $img400 = str_replace('.webp', '-400.webp', $imgBase);
+            $img800 = $imgBase;
+          ?>
+          <img 
+            src="<?php echo $img800; ?>"
+            srcset="<?php echo $img400; ?> 400w, <?php echo $img800; ?> 800w"
+            sizes="(max-width: 600px) 400px, 800px"
+            alt="Comentarios y Sugerencias"
+            width="800" height="533"
+            loading="lazy"
+          >
+          <div class="bento-content">
+            <h3>Comentarios y Sugerencias</h3>
+            <p class="card-description">Aquí puedes comentar y opinar sobre el sitio web. ¡Tu feedback es valioso para seguir mejorando!</p>
+            <span class="read-more">Ver Comentarios</span>
+          </div>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section id="contacto" class="contact-bg">
   <iframe
