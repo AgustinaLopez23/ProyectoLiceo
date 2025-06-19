@@ -372,72 +372,116 @@ footer {
 
 /* ========== 10. Galería principal (paisajes, autos, eventos-motocross, eventos-musicales, viajes) ========== */
 
-#paisajes, #autos, #eventos-motocross, #eventos-musicales, #viajes {
-  padding: 40px;
+/* Estilos base para todas las secciones de galería */
+#paisajes,
+#autos,
+#eventos-motocross,
+#eventos-musicales,
+#viajes {
+  padding: 40px 80px; 
   text-align: center;
   max-width: 100%;
-  margin: 0 auto;
-  background-color: transparent;
+  margin: 0;
 }
 
-#paisajes h3, 
-#autos h3, 
-#eventos-motocross h3, 
-#eventos-musicales h3, 
+/* Estilos base para todos los títulos h3 de las galerías */
+#paisajes h3,
+#autos h3,
+#eventos-motocross h3,
+#eventos-musicales h3,
 #viajes h3 {
   color: #000;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
-#paisajes h3, 
-#autos h3, 
-#eventos-motocross h3, 
+/* Estilos específicos para los títulos h3 de todas las galerías */
+#paisajes h3,
+#autos h3,
+#viajes h3,
+#eventos-motocross h3,
 #eventos-musicales h3 {
-  font-size: 2em;
-}
-
-#viajes h3 {
-  font-size: 26px;
+  font-size: 26px; 
   font-weight: 700;
   text-transform: uppercase;
 }
 
-/* Galerías con grid */
+
+/* Galerías con grid - Estilos comunes para las galerías  */
 #paisajes .galeria,
 #autos .galeria,
 #eventos-motocross .galeria,
-#eventos-musicales .galeria {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+#eventos-musicales .galeria,
+#viajes .galeria { 
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto; 
+  padding-bottom: 10px;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* Ítems de galería */
+/* Ítems de galería - Estilos base para todos los ítems de las galerías */
+#paisajes .item,
+#autos .item,
+#eventos-motocross .item,
+#eventos-musicales .item,
+#viajes .item { 
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: transparent; 
+}
+
+/* Propiedades que son diferentes para #viajes .item, sobreescribiendo las comunes */
+#viajes .item {
+  flex: 0 0 auto;
+  width: calc(50% - 5px); 
+  max-width: 350px; 
+  height: 350px; 
+  border-radius: 15px; 
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); 
+  margin-bottom: 10px; 
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
+}
+
+/* Border-radius para los otros ítems, si se desea mantenerlo diferente del de #viajes */
 #paisajes .item,
 #autos .item,
 #eventos-motocross .item,
 #eventos-musicales .item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px #0000001a;
-  background-color: transparent;
+  border-radius: 10px; 
 }
 
-/* Imágenes */
+
+/* Imágenes - Estilos base para todas las imágenes de los ítems */
+#paisajes .item img,
+#autos .item img,
+#eventos-motocross .item img,
+#eventos-musicales .item img,
+#viajes .item img { 
+  width: 100%;
+  object-fit: cover;
+  display: block; 
+  border: none;
+}
+
+/* Propiedades que son diferentes para #viajes .item img */
+#viajes .item img {
+  height: 100%; 
+  border-radius: 15px;
+  transition: filter 0.5s ease-in-out; 
+}
+
+/* Altura específica para el resto de imágenes */
 #paisajes .item img,
 #autos .item img,
 #eventos-motocross .item img,
 #eventos-musicales .item img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  display: block;
-  border: none;
-  transition: transform .3s ease-in-out;
+  height: 350px; 
+  transition: transform 0.3s ease-in-out; 
 }
 
-/* Hover de imagen */
+/* Hover de imagen - Estilos comunes para el efecto de escala */
 #paisajes .item:hover img,
 #autos .item:hover img,
 #eventos-motocross .item:hover img,
@@ -445,48 +489,54 @@ footer {
   transform: scale(1.1);
 }
 
+/* Hover de item en viajes - Diferente */
+#viajes .item:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5); 
+}
+
+/* Hover de imagen en viajes - Diferente */
+#viajes .item:hover img {
+  filter: brightness(0.7); 
+  transform: none; 
+}
+
 /* ========== Descripciones y nombres según origen ========== */
 
-/* Descripción en paisajes y viajes */
+/* Estilos base para las descripciones/nombres */
+#paisajes .item p.descripcion,
+#viajes .item p.descripcion,
+#autos .item p.nombre { 
+  position: absolute;
+  max-width: 80%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
+}
+
+/* Colores específicos para p.descripcion */
 #paisajes .item p.descripcion,
 #viajes .item p.descripcion {
-  position: absolute;
-  max-width: 80%;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(255,255,255,0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   color: #000;
-  padding: 10px;
   font-size: x-small;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity .3s ease-in-out;
-  z-index: 1;
 }
 
-#paisajes .item:hover p.descripcion,
-#viajes .item:hover p.descripcion {
-  opacity: 1;
-}
-
-/* Nombre en autos */
+/* Colores y tamaño de fuente específicos para p.nombre */
 #autos .item p.nombre {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  padding: 10px;
   font-size: small;
-  border-radius: 5px;
-  max-width: 80%;
-  opacity: 0;
-  transition: opacity .3s ease-in-out;
-  z-index: 1;
 }
 
+/* Hover para mostrar descripciones/nombres */
+#paisajes .item:hover p.descripcion,
+#viajes .item:hover p.descripcion,
 #autos .item:hover p.nombre {
   opacity: 1;
 }
@@ -500,76 +550,129 @@ footer {
   display: none;
 }
 
-/* VIAJES - diseño horizontal */
-#viajes .galeria {
-  display: flex;
-  flex-wrap: wrap;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  justify-content: center;
-  gap: 10px;
-}
-
-#viajes .item {
-  flex: 0 0 auto;
-  width: calc(50% - 5px);
-  max-width: 350px;
-  height: 350px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 6px 10px #0000004d;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-#viajes .item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px #00000080;
-}
-
-#viajes .item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px;
-  transition: filter 0.5s ease-in-out;
-}
-
-#viajes .item:hover img {
-  filter: brightness(0.7);
-}
-
 /* Responsive */
-@media (max-width: 600px) {
-  #viajes .galeria,
-  #eventos .galeria {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding-bottom: 0;
-    overflow-x: unset;
+
+@media (max-width: 768px) {
+  /* Ajustes generales para pantallas medianas (tablets) y pequeñas (móviles) */
+  #paisajes,
+  #autos,
+  #eventos-motocross,
+  #eventos-musicales,
+  #viajes {
+    padding: 30px 20px; /* Reducir el padding general de las secciones */
   }
 
-  #viajes .item,
-  #eventos .item {
-    width: 98vw;
-    max-width: 98vw;
-    height: 60vw;
-    margin: 0 auto 12px auto;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px #00000044;
+  /* Cambiar el comportamiento de flex a grid para una mejor adaptabilidad */
+  #paisajes .galeria,
+  #autos .galeria,
+  #eventos-motocross .galeria,
+  #eventos-musicales .galeria,
+  #viajes .galeria {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 15px; 
+    overflow-x: hidden; 
+    padding-bottom: 0; 
+    justify-content: unset; 
   }
 
-  #viajes .item img,
-  #eventos .item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 16px;
+  /* Ajustes para los ítems de todas las galerías en pantallas más pequeñas */
+  #paisajes .item,
+  #autos .item,
+  #eventos-motocross .item,
+  #eventos-musicales .item,
+  #viajes .item {
+    width: 100%; 
+    max-width: unset; 
+    height: 250px; 
+    margin: 0 auto; 
+    border-radius: 12px; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+  }
+
+  /* Asegurarse de que las imágenes también se ajusten */
+  #paisajes .item img,
+  #autos .item img,
+  #eventos-motocross .item img,
+  #eventos-musicales .item img,
+  #viajes .item img {
+    height: 100%; 
+    border-radius: 12px; 
+  }
+
+  /* Desactivar los efectos hover en dispositivos táctiles si no están optimizados */
+  #paisajes .item:hover,
+  #autos .item:hover,
+  #eventos-motocross .item:hover,
+  #eventos-musicales .item:hover,
+  #viajes .item:hover {
+    transform: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+  }
+
+  #paisajes .item:hover img,
+  #autos .item:hover img,
+  #eventos-motocross .item:hover img,
+  #eventos-musicales .item:hover img,
+  #viajes .item:hover img {
+    transform: none; 
+    filter: none; 
+  }
+
+  /* Ajustes para las descripciones y nombres en móvil */
+  #paisajes .item p.descripcion,
+  #viajes .item p.descripcion,
+  #autos .item p.nombre {
+    font-size: x-small; 
+    padding: 8px; 
+    position: static; 
+    transform: none; 
+    opacity: 1; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: #fff; 
+    margin: 0; 
+    width: 100%; 
+    border-radius: 0 0 12px 12px; 
+  }
+
+  /* Asegurarse de que el párrafo esté visible si se cambia a estático */
+  #paisajes .item p:not(.descripcion),
+  #viajes .item p:not(.descripcion),
+  #autos .item p:not(.nombre),
+  #eventos-motocross .item p,
+  #eventos-musicales .item p {
+    display: none; 
   }
 }
 
+/* Opcional: Media query para pantallas muy pequeñas (ej. teléfonos antiguos) */
+@media (max-width: 480px) {
+  #paisajes .galeria,
+  #autos .galeria,
+  #eventos-motocross .galeria,
+  #eventos-musicales .galeria,
+  #viajes .galeria {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  #paisajes .item,
+  #autos .item,
+  #eventos-motocross .item,
+  #eventos-musicales .item,
+  #viajes .item {
+    height: 200px; 
+    border-radius: 10px;
+  }
+
+  #paisajes .item img,
+  #autos .item img,
+  #eventos-motocross .item img,
+  #eventos-musicales .item img,
+  #viajes .item img {
+    border-radius: 10px;
+  }
+}
 
 /* ========== 11. Lightbox ========== */
 .lightbox {

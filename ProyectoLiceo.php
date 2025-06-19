@@ -488,6 +488,11 @@ render_galeria('viajes', 'Fotografías de Viajes', 'viajes_id', 'fotos_viajes', 
     </form>
   </div>
 </section>
+
+<script>
+  const isLoggedIn = <?php echo isset($_SESSION['usuario_id']) ? 'true' : 'false'; ?>;
+</script>
 <script src="scripts.js" defer></script>
+
 </body>
 </html>

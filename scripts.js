@@ -237,23 +237,30 @@
 
 // === Modal Login Requerido ===
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.like-btn').forEach(function(btn) {
-    btn.addEventListener('click', function(event) {
-      if (typeof usuarioLogueado !== 'undefined' && !usuarioLogueado) {
+document.addEventListener('DOMContentLoaded', function () {
+  const likeButtons = document.querySelectorAll('.like-btn');
+  const modal = document.getElementById('modal-login-required');
+  const btnCloseModal = document.getElementById('btn-close-modal');
+
+  likeButtons.forEach(button => {
+    button.addEventListener('click', function (event) {
+      if (!isLoggedIn) {
         event.preventDefault();
-        document.getElementById('modal-login-required').style.display = 'flex';
-        return false;
+       modal.style.display = 'flex'; 
       }
     });
   });
-  document.getElementById('btn-close-modal').onclick = function() {
-    document.getElementById('modal-login-required').style.display = 'none';
-  };
-  // Opcional: cerrar al hacer click fuera del modal
-  window.onclick = function(e) {
-    var modal = document.getElementById('modal-login-required');
-    if (e.target === modal) modal.style.display = 'none';
-  };
+
+  if (btnCloseModal) {
+    btnCloseModal.addEventListener('click', function () {
+      modal.style.display = 'none';
+    });
+  }
+
+  window.addEventListener('click', function (event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
 });
 
