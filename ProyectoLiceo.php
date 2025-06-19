@@ -139,112 +139,137 @@
 		</nav>
 	</section>
 
-	<?php
-	//Trae todos los likes de todas las imágenes de todas las galerías de una vez
-	$likes_all = [];
-	$user_likes = [];
-	$usuario_id = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : null;
-	$tablas = [
-		'paisajes' => ['id' => 'paisajes_id', 'tabla' => 'fotos_paisajes'],
-		'autos' => ['id' => 'autos_id', 'tabla' => 'fotos_autos'],
-		'eventos' => ['id' => 'eventos_id', 'tabla' => 'fotos_eventos'],
-		'viajes' => ['id' => 'viajes_id', 'tabla' => 'fotos_viajes']
-	];
-	foreach ($tablas as $origen => $info) {
-		// Likes totales por imagen para la galería
-		$sql_likes = "SELECT item_id, COUNT(*) as likes FROM likes WHERE tabla_origen = '$origen' GROUP BY item_id";
-		$result_likes = $conn->query($sql_likes);
-		if ($result_likes) {
-			while ($row = $result_likes->fetch_assoc()) {
-				$likes_all[$origen][$row['item_id']] = (int)$row['likes'];
-			}
-		}
-		// Likes del usuario actual (solo si está logueado)
-		if ($usuario_id) {
-			$sql_user_likes = "SELECT item_id FROM likes WHERE tabla_origen = '$origen' AND usuario_id = $usuario_id";
-			$result_user_likes = $conn->query($sql_user_likes);
-			if ($result_user_likes) {
-				while ($row = $result_user_likes->fetch_assoc()) {
-					$user_likes[$origen][$row['item_id']] = true;
-				}
-			}
-		}
-	}
+<?php
+// Trae todos los likes de todas las imágenes de todas las galerías de una vez
+$likes_all = [];
+$user_likes = [];
+$usuario_id = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : null;
 
-	function render_galeria($origen, $titulo, $id_col, $tabla, $likes_all, $user_likes, $conn) {
-		echo '<section id="'.$origen.'" class="gallery">';
-		echo '<h3>'.$titulo.'</h3>';
-		echo '<div class="galeria">';
-		$sql = "SELECT * FROM $tabla" . ($origen === 'autos' ? " WHERE categoria = 'autos'" : "");
-		$result = $conn->query($sql);
-		if ($result && $result->num_rows > 0) {
-			while ($row = $result->fetch_assoc()) {
-				$item_id = htmlspecialchars($row[$id_col]);
-				$ruta = htmlspecialchars($row['ruta']);
-				$nombre = htmlspecialchars($row['nombre']);
-				$descripcion = isset($row['descripcion']) ? htmlspecialchars($row['descripcion']) : '';
-				$likes_count = isset($likes_all[$origen][$item_id]) ? $likes_all[$origen][$item_id] : 0;
-				$liked_class = (isset($user_likes[$origen][$item_id])) ? ' liked' : '';
-				$display_empty = ($liked_class) ? 'none' : 'block';
-				$display_filled = ($liked_class) ? 'block' : 'none';
-				$texto_like = ($liked_class) ? 'Quitar me gusta de ' . $nombre : 'Dar me gusta a ' . $nombre;
+$tablas = [
+    'paisajes' => ['id' => 'paisajes_id', 'tabla' => 'fotos_paisajes'],
+    'autos' => ['id' => 'autos_id', 'tabla' => 'fotos_autos'],
+    'eventos-motocross' => ['id' => 'eventos_id', 'tabla' => 'fotos_eventos'],
+    'eventos-musicales' => ['id' => 'eventos_id', 'tabla' => 'fotos_eventos'],
+    'viajes' => ['id' => 'viajes_id', 'tabla' => 'fotos_viajes']
+];
 
-				echo '<div class="item">';
-				$img_path_fs = $ruta;
-				if (!file_exists($img_path_fs) && file_exists(__DIR__ . '/' . $img_path_fs)) {
-					$img_path_fs = __DIR__ . '/' . $img_path_fs;
-				}
-				$dimensiones = @getimagesize($img_path_fs);
-				$ancho = $dimensiones ? $dimensiones[0] : 800;
-				$alto  = $dimensiones ? $dimensiones[1] : 600;
+foreach ($tablas as $origen => $info) {
+    $sql_likes = "SELECT item_id, COUNT(*) as likes FROM likes WHERE tabla_origen = '$origen' GROUP BY item_id";
+    $result_likes = $conn->query($sql_likes);
+    if ($result_likes) {
+        while ($row = $result_likes->fetch_assoc()) {
+            $likes_all[$origen][$row['item_id']] = (int)$row['likes'];
+        }
+    }
 
-				echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $descripcion . '" loading="lazy" width="' . $ancho . '" height="' . $alto . '">';
-				
-				if ($origen === 'paisajes' || $origen === 'viajes') {
-					if (!empty($descripcion)) {
-						echo '<p class="descripcion">' . $descripcion . '</p>';
-					}
-				} elseif ($origen === 'eventos') {
-					if (!empty($nombre)) {
-						echo '<p>' . $nombre . '</p>';
-					}
-				} else {
-					echo '<p>' . $nombre . '</p>';
-				}
+    if ($usuario_id) {
+        $sql_user_likes = "SELECT item_id FROM likes WHERE tabla_origen = '$origen' AND usuario_id = $usuario_id";
+        $result_user_likes = $conn->query($sql_user_likes);
+        if ($result_user_likes) {
+            while ($row = $result_user_likes->fetch_assoc()) {
+                $user_likes[$origen][$row['item_id']] = true;
+            }
+        }
+    }
+}
 
-				echo '<div class="like-container">';
-				echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $item_id . '" data-tabla-origen="' . $origen . '" aria-label="' . $texto_like . '" title="' . $texto_like . '">';
-				echo '<span class="sr-only">' . $texto_like . '</span>';
-				// SVGs
-				echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
-				echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
-				echo '</svg>';
-				echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
-				echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
-				echo '</svg>';
-				echo '</button>';
-				echo '<span class="like-count">' . $likes_count . '</span>';
-				echo '</div>';
-				echo '</div>';
-			}
-		} else {
-			echo "<p>No hay imágenes disponibles.</p>";
-		}
-		echo '</div></section>';
-	}
-	render_galeria('paisajes','Fotografías de Paisajes','paisajes_id','fotos_paisajes',$likes_all,$user_likes,$conn);
-	render_galeria('autos','Fotografías de Autos','autos_id','fotos_autos',$likes_all,$user_likes,$conn);
-	render_galeria('eventos','Evento de Motocross','eventos_id','fotos_eventos',$likes_all,$user_likes,$conn);
-	render_galeria('viajes','Fotografías de Viajes','viajes_id','fotos_viajes',$likes_all,$user_likes,$conn);
-	?>
+function render_galeria($origen, $titulo, $id_col, $tabla, $likes_all, $user_likes, $conn, $categoria = null) {
+    echo '<section id="'.$origen.'" class="gallery">';
+    echo '<h3>'.$titulo.'</h3>';
+    echo '<div class="galeria">';
 
-	<div id="lightbox" class="lightbox">
-		<span class="close-fullscreen" onclick="closeLightbox()">&times;</span>
-		<div class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</div> 
-		<img id="lightbox-img" class="lightbox-img" src="" alt="Imagen Lightbox">
-		<div class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</div> 
-		<p id="lightbox-description"></p>
-	</div>
+    $filtro_categoria = '';
+    if (strpos($origen, 'eventos-') === 0 && $categoria !== null) {
+        $categoria_esc = $conn->real_escape_string($categoria);
+        $filtro_categoria = " WHERE categoria = '$categoria_esc' ";
+    }
+
+    $sql = "SELECT * FROM $tabla $filtro_categoria";
+    $result = $conn->query($sql);
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $item_id = htmlspecialchars($row[$id_col]);
+            $ruta = htmlspecialchars($row['ruta']);
+            $nombre = htmlspecialchars($row['nombre']);
+            $descripcion = isset($row['descripcion']) ? htmlspecialchars($row['descripcion']) : '';
+            $likes_count = isset($likes_all[$origen][$item_id]) ? $likes_all[$origen][$item_id] : 0;
+            $liked_class = (isset($user_likes[$origen][$item_id])) ? ' liked' : '';
+            $display_empty = ($liked_class) ? 'none' : 'block';
+            $display_filled = ($liked_class) ? 'block' : 'none';
+            $texto_like = ($liked_class) ? 'Quitar me gusta de ' . $nombre : 'Dar me gusta a ' . $nombre;
+
+            echo '<div class="item">';
+
+            // Dimensiones de imagen
+            $img_path_fs = $ruta;
+            if (!file_exists($img_path_fs) && file_exists(__DIR__ . '/' . $img_path_fs)) {
+                $img_path_fs = __DIR__ . '/' . $img_path_fs;
+            }
+            $dimensiones = @getimagesize($img_path_fs);
+            $ancho = $dimensiones ? $dimensiones[0] : 800;
+            $alto  = $dimensiones ? $dimensiones[1] : 600;
+
+            echo '<img src="' . $ruta . '" alt="' . $nombre . '" data-description="' . $descripcion . '" loading="lazy" width="' . $ancho . '" height="' . $alto . '">';
+
+            // Mostrar nombre solo en autos, y si hay contenido
+            if ($origen === 'autos' && !empty($nombre)) {
+                echo '<p class="nombre">' . $nombre . '</p>';
+            }
+
+            // Mostrar descripción solo en paisajes y viajes, y si hay contenido
+            if (in_array($origen, ['paisajes', 'viajes']) && !empty($descripcion)) {
+                echo '<p class="descripcion">' . $descripcion . '</p>';
+            }
+
+            // Botón de like
+            echo '<div class="like-container">';
+            echo '<button class="like-btn' . $liked_class . '" data-image-id="' . $item_id . '" data-tabla-origen="' . $origen . '" aria-label="' . $texto_like . '" title="' . $texto_like . '">';
+            echo '<span class="sr-only">' . $texto_like . '</span>';
+            echo '<svg class="heart-icon heart-empty-icon" width="30" height="30" viewBox="0 0 16 16" style="display: ' . $display_empty . ';">';
+            echo '<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>';
+            echo '</svg>';
+            echo '<svg class="heart-icon heart-filled-icon" width="30" height="30" fill="#e74c3c" viewBox="0 0 16 16" style="display: ' . $display_filled . ';">';
+            echo '<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>';
+            echo '</svg>';
+            echo '</button>';
+            echo '<span class="like-count">' . $likes_count . '</span>';
+            echo '</div>'; // .like-container
+
+            echo '</div>'; // .item
+        }
+    } else {
+        echo "<p>No hay imágenes disponibles.</p>";
+    }
+
+    echo '</div></section>';
+}
+
+
+// Renderizar galerías normales
+render_galeria('paisajes', 'Fotografías de Paisajes', 'paisajes_id', 'fotos_paisajes', $likes_all, $user_likes, $conn);
+render_galeria('autos', 'Fotografías de Autos', 'autos_id', 'fotos_autos', $likes_all, $user_likes, $conn);
+
+// Agrupar eventos en un solo section para que el enlace funcione
+echo '<section id="eventos">';
+render_galeria('eventos-motocross', 'Eventos de Motocross', 'eventos_id', 'fotos_eventos', $likes_all, $user_likes, $conn, 'motocross');
+render_galeria('eventos-musicales', 'Eventos Musicales', 'eventos_id', 'fotos_eventos', $likes_all, $user_likes, $conn, 'musicales');
+echo '</section>';
+
+// Viajes
+render_galeria('viajes', 'Fotografías de Viajes', 'viajes_id', 'fotos_viajes', $likes_all, $user_likes, $conn);
+?>
+
+
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <span class="close-fullscreen" onclick="closeLightbox()">&times;</span>
+    <div class="lightbox-prev" onclick="changeLightboxImage(-1)">&#10094;</div>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Imagen Lightbox">
+    <div class="lightbox-next" onclick="changeLightboxImage(1)">&#10095;</div>
+    <p id="lightbox-description"></p>
+</div>
+
 
 <section id="servicios">
   <div class="planes-section">

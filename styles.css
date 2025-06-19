@@ -370,88 +370,137 @@ footer {
 }
 
 
-/* ========== 10. Galería principal (paisajes, autos, eventos, viajes) ========== */
-#paisajes, #autos, #eventos, #viajes {
-  padding: 40px 40px;
+/* ========== 10. Galería principal (paisajes, autos, eventos-motocross, eventos-musicales, viajes) ========== */
+
+#paisajes, #autos, #eventos-motocross, #eventos-musicales, #viajes {
+  padding: 40px;
   text-align: center;
   max-width: 100%;
   margin: 0 auto;
+  background-color: transparent;
 }
-#paisajes h3, #autos h3, #eventos h3, #viajes h3 {
+
+#paisajes h3, 
+#autos h3, 
+#eventos-motocross h3, 
+#eventos-musicales h3, 
+#viajes h3 {
   color: #000;
   margin-bottom: 15px;
 }
-#paisajes h3, #autos h3, #eventos h3 { font-size: 2em; }
-#viajes h3 { font-size: 26px; font-weight: 700; text-transform: uppercase; }
+
+#paisajes h3, 
+#autos h3, 
+#eventos-motocross h3, 
+#eventos-musicales h3 {
+  font-size: 2em;
+}
+
+#viajes h3 {
+  font-size: 26px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
 /* Galerías con grid */
 #paisajes .galeria,
 #autos .galeria,
-#eventos .galeria {
+#eventos-motocross .galeria,
+#eventos-musicales .galeria {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
 }
+
+/* Ítems de galería */
 #paisajes .item,
 #autos .item,
-#eventos .item {
+#eventos-motocross .item,
+#eventos-musicales .item {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 8px #0000001a;
+  background-color: transparent;
 }
+
+/* Imágenes */
 #paisajes .item img,
 #autos .item img,
-#eventos .item img {
+#eventos-motocross .item img,
+#eventos-musicales .item img {
   width: 100%;
   height: 300px;
   object-fit: cover;
   display: block;
-  transition: transform .3s ease-in-out;
   border: none;
+  transition: transform .3s ease-in-out;
 }
+
+/* Hover de imagen */
 #paisajes .item:hover img,
 #autos .item:hover img,
-#eventos .item:hover img {
+#eventos-motocross .item:hover img,
+#eventos-musicales .item:hover img {
   transform: scale(1.1);
 }
-#paisajes .item p,
-#eventos .item p {
+
+/* ========== Descripciones y nombres según origen ========== */
+
+/* Descripción en paisajes y viajes */
+#paisajes .item p.descripcion,
+#viajes .item p.descripcion {
   position: absolute;
   max-width: 80%;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #ffffff73;
+  background-color: rgba(255,255,255,0.7);
   color: #000;
   padding: 10px;
   font-size: x-small;
   border-radius: 5px;
   opacity: 0;
   transition: opacity .3s ease-in-out;
-}
-#paisajes .item:hover p,
-#eventos .item:hover p,
-#autos .item:hover p {
-  opacity: 1;
-}
-/* Específico para autos */
-#autos .item p {
-  position:absolute;
-  max-width:80%;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  background-color:#0009;
-  color:#fff;
-  padding:10px;
-  border-radius:5px;
-  opacity:0;
-  transition:opacity .3s ease-in-out;
-  font-size: small;
+  z-index: 1;
 }
 
-/* Galería de viajes */
+#paisajes .item:hover p.descripcion,
+#viajes .item:hover p.descripcion {
+  opacity: 1;
+}
+
+/* Nombre en autos */
+#autos .item p.nombre {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 10px;
+  font-size: small;
+  border-radius: 5px;
+  max-width: 80%;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+  z-index: 1;
+}
+
+#autos .item:hover p.nombre {
+  opacity: 1;
+}
+
+/* Ocultar cualquier <p> por defecto (solo se muestran los .nombre y .descripcion que correspondan) */
+#paisajes .item p:not(.descripcion),
+#viajes .item p:not(.descripcion),
+#autos .item p:not(.nombre),
+#eventos-motocross .item p,
+#eventos-musicales .item p {
+  display: none;
+}
+
+/* VIAJES - diseño horizontal */
 #viajes .galeria {
   display: flex;
   flex-wrap: wrap;
@@ -460,22 +509,25 @@ footer {
   justify-content: center;
   gap: 10px;
 }
+
 #viajes .item {
   flex: 0 0 auto;
-  position: relative;
-  overflow: hidden;
   width: calc(50% - 5px);
   max-width: 350px;
   height: 350px;
+  position: relative;
+  overflow: hidden;
   border-radius: 15px;
   box-shadow: 0 6px 10px #0000004d;
   margin-bottom: 10px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
+
 #viajes .item:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 15px #00000080;
 }
+
 #viajes .item img {
   width: 100%;
   height: 100%;
@@ -483,26 +535,12 @@ footer {
   border-radius: 15px;
   transition: filter 0.5s ease-in-out;
 }
+
 #viajes .item:hover img {
   filter: brightness(0.7);
 }
-#viajes .item p {
-  position: absolute;
-  max-width: 80%;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #ffffff73;
-  color: #000;
-  padding: 10px;
-  font-size: x-small;
-  border-radius: 5px;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 1;
-}
-#viajes .item:hover p { opacity: 1; }
 
+/* Responsive */
 @media (max-width: 600px) {
   #viajes .galeria,
   #eventos .galeria {
@@ -512,6 +550,7 @@ footer {
     padding-bottom: 0;
     overflow-x: unset;
   }
+
   #viajes .item,
   #eventos .item {
     width: 98vw;
@@ -521,6 +560,7 @@ footer {
     border-radius: 16px;
     box-shadow: 0 2px 8px #00000044;
   }
+
   #viajes .item img,
   #eventos .item img {
     width: 100%;
@@ -529,6 +569,7 @@ footer {
     border-radius: 16px;
   }
 }
+
 
 /* ========== 11. Lightbox ========== */
 .lightbox {

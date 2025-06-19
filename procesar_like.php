@@ -22,7 +22,7 @@ if (isset($_POST['item_id']) && isset($_POST['tabla_origen'])) {
     $tablaOrigen = $_POST['tabla_origen'];
 
     // Validación adicional para la tabla de origen (opcional pero recomendado)
-    $tablasValidas = ['paisajes', 'autos', 'eventos', 'viajes'];
+    $tablasValidas = ['paisajes', 'autos', 'eventos-motocross', 'eventos-musicales', 'viajes'];
     if (!in_array($tablaOrigen, $tablasValidas)) {
         $response = array('success' => false, 'error' => 'Tabla de origen no válida.');
         header('Content-Type: application/json');
