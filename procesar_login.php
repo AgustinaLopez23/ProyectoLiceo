@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 session_regenerate_id(true); // Prevenir fijación de sesión
 
@@ -18,11 +17,12 @@ if ($conn->connect_error) {
 $conn->set_charset("utf8");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nombre_usuario_o_correo = $conn->real_escape_string($_POST["usuario"]);
+    $nombre_usuario_o_correo = trim($_POST["usuario"]);
     $contrasena = $_POST["contrasena"];
 
+
     if (empty($nombre_usuario_o_correo) || empty($contrasena)) {
-        header("Location: login.php?error=Por favor, introduce tu nombre de usuario o correo electrónico y contraseña.");
+        header("Location: login.php?error=1");
         exit();
     }
 
@@ -35,31 +35,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($resultado->num_rows == 1) {
         $usuario = $resultado->fetch_assoc();
+
         if (password_verify($contrasena, $usuario["contrasena"])) {
             // La contraseña es correcta, iniciar sesión
             $_SESSION["usuario_id"] = $usuario["id"];
             $_SESSION["nombre_usuario"] = $usuario["nombre_usuario"];
 
-            // Redirigir a la página principal del blog
+            $stmt->close();
+            $conn->close();
+
+            // Redirigir a la página principal
             header("Location: /ProyectoLiceo/ProyectoLiceo.php#inicio");
             exit();
         } else {
             // Contraseña incorrecta
-            header("Location: login.php?error=Contraseña incorrecta.");
+            $stmt->close();
+            $conn->close();
+            header("Location: login.php?error=1");
             exit();
         }
     } else {
-        // No se encontró ningún usuario con ese nombre de usuario o correo electrónico
-        header("Location: login.php?error=Nombre de usuario o correo electrónico incorrecto.");
+        // Usuario no encontrado
+        $stmt->close();
+        $conn->close();
+        header("Location: login.php?error=1");
         exit();
     }
-
-    $stmt->close();
-    $conn->close();
 } else {
-    // Si se intenta acceder directamente al script sin enviar el formulario
     header("Location: login.php");
     exit();
 }
-
 ?>
